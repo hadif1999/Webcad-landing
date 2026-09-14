@@ -1,0 +1,9 @@
+node_modules/
+.next/
+out/
+.run/
+.env*
+!.env.example
+*.tsbuildinfo
+graphify-out/
+next-env.d.ts

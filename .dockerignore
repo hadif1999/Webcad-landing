@@ -1,0 +1,7 @@
+node_modules
+.next
+out
+.git
+.run
+.env*
+graphify-out

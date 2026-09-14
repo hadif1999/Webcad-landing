@@ -1,0 +1,108 @@
+name: "Build, Push, Deploy Landing"
+
+on:
+  workflow_run:
+    workflows: ["Verify Landing"]
+    types: [completed]
+    branches: [main]
+
+concurrency:
+  group: deploy-landing-production
+  cancel-in-progress: false
+
+jobs:
+  build-push-deploy:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      (github.event.workflow_run.event == 'push' ||
+      github.event.workflow_run.event == 'workflow_dispatch') &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment: production
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Log in to GHCR
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract image metadata
+        id: meta
+        uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5
+        with:
+          images: ghcr.io/hadif1999/webcad-landing
+          tags: |
+            type=raw,value=latest
+            type=raw,value=run-${{ github.run_id }}
+
+      - name: Build and push
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            LANDING_SITE_URL=${{ vars.LANDING_SITE_URL }}
+            LANDING_DASHBOARD_BASE_URL=${{ vars.LANDING_DASHBOARD_BASE_URL }}
+
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 # v1.2.5
+        env:
+          REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REGISTRY_USER: ${{ github.actor }}
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          fingerprint: ${{ secrets.DEPLOY_FINGERPRINT }}
+          command_timeout: 5m
+          envs: REGISTRY_TOKEN,REGISTRY_USER
+          script: |
+            set -eu
+            cd /opt/webcad
+            new_tag=run-${{ github.run_id }}
+            old_tag=$(sed -n 's/^LANDING_IMAGE_TAG=//p' .env | tail -1)
+            old_tag=${old_tag:-latest}
+            old_container=$(docker compose ps -q landing)
+            if [ -n "$old_container" ]; then
+              old_image=$(docker inspect --format '{{.Image}}' "$old_container")
+              old_tag=rollback-${{ github.run_id }}
+              docker image tag "$old_image" "ghcr.io/hadif1999/webcad-landing:$old_tag"
+            fi
+            rollback() {
+              sed -i "s/^LANDING_IMAGE_TAG=.*/LANDING_IMAGE_TAG=$old_tag/" .env
+              docker compose up -d --no-deps --wait --wait-timeout 120 landing || true
+            }
+            deployed=false
+            trap 'status=$?; if [ "$status" -ne 0 ] && [ "$deployed" = true ]; then rollback; fi; docker logout ghcr.io >/dev/null 2>&1 || true; exit "$status"' EXIT
+            printf '%s' "$REGISTRY_TOKEN" | docker login ghcr.io -u "$REGISTRY_USER" --password-stdin
+            if grep -q '^LANDING_IMAGE_TAG=' .env; then
+              sed -i "s/^LANDING_IMAGE_TAG=.*/LANDING_IMAGE_TAG=$new_tag/" .env
+            else
+              printf '\nLANDING_IMAGE_TAG=%s\n' "$new_tag" >> .env
+            fi
+            deployed=true
+            for attempt in 1 2 3; do
+              docker compose pull --policy always landing && break
+              [ "$attempt" -eq 3 ] && exit 1
+              sleep 5
+            done
+            docker compose up -d --no-deps --wait --wait-timeout 120 landing
+            docker compose ps landing
+            base_domain=$(sed -n 's/^WEBCAD_BASE_DOMAIN=//p' .env | tail -1)
+            test -n "$base_domain"
+            page=$(curl --max-time 20 -fsS "https://$base_domain/features/")
+            printf '%s' "$page" | grep -Fq "Built around"

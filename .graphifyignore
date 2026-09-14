@@ -1,0 +1,7 @@
+node_modules/
+.next/
+out/
+.run/
+pnpm-lock.yaml
+public/
+graphify-out/
