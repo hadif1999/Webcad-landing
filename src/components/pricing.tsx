@@ -1,28 +1,40 @@
 import { site } from "@/lib/site";
+import { entitlementCategories } from "@/lib/marketing";
 import { ButtonLink, SectionHeading } from "./layout";
 export function Pricing() {
   return (
-    <section className="container section">
+    <section className="container section" aria-label="WebCAD plans and access">
       <div className="pricing-layout">
         <SectionHeading
           label="Plans & access"
-          title="A workspace for your next step."
+          title="Choose the capacity your work needs."
         >
-          Review the current plans and choose the access that fits your work.
+          Plans scale the workspace around the same design process. Dashboard is
+          the source of truth for current names, prices and limits.
         </SectionHeading>
         <article className="panel pricing-card">
-          <span className="technical accent">WEBCAD / PLANS</span>
-          <h3>Explore your options</h3>
+          <span className="technical accent">CURRENT CATALOGUE / DASHBOARD</span>
+          <h3>Compare current plans</h3>
           <p className="muted">
-            Current prices, included features and usage limits are available in
-            Dashboard. Sign in to review your subscription and available plans.
+            Sign in to see the live catalogue, review your subscription and
+            choose an available upgrade with its current terms in view.
           </p>
-          <ButtonLink href={site.subscription}>View current plans</ButtonLink>
+          <ButtonLink href={site.subscription}>
+            See current plans in Dashboard
+          </ButtonLink>
           <p className="caption">
             Plan selection and checkout take place in Dashboard.
           </p>
         </article>
       </div>
+      <ul className="entitlement-grid" aria-label="Plan entitlement categories">
+        {entitlementCategories.map((category) => (
+          <li className="panel entitlement-card" key={category.title}>
+            <h3>{category.title}</h3>
+            <p className="muted">{category.description}</p>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

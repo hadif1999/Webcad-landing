@@ -132,8 +132,8 @@ writing this document did not rerun the application checks.
 
 ## Remaining work
 
-- Complete final marketing content and subsequent frontend refinements under
-  stages 3–4, building on the existing working layouts.
+- Stages 3–4 now complete the marketing content and frontend refinements described
+  in [STAGE_3_4.md](STAGE_3_4.md), building on these layouts.
 - Leave cinematic 3D, advanced motion, complete commercial integration and
   release-level browser/performance work for their later stages.
 - Configure the independent Landing remote and production CI settings; complete

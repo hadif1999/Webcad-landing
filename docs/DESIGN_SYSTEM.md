@@ -15,8 +15,9 @@ line height; small technical labels are supplementary, never essential body copy
 Layout uses a 1200px maximum width, fluid 16–48px gutters, and a 4px spacing unit.
 Below 768px, cards and pricing stack, product history is decorative and hidden,
 and navigation uses a native details disclosure. From 768–1023px the layout uses
-two card columns with a smaller illustration sidebar; desktop retains two columns
-and a horizontal CTA. Long labels wrap and buttons have at least 48px height.
+two card columns with a smaller illustration sidebar. Desktop uses three columns
+for capability overviews, two for detailed capabilities, and a horizontal CTA.
+Long labels wrap and buttons have at least 48px height.
 
 Reusable components:
 
@@ -25,8 +26,9 @@ Reusable components:
 | ButtonLink | primary action or secondary exploration; always a real anchor |
 | Navigation / Brand | shared identity and navigation; native mobile disclosure |
 | SectionHeading | short eyebrow, heading and optional supporting copy |
-| Features | four factual feature cards, reused on home and features |
-| Pricing | current-plan introduction, always linking to Dashboard subscription |
+| Features | six factual capabilities, with overview and detailed variants |
+| Workflow | four-step sketch, build, refine and revisit narrative |
+| Pricing | entitlement categories and current-plan handoff to Dashboard |
 | ProductIllustration | responsive SVG, accessible description and explicit illustrative label |
 | ClosingCTA / Footer | consistent account entry and site navigation |
 
@@ -37,3 +39,11 @@ prefers-reduced-motion. Focus is visible with a 2px light outline and 5px offset
 A skip link, semantic header/main/footer, native disclosure and text link labels
 support keyboard use without hydration. Text on surfaces must retain WCAG AA
 contrast. No forced animation, canvas, pricing placeholders or simulated product UI.
+
+Marketing content is centralized in `src/lib/marketing.ts`. Claims must describe
+implemented product behavior: ordered parametric modeling, account-backed cloud
+workbenches, durable changes and revisions, hosted AI assistance, authorized team
+projects, and portable workbench data. Dashboard remains authoritative for plan
+names, prices, limits, subscriptions and checkout. Do not add testimonials,
+customer logos, usage metrics, simulation, cloud geometry processing or real-time
+co-editing claims without an approved source.

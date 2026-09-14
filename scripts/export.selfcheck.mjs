@@ -3,14 +3,16 @@ import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { publicConfig } from "../config/public.mjs";
 const site = publicConfig(process.env, true);
-for (const [route, text] of [
-  ["", "Precision starts"],
-  ["features/", "Built around"],
-  ["pricing/", "Make room for"],
-  ["login/", "Welcome back"],
+for (const [route, texts] of [
+  ["", ["Parametric CAD for work", "A continuous workflow"]],
+  ["features/", ["Six capabilities", "Portable design data"]],
+  ["pricing/", ["Plans that match", "Plan entitlement categories"]],
+  ["login/", ["Welcome back", "Continue to Dashboard"]],
 ]) {
   const html = readFileSync(`out/${route}index.html`, "utf8");
-  assert.ok(html.includes(text), `missing useful HTML: ${route}`);
+  for (const text of texts) {
+    assert.ok(html.includes(text), `missing useful HTML: ${route} / ${text}`);
+  }
   assert.ok(
     html.includes(`href="${site.site}/${route}"`),
     `canonical: ${route}`
@@ -30,6 +32,11 @@ for (const [route, text] of [
 assert.ok(
   readFileSync("out/pricing/index.html", "utf8").includes(
     `href="${site.subscription}"`
+  )
+);
+assert.ok(
+  readFileSync("out/pricing/index.html", "utf8").includes(
+    "See current plans in Dashboard"
   )
 );
 assert.ok(readFileSync("out/404.html", "utf8").includes("Page not found"));

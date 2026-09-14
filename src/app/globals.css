@@ -207,16 +207,42 @@
     @apply mt-6;
   }
   .feature-grid {
-    @apply grid grid-cols-2 gap-4 mt-10;
+    @apply grid gap-4 mt-10;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .feature-grid-detailed {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .panel {
     @apply border border-line rounded-card bg-surface;
   }
   .feature-card {
     @apply p-8;
+    display: flex;
+    flex-direction: column;
+  }
+  .feature-card-label {
+    @apply flex flex-wrap items-center justify-between gap-3;
   }
   .feature-card h3 {
     @apply mt-8 mb-3;
+  }
+  .capability-detail {
+    @apply border-t border-line mt-6 pt-6 text-sm;
+  }
+  .workflow-layout {
+    @apply grid gap-12 items-start;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  }
+  .workflow-grid {
+    @apply grid grid-cols-2 gap-4 m-0 p-0;
+    list-style: none;
+  }
+  .workflow-step {
+    @apply p-6 flex gap-5;
+  }
+  .workflow-step h3 {
+    @apply mb-2;
   }
   .pricing-layout {
     @apply grid grid-cols-2 gap-12 items-center;
@@ -229,6 +255,17 @@
   }
   .pricing-card .button {
     @apply mt-8;
+  }
+  .entitlement-grid {
+    @apply grid gap-4 mt-10 p-0;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    list-style: none;
+  }
+  .entitlement-card {
+    @apply p-6;
+  }
+  .entitlement-card h3 {
+    @apply text-base mb-3;
   }
   .caption {
     @apply mt-4 text-xs text-muted;
@@ -277,6 +314,14 @@
   }
 }
 @media (max-width: 63.99rem) {
+  .feature-grid,
+  .feature-grid-detailed,
+  .entitlement-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .workflow-layout {
+    grid-template-columns: 1fr;
+  }
   .model-stage {
     grid-template-columns: 9rem 1fr;
   }
@@ -325,7 +370,10 @@
     font-size: 1rem;
   }
   .feature-grid,
-  .pricing-layout {
+  .feature-grid-detailed,
+  .pricing-layout,
+  .workflow-grid,
+  .entitlement-grid {
     grid-template-columns: 1fr;
   }
   .section {

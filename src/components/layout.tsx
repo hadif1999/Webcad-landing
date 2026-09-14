@@ -73,7 +73,7 @@ export function Footer() {
     <footer className="container footer">
       <div>
         <Brand />
-        <p>Parametric design. In your browser.</p>
+        <p>Parametric CAD for connected design work.</p>
       </div>
       <nav aria-label="Footer navigation">
         <a href="/features/">Features</a>
@@ -106,9 +106,11 @@ export function ClosingCTA() {
     <section className="container section">
       <div className="cta panel">
         <div>
-          <p className="eyebrow">Your next design</p>
-          <h2>From an idea to a working model.</h2>
-          <p className="muted">Open your workspace and begin building.</p>
+          <p className="eyebrow">Ready when you are</p>
+          <h2>Give the next design a place to grow.</h2>
+          <p className="muted">
+            Create an account, open a workbench and keep the process connected.
+          </p>
         </div>
         <ButtonLink href={site.signUp}>Create your account</ButtonLink>
       </div>

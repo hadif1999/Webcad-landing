@@ -11,8 +11,8 @@ export default function LoginPage() {
       <p className="eyebrow">Your WebCAD account</p>
       <h1>Welcome back.</h1>
       <p className="hero-description">
-        Sign in through Dashboard to open your projects, manage your account and
-        continue designing.
+        Continue through Dashboard to open your projects, return to your
+        workbenches and manage the plan behind them.
       </p>
       <div className="button-row">
         <ButtonLink href={site.signIn}>Continue to Dashboard</ButtonLink>

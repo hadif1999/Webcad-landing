@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     template: "%s | WebCAD",
   },
   description:
-    "Parametric modeling, cloud workbenches, revision history and AI-assisted editing.",
+    "Browser-based parametric CAD with cloud workbenches, durable history and AI-assisted editing.",
   robots: { index: true, follow: true },
 };
 export default function RootLayout({

@@ -1,11 +1,11 @@
 import { ButtonLink, ClosingCTA } from "@/components/layout";
 import { ProductIllustration } from "@/components/product-illustration";
-import { Features } from "@/components/features";
+import { Features, Workflow } from "@/components/features";
 import { Pricing } from "@/components/pricing";
 import { pageMetadata, site } from "@/lib/site";
 export const metadata = pageMetadata(
-  "Parametric CAD in your browser",
-  "Design with parametric modeling, cloud workbenches, revision history and AI-assisted editing.",
+  "Parametric CAD for work that keeps moving",
+  "Build browser-based parametric models with cloud workbenches, durable history and AI-assisted editing.",
   "/"
 );
 export default function Home() {
@@ -16,24 +16,26 @@ export default function Home() {
           <span className="status-dot" /> CAD, connected
         </p>
         <h1>
-          Precision starts
+          Parametric CAD for work
           <br />
-          with <span className="accent">an idea.</span>
+          that <span className="accent">keeps moving.</span>
         </h1>
         <p className="hero-description">
-          Shape it in your browser. Build parametric models, organize cloud
-          workbenches and refine your designs with AI-assisted editing.
+          Build precise models in your browser, keep cloud workbenches and
+          revision history together, and use AI assistance when the next change
+          is easier to describe than assemble.
         </p>
         <div className="button-row">
           <ButtonLink href={site.signUp}>Start designing</ButtonLink>
           <ButtonLink href="/features/" variant="secondary">
-            Explore WebCAD
+            Explore capabilities
           </ButtonLink>
         </div>
         <p className="technical hero-note">SKETCH / MODEL / REFINE</p>
       </section>
       <ProductIllustration />
       <Features />
+      <Workflow />
       <Pricing />
       <ClosingCTA />
     </>

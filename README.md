@@ -1,9 +1,10 @@
 # WebCAD Landing
 
 Independent Next.js App Router, TypeScript and Tailwind marketing application.
-Stages 1–2 implement the foundation, shared design system, home, features,
-pricing, Dashboard sign-in handoff and custom 404. The original guideline is
-preserved in docs/PLAN.md; stages 3–9 remain future work.
+Stages 1–4 implement the foundation, shared design system, factual product
+story, home, detailed features, plan guidance, Dashboard sign-in handoff and
+custom 404. The original guideline is preserved in docs/PLAN.md; stages 5–9
+remain future work.
 
 ## Development
 
@@ -51,5 +52,6 @@ hadif1999/webcad-landing; create/connect its independent remote before enabling 
 The parent workspace owns host routing, Compose, Swarm and coordinated migration.
 See ../scripts/deploy/LANDING_ROLLOUT.md before the first production rollout.
 
-See docs/DESIGN_SYSTEM.md for tokens, components, accessibility and breakpoints.
-No browser or release-level performance scores are claimed for these stages.
+See docs/DESIGN_SYSTEM.md for tokens, components, accessibility and breakpoints,
+and docs/STAGE_3_4.md for the current marketing content boundary. No browser or
+release-level performance scores are claimed for these stages.
