@@ -69,6 +69,7 @@ performance suite ran.
 
 ## Later stages
 
-Cinematic 3D, advanced motion, production performance targets and release-level
-browser QA remain stages 5, 6, 8 and 9. Dashboard integration already provides
-the Stage 7 account and plan handoff; Landing does not duplicate those flows.
+The subsequent [stages 5–8 implementation](STAGE_5_8.md) adds the opt-in 3D
+study, motion, direct project links and production asset budgets. Release-level
+browser QA and measured performance scores remain stage 9 work. Landing does
+not duplicate Dashboard authentication or checkout.

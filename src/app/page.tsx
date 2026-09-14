@@ -1,5 +1,6 @@
 import { ButtonLink, ClosingCTA } from "@/components/layout";
 import { ProductIllustration } from "@/components/product-illustration";
+import { ProductExperience } from "@/components/product-experience";
 import { Features, Workflow } from "@/components/features";
 import { Pricing } from "@/components/pricing";
 import { pageMetadata, site } from "@/lib/site";
@@ -33,7 +34,9 @@ export default function Home() {
         </div>
         <p className="technical hero-note">SKETCH / MODEL / REFINE</p>
       </section>
-      <ProductIllustration />
+      <ProductExperience>
+        <ProductIllustration />
+      </ProductExperience>
       <Features />
       <Workflow />
       <Pricing />

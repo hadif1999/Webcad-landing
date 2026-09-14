@@ -34,11 +34,12 @@ Reusable components:
 
 Use control/card radius tokens for interactive controls and surfaces. Reserve
 panel shadows and subtle surface gradients for hierarchy; do not add blur behind
-body copy. Motion is limited to 160ms control transitions and disabled for
+body copy. Motion uses 160ms control transitions, a 700ms staggered hero entrance
+and finite scene reveals of at most 1.4 seconds, disabled for
 prefers-reduced-motion. Focus is visible with a 2px light outline and 5px offset.
 A skip link, semantic header/main/footer, native disclosure and text link labels
 support keyboard use without hydration. Text on surfaces must retain WCAG AA
-contrast. No forced animation, canvas, pricing placeholders or simulated product UI.
+contrast. No looping animation, canvas, pricing placeholders or simulated product UI.
 
 Marketing content is centralized in `src/lib/marketing.ts`. Claims must describe
 implemented product behavior: ordered parametric modeling, account-backed cloud
@@ -47,3 +48,30 @@ projects, and portable workbench data. Dashboard remains authoritative for plan
 names, prices, limits, subscriptions and checkout. Do not add testimonials,
 customer logos, usage metrics, simulation, cloud geometry processing or real-time
 co-editing claims without an approved source.
+
+
+## Interactive assembly and motion (stages 5–6)
+
+`ProductExperience` wraps the server-rendered `ProductIllustration` on the home
+route. Its real button loads `AssemblyScene` only on request. Loading failures
+keep the illustration and expose a retry; the same button returns to the static
+view. Without JavaScript the button is hidden, leaving the useful illustration.
+The features page keeps the lightweight SVG without loading the scene controller.
+
+The scene uses CSS perspective and preserve-3d with twelve local SVG layers to
+present a mounting base, bearing insert and retaining cover. Native labeled range
+inputs rotate the camera and separate the parts; reset restores the initial view.
+The viewport is 440px high on desktop and 380px on mobile, with controls beneath
+it below 768px. Decorative grid, particles and axis are hidden from assistive
+technology; the image description reflects the chosen rotation and separation.
+
+Entrance effects finish within 1.4 seconds. There is no continuous render loop,
+autoplay orbit, pointer tracking, scroll interception or hidden-until-JavaScript
+content. Reduced motion removes interpolation while retaining direct control.
+Unsupported scroll timelines fall back to static sections. Motion uses semantic
+duration/easing tokens; colors use the existing palette. The study is explicitly
+illustrative and does not simulate the authenticated CAD editor.
+
+Fonts now use only Latin WOFF2 at weights 400, 500 and 700, with `font-display:
+swap`; add appropriate subsets when introducing other languages. The source and
+OFL license remain in the pinned `@fontsource/vazirmatn` package.

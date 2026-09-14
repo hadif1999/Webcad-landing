@@ -1,4 +1,26 @@
 @import "tailwindcss";
+/* English marketing copy only needs the local Latin WOFF2 subset. */
+@font-face {
+  font-family: "Vazirmatn";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("@fontsource/vazirmatn/files/vazirmatn-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Vazirmatn";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("@fontsource/vazirmatn/files/vazirmatn-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Vazirmatn";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("@fontsource/vazirmatn/files/vazirmatn-latin-700-normal.woff2") format("woff2");
+}
 @theme {
   --color-canvas: #0b1018;
   --color-surface: #121b27;
@@ -28,6 +50,7 @@
 :root {
   color-scheme: dark;
   --duration-fast: 160ms;
+  --duration-reveal: 700ms;
   --gutter: clamp(1rem, 4vw, 3rem);
 }
 @layer base {
@@ -50,7 +73,9 @@
     touch-action: manipulation;
   }
   a:focus-visible,
-  summary:focus-visible {
+  summary:focus-visible,
+  button:focus-visible,
+  input:focus-visible {
     outline: 2px solid var(--color-focus);
     outline-offset: 5px;
   }
@@ -396,6 +421,124 @@
   }
   .footer {
     flex-direction: column;
+  }
+}
+/* The 3D study is opt-in; the exported SVG remains the default on every device. */
+@layer components {
+  button, input { font: inherit; }
+  button { cursor: pointer; }
+  button:disabled { cursor: wait; }
+  .experience-actions { padding-block: 1rem; }
+  .experience-actions .caption { margin-top: 0.75rem; }
+  .assembly-layout { display: grid; grid-template-columns: minmax(0, 1fr) 16rem; }
+  .assembly-viewport {
+    position: relative;
+    height: 440px;
+    overflow: hidden;
+    perspective: 1000px;
+    background: radial-gradient(ellipse at 50% 35%, var(--color-raised), var(--color-canvas));
+  }
+  .assembly-camera, .assembly-part { transform-style: preserve-3d; }
+  .assembly-viewport::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at 14% 22%, var(--color-accent) 1px, transparent 2px), radial-gradient(circle at 78% 16%, var(--color-accent) 1px, transparent 2px), radial-gradient(circle at 88% 70%, var(--color-muted) 1px, transparent 2px);
+  }
+  .assembly-camera {
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    left: calc(50% - 120px);
+    top: 145px;
+    transform: rotateX(58deg) rotateZ(var(--rotation));
+  }
+  .assembly-part {
+    position: absolute;
+    inset: 0;
+    transform: translateZ(calc(var(--level) * (16px + var(--separation) * 65px)));
+    transition: transform var(--duration-fast) var(--ease-standard);
+  }
+  .assembly-layer {
+    position: absolute;
+    inset: 0;
+    width: 240px;
+    height: 240px;
+    fill: var(--color-line);
+    stroke: var(--color-accent);
+    stroke-width: 1;
+  }
+  .assembly-layer:last-child { fill: var(--color-raised); }
+  .assembly-bearing .assembly-layer { fill: var(--color-action); stroke: var(--color-on-action); }
+  .assembly-cover .assembly-layer:last-child { fill: var(--color-muted); stroke: var(--color-ink); }
+  .assembly-grid {
+    position: absolute;
+    inset: -180px;
+    transform: translateZ(-8px);
+    background-image: linear-gradient(var(--color-line) 1px, transparent 1px), linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .assembly-axis {
+    position: absolute;
+    left: 120px;
+    top: -5px;
+    height: 250px;
+    border-left: 1px dashed var(--color-accent);
+    transform: rotateX(90deg);
+  }
+  .assembly-label { position: absolute; left: 1rem; bottom: 1rem; color: var(--color-muted); }
+  .assembly-controls {
+    min-width: 0;
+    margin: 0;
+    padding: 1.5rem;
+    border: 0;
+    border-left: 1px solid var(--color-line);
+    background: var(--color-surface);
+  }
+  .assembly-controls legend { float: left; width: 100%; margin-bottom: 1.5rem; font-weight: 500; }
+  .assembly-controls label { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.875rem; clear: both; }
+  .assembly-controls output { color: var(--color-accent); }
+  .assembly-controls input { display: block; width: 100%; min-height: 48px; margin: 0 0 0.5rem; accent-color: var(--color-action); }
+  .assembly-controls .button { width: 100%; }
+  .assembly-key { padding-left: 1.25rem; font-size: 0.875rem; }
+}
+@media (max-width: 47.99rem) {
+  .assembly-layout { grid-template-columns: 1fr; }
+  .assembly-viewport { height: 380px; }
+  .assembly-camera { top: 120px; scale: 0.8; }
+  .assembly-controls { border-left: 0; border-top: 1px solid var(--color-line); }
+}
+@keyframes entrance {
+  from { opacity: 0.6; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes section-arrival {
+  from { transform: translateY(24px); }
+  to { transform: translateY(0); }
+}
+@keyframes camera-arrival {
+  from { transform: rotateX(65deg) rotateZ(var(--rotation)) translateZ(-24px); }
+  to { transform: rotateX(58deg) rotateZ(var(--rotation)); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .assembly-camera { animation: camera-arrival 1000ms var(--ease-standard); }
+  .assembly-viewport::after { animation: entrance 1400ms var(--ease-standard); }
+  .hero > * { animation: entrance var(--duration-reveal) var(--ease-standard) both; }
+  .hero h1 { animation-delay: 60ms; }
+  .hero-description { animation-delay: 120ms; }
+  .hero .button-row { animation-delay: 180ms; }
+  .product { animation: entrance 1000ms var(--ease-standard) both; }
+  .feature-card { transition: transform var(--duration-fast) var(--ease-standard), border-color var(--duration-fast); }
+  @media (hover: hover) {
+    .feature-card:hover { transform: translateY(-4px); border-color: var(--color-accent); }
+  }
+  @supports (animation-timeline: view()) {
+    .section-heading, .workflow-step {
+      animation: section-arrival linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
   }
 }
 @media (prefers-reduced-motion: reduce) {

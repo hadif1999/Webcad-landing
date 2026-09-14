@@ -1,7 +1,4 @@
 import type { Metadata } from "next";
-import "@fontsource/vazirmatn/400.css";
-import "@fontsource/vazirmatn/500.css";
-import "@fontsource/vazirmatn/700.css";
 import "./globals.css";
 import { Navigation, Footer } from "@/components/layout";
 import { site } from "@/lib/site";
@@ -21,6 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <noscript>
+          <style>{".enhancement-control { display: none !important; }"}</style>
+        </noscript>
         <a className="skip-link" href="#main">
           Skip to content
         </a>

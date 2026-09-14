@@ -41,6 +41,7 @@ export function publicConfig(
   return Object.freeze({
     site,
     dashboard,
+    projects: `${dashboard}/dashboard/projects`,
     signIn: `${dashboard}/sign-in`,
     signUp: `${dashboard}/sign-up`,
     subscription: `${dashboard}/dashboard/subscription`,

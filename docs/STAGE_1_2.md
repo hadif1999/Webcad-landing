@@ -134,8 +134,8 @@ writing this document did not rerun the application checks.
 
 - Stages 3–4 now complete the marketing content and frontend refinements described
   in [STAGE_3_4.md](STAGE_3_4.md), building on these layouts.
-- Leave cinematic 3D, advanced motion, complete commercial integration and
-  release-level browser/performance work for their later stages.
+- [Stages 5–8](STAGE_5_8.md) now provide the interactive study, motion, Dashboard
+  links and asset budgets; release-level browser/performance work remains later.
 - Configure the independent Landing remote and production CI settings; complete
   DNS, certificates, Google origins and coordinated environment/image rollout.
 - Verify real authentication, provider callbacks, old-browser worker migration

@@ -1,10 +1,11 @@
 # WebCAD Landing
 
 Independent Next.js App Router, TypeScript and Tailwind marketing application.
-Stages 1–4 implement the foundation, shared design system, factual product
-story, home, detailed features, plan guidance, Dashboard sign-in handoff and
-custom 404. The original guideline is preserved in docs/PLAN.md; stages 5–9
-remain future work.
+Stages 1–8 implement the foundation, shared design system, factual marketing
+pages, opt-in 3D assembly, accessible motion, Dashboard handoff and static asset
+budgets. The original guideline is preserved in docs/PLAN.md; implementation
+decisions and remaining validation are recorded in docs/STAGE_5_8.md. Stage 9
+remains future work.
 
 ## Development
 
@@ -64,5 +65,20 @@ The parent workspace owns host routing, Compose, Swarm and coordinated migration
 See ../scripts/deploy/LANDING_ROLLOUT.md before the first production rollout.
 
 See docs/DESIGN_SYSTEM.md for tokens, components, accessibility and breakpoints,
-and docs/STAGE_3_4.md for the current marketing content boundary. No browser or
+and docs/STAGE_3_4.md for the marketing content boundary and
+docs/STAGE_5_8.md for the interactive study, motion and performance budgets. No browser or
 release-level performance scores are claimed for these stages.
+
+## Interactive study and performance
+
+The home page keeps its SVG illustration as the default, including on mobile and
+without JavaScript. “Explore the 3D assembly” loads an independent CSS/SVG scene
+on demand, with keyboard-accessible rotation, separation and reset controls.
+Reduced-motion preferences disable animation; no renderer or animation library
+is required. Dashboard owns sign-in, registration, protected projects and upgrades.
+
+The export check enforces 225 KiB gzip initial JavaScript per route, a 12 KiB
+gzip deferred scene, 30 KiB gzip CSS and 100 KiB of local fonts. It also checks
+robots.txt, sitemap.xml, social metadata and the static illustration fallback.
+These are asset budgets, not Lighthouse scores. See [stages 5–8](docs/STAGE_5_8.md)
+for implementation decisions and remaining browser/performance validation.

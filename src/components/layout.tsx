@@ -43,6 +43,7 @@ function NavLinks() {
     <>
       <a href="/features/">Features</a>
       <a href="/pricing/">Pricing</a>
+      <a href={site.projects}>Dashboard</a>
       <a href={site.signIn}>Sign in</a>
       <ButtonLink href={site.signUp}>Start designing</ButtonLink>
     </>
@@ -79,6 +80,7 @@ export function Footer() {
         <a href="/features/">Features</a>
         <a href="/pricing/">Pricing</a>
         <a href={site.signIn}>Dashboard sign in</a>
+        <a href={site.projects}>Open your projects</a>
       </nav>
       <p className="technical">WebCAD / Cloud CAD</p>
     </footer>

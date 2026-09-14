@@ -11,6 +11,11 @@ export function pageMetadata(
     title,
     description,
     alternates: { canonical: url },
+    twitter: {
+      card: "summary",
+      title: `${title} | WebCAD`,
+      description,
+    },
     openGraph: {
       title: `${title} | WebCAD`,
       description,

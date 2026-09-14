@@ -9,6 +9,7 @@ const good = {
 assert.equal(publicConfig({}, false).signIn, "http://localhost:5556/sign-in");
 const actual = publicConfig(good, true);
 assert.equal(actual.signUp, "https://dashboard.example.com/sign-up");
+assert.equal(actual.projects, "https://dashboard.example.com/dashboard/projects");
 assert.equal(
   actual.subscription,
   "https://dashboard.example.com/dashboard/subscription"
@@ -36,6 +37,7 @@ for (const key of Object.keys(good)) {
 }
 assert.deepEqual(Object.keys(actual).sort(), [
   "dashboard",
+  "projects",
   "signIn",
   "signUp",
   "site",
