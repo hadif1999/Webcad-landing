@@ -9,11 +9,24 @@ remain future work.
 ## Development
 
 Use Node 24 (see .nvmrc), corepack enable, and pnpm install --frozen-lockfile.
-Run scripts/start.sh or pnpm dev at http://localhost:5557, with Dashboard at
-http://localhost:5556. scripts/stop.sh stops only the recorded process group after
+Run ./start.sh or pnpm dev at http://localhost:5557, with Dashboard at
+http://localhost:5556. Next.js automatically reloads changes while developing;
+no build or restart is needed for ordinary source edits. ./stop.sh stops only the recorded process group after
 checking its kernel identity, command and working directory. Linux /proc, setsid and flock
 are required for lifecycle scripts. pnpm dev works without those helpers.
 PID and log files live in .run/. Both lifecycle scripts are safe to repeat.
+The root scripts work from any working directory and delegate to scripts/,
+preserving the workspace's existing start/stop integration.
+
+```sh
+./start.sh                     # Start in the background with automatic reload
+./stop.sh                      # Stop the recorded development server
+./build.sh --help              # Show static-build configuration
+```
+
+Follow server output with `tail -f .run/landing-dev.log`. To build locally, set
+the HTTPS origins as shown below and run `./build.sh`; it runs the production
+build and exported-content checks and writes `out/`. It does not start a server.
 
 ## Public build configuration
 
@@ -26,9 +39,7 @@ Do not copy deployment secrets into this repository.
 
 ```sh
 LANDING_SITE_URL=https://webcad.space \
-LANDING_DASHBOARD_BASE_URL=https://dashboard.webcad.space pnpm build
-LANDING_SITE_URL=https://webcad.space \
-LANDING_DASHBOARD_BASE_URL=https://dashboard.webcad.space pnpm check:export
+LANDING_DASHBOARD_BASE_URL=https://dashboard.webcad.space ./build.sh
 ```
 
 out/ contains static pages and local font assets. Serve it with the bundled

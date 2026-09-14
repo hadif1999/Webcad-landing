@@ -10,16 +10,17 @@ cleanup() {
 trap cleanup EXIT
 mkdir -p "$tmp/scripts" "$tmp/node_modules/next/dist/bin" "$tmp/node_modules/.bin"
 cp "$ROOT"/scripts/{start,stop,process}.sh "$tmp/scripts/"
+cp "$ROOT"/{start,stop}.sh "$tmp/"
 # Exercise the lifecycle with a minimal local process, no browser or dev server.
 printf '#!/usr/bin/env node\nconsole.log("Ready in 1ms"); setInterval(() => {}, 1000);\n' > "$tmp/node_modules/next/dist/bin/next"
 touch "$tmp/node_modules/.bin/next"
 chmod +x "$tmp/node_modules/.bin/next"
-"$tmp/scripts/start.sh" >/dev/null
+(cd /; "$tmp/start.sh") >/dev/null
 read -r first_pid first_stamp < "$tmp/.run/landing-dev.pid"
-"$tmp/scripts/start.sh" >/dev/null
+"$tmp/start.sh" >/dev/null
 read -r second_pid second_stamp < "$tmp/.run/landing-dev.pid"
 [[ "$first_pid $first_stamp" = "$second_pid $second_stamp" ]]
-"$tmp/scripts/stop.sh" >/dev/null
+"$tmp/stop.sh" >/dev/null
 [[ ! -f "$tmp/.run/landing-dev.pid" ]]
 "$tmp/scripts/stop.sh" >/dev/null
 # A foreign process in the same directory and process group cannot be stopped.
