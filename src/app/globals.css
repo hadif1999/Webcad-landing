@@ -135,6 +135,11 @@
   }
   .site-header {
     @apply border-b border-line;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    backdrop-filter: blur(12px);
+    background-color: color-mix(in srgb, var(--color-canvas) 88%, transparent);
   }
   .header-inner {
     @apply flex items-center justify-between gap-6 py-5;
@@ -150,13 +155,15 @@
   .button {
     @apply inline-flex items-center justify-center gap-6 rounded-control px-6 py-3 font-medium text-sm;
     min-height: 48px;
-    transition: background var(--duration-fast) var(--ease-standard);
+    transition: background var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
   }
   .button-primary {
     @apply bg-action text-on-action;
+    box-shadow: 0 0 20px rgba(114, 202, 255, 0.25);
   }
   .button-primary:hover {
     @apply bg-action-hover;
+    box-shadow: 0 0 28px rgba(163, 221, 255, 0.45);
   }
   .button-secondary {
     @apply border border-line bg-surface text-ink;
@@ -167,18 +174,115 @@
   .button-row {
     @apply flex flex-wrap gap-4 mt-8;
   }
+  .hero-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--color-line);
+    background: var(--color-canvas);
+  }
+  .hero-video-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .hero-video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    opacity: 0.38;
+    filter: contrast(1.15) brightness(0.85) invert(0.92) hue-rotate(185deg);
+    transform: scale(1.03);
+    transition: opacity var(--duration-reveal) var(--ease-standard);
+  }
+  .hero-video-scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 38%, rgba(11, 16, 24, 0.42) 0%, rgba(11, 16, 24, 0.88) 68%, var(--color-canvas) 100%),
+      linear-gradient(to bottom, rgba(11, 16, 24, 0.7) 0%, transparent 22%, transparent 65%, var(--color-canvas) 100%);
+  }
+  .hero-video-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(48, 65, 88, 0.18) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(48, 65, 88, 0.18) 1px, transparent 1px);
+    background-size: 56px 56px;
+    background-position: center center;
+    mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.8) 0%, transparent 75%);
+  }
   .hero {
-    @apply text-center pt-20 pb-12;
+    position: relative;
+    z-index: 1;
+    @apply text-center pt-24 pb-16;
   }
   .hero .button-row {
     @apply justify-center;
   }
+  .hero-badge-row {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .hero-pill {
+    margin-bottom: 0 !important;
+    background: color-mix(in srgb, var(--color-raised) 75%, transparent);
+    border: 1px solid var(--color-line);
+    padding: 0.35rem 0.85rem;
+    border-radius: 9999px;
+    backdrop-filter: blur(8px);
+  }
+  .hero-engine-tag {
+    font-size: 0.6875rem;
+    color: var(--color-accent);
+    background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-accent) 28%, transparent);
+    padding: 0.35rem 0.75rem;
+    border-radius: 9999px;
+    letter-spacing: 0.1em;
+  }
+  .hero-title {
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.75);
+  }
+  .hero-title .accent {
+    text-shadow: 0 0 28px color-mix(in srgb, var(--color-accent) 45%, transparent);
+  }
   .hero-description {
     @apply text-muted text-lg mt-6;
-    max-width: 39rem;
+    max-width: 41rem;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.85);
   }
   .hero .hero-description {
     margin-inline: auto;
+  }
+  .hero-specs-strip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 2.75rem;
+    padding: 0.45rem 1.25rem;
+    border-radius: 9999px;
+    background: color-mix(in srgb, var(--color-surface) 80%, transparent);
+    border: 1px solid var(--color-line);
+    backdrop-filter: blur(8px);
+    color: var(--color-muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.09em;
+    flex-wrap: wrap;
+  }
+  .hero-spec-item {
+    color: var(--color-muted);
+  }
+  .hero-spec-divider {
+    color: var(--color-line);
   }
   .hero-note {
     @apply text-muted mt-10;
@@ -240,11 +344,14 @@
   }
   .panel {
     @apply border border-line rounded-card bg-surface;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--color-raised) 45%, transparent) 0%, var(--color-surface) 100%);
   }
   .feature-card {
     @apply p-8;
     display: flex;
     flex-direction: column;
+    border-top: 1px solid color-mix(in srgb, var(--color-action) 25%, var(--color-line));
+    background: linear-gradient(180deg, color-mix(in srgb, var(--color-raised) 40%, transparent) 0%, var(--color-surface) 100%);
   }
   .feature-card-label {
     @apply flex flex-wrap items-center justify-between gap-3;
@@ -265,6 +372,9 @@
   }
   .workflow-step {
     @apply p-6 flex gap-5;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--color-raised) 45%, transparent) 0%, var(--color-surface) 100%);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
   }
   .workflow-step h3 {
     @apply mb-2;
@@ -529,15 +639,19 @@
   .hero-description { animation-delay: 120ms; }
   .hero .button-row { animation-delay: 180ms; }
   .product { animation: entrance 1000ms var(--ease-standard) both; }
-  .feature-card { transition: transform var(--duration-fast) var(--ease-standard), border-color var(--duration-fast); }
+  .feature-card { transition: transform var(--duration-fast) var(--ease-standard), border-color var(--duration-fast), box-shadow var(--duration-fast); }
   @media (hover: hover) {
-    .feature-card:hover { transform: translateY(-4px); border-color: var(--color-accent); }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--color-accent);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), 0 0 16px color-mix(in srgb, var(--color-accent) 15%, transparent);
+    }
   }
   @supports (animation-timeline: view()) {
     .section-heading, .workflow-step {
       animation: section-arrival linear both;
-      animation-timeline: view();
       animation-range: entry 0% entry 100%;
+      animation-timeline: view();
     }
   }
 }
@@ -548,5 +662,11 @@
     animation: none !important;
     transition: none !important;
     scroll-behavior: auto !important;
+  }
+  .hero-video {
+    display: none !important;
+  }
+  .hero-video-backdrop {
+    background: radial-gradient(ellipse at 50% 35%, var(--color-raised), var(--color-canvas));
   }
 }

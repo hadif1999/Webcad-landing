@@ -12,28 +12,57 @@ export const metadata = pageMetadata(
 export default function Home() {
   return (
     <>
-      <section className="container hero">
-        <p className="eyebrow">
-          <span className="status-dot" /> CAD, connected
-        </p>
-        <h1>
-          Parametric CAD for work
-          <br />
-          that <span className="accent">keeps moving.</span>
-        </h1>
-        <p className="hero-description">
-          Build precise models in your browser, keep cloud workbenches and
-          revision history together, and use AI assistance when the next change
-          is easier to describe than assemble.
-        </p>
-        <div className="button-row">
-          <ButtonLink href={site.signUp}>Start designing</ButtonLink>
-          <ButtonLink href="/features/" variant="secondary">
-            Explore capabilities
-          </ButtonLink>
+      <div className="hero-wrapper">
+        <div className="hero-video-backdrop" aria-hidden="true">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster="/assets/bg_video_poster.jpg"
+            className="hero-video"
+            preload="auto"
+          >
+            <source src="/assets/bg_video.mp4" type="video/mp4" />
+          </video>
+          <div className="hero-video-scrim" />
+          <div className="hero-video-grid" />
         </div>
-        <p className="technical hero-note">SKETCH / MODEL / REFINE</p>
-      </section>
+
+        <section className="container hero">
+          <div className="hero-badge-row">
+            <p className="eyebrow hero-pill">
+              <span className="status-dot" /> CAD, connected
+            </p>
+            <span className="technical hero-engine-tag">BROWSER B-REP ENGINE</span>
+          </div>
+          <h1 className="hero-title">
+            Parametric CAD for work
+            <br />
+            that <span className="accent">keeps moving.</span>
+          </h1>
+          <p className="hero-description">
+            Build precise models in your browser, keep cloud workbenches and
+            revision history together, and use AI assistance when the next change
+            is easier to describe than assemble.
+          </p>
+          <div className="button-row">
+            <ButtonLink href={site.signUp}>Start designing</ButtonLink>
+            <ButtonLink href="/features/" variant="secondary">
+              Explore capabilities
+            </ButtonLink>
+          </div>
+          <div className="hero-specs-strip technical" aria-label="Core modeling workflow">
+            <span className="hero-spec-item">SKETCH</span>
+            <span className="hero-spec-divider">/</span>
+            <span className="hero-spec-item">MODEL</span>
+            <span className="hero-spec-divider">/</span>
+            <span className="hero-spec-item">REFINE</span>
+            <span className="hero-spec-divider">/</span>
+            <span className="hero-spec-item">PARAMETRIC HISTORY</span>
+          </div>
+        </section>
+      </div>
       <ProductExperience>
         <ProductIllustration />
       </ProductExperience>

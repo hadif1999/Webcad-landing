@@ -56,7 +56,9 @@ assert.ok(
 );
 assert.ok(readFileSync("out/404.html", "utf8").includes("Page not found"));
 assert.ok(existsSync("out/sw.js"));
-console.log("Static routes, canonical URLs, CTAs, assets and 404 OK");
+assert.ok(existsSync("out/assets/bg_video.mp4"), "missing exported bg_video.mp4");
+assert.ok(existsSync("out/assets/bg_video_poster.jpg"), "missing exported bg_video_poster.jpg");
+console.log("Static routes, canonical URLs, CTAs, assets, video media and 404 OK");
 
 for (const entry of readdirSync("out", { recursive: true })) {
   const file = `out/${entry}`;
