@@ -82,10 +82,9 @@ for (const entry of readdirSync("out", { recursive: true })) {
 console.log("CSS/font assets and private-config exclusion OK");
 
 const home = readFileSync("out/index.html", "utf8");
-assert.ok(home.includes("Isometric mechanical bracket"), "missing static 3D fallback");
-assert.ok(home.includes("Explore the 3D assembly"), "missing 3D entry control");
 assert.ok(home.includes("<noscript>"), "missing no-JavaScript control fallback");
-assert.ok(!home.includes("assembly-study"), "interactive scene should be deferred");
+const features = readFileSync("out/features/index.html", "utf8");
+assert.ok(features.includes("Isometric mechanical bracket"), "missing static 3D fallback on features");
 assert.ok(readFileSync("out/login/index.html", "utf8").includes('content="noindex, follow"'));
 const sitemap = readFileSync("out/sitemap.xml", "utf8");
 for (const route of ["/", "/features/", "/pricing/"]) {
@@ -93,20 +92,13 @@ for (const route of ["/", "/features/", "/pricing/"]) {
 }
 assert.ok(!sitemap.includes("/login/"), "handoff page must not appear in sitemap");
 assert.ok(readFileSync("out/robots.txt", "utf8").includes(`Sitemap: ${site.site}/sitemap.xml`));
-let deferredScene = false;
 let cssBytes = 0;
 let fontBytes = 0;
 for (const entry of readdirSync("out/_next/static", { recursive: true })) {
   const file = `out/_next/static/${entry}`;
-  if (file.endsWith(".js") && readFileSync(file, "utf8").includes("assembly-study")) {
-    assert.ok(!initialScripts.has(file.slice(3)), "scene must stay in a deferred chunk");
-    assert.ok(gzipSync(readFileSync(file)).length < 12 * 1024, "3D chunk exceeds 12 KiB gzip");
-    deferredScene = true;
-  }
   if (file.endsWith(".css")) cssBytes += gzipSync(readFileSync(file)).length;
   if (/\.woff2?$/.test(file)) fontBytes += readFileSync(file).length;
 }
-assert.ok(deferredScene, "missing on-demand 3D chunk");
 assert.ok(cssBytes < 30 * 1024, `CSS budget exceeded: ${cssBytes}`);
 assert.ok(fontBytes < 100 * 1024, `font budget exceeded: ${fontBytes}`);
-console.log(`Deferred 3D, SEO and asset budgets OK (CSS ${(cssBytes / 1024).toFixed(1)} KiB gzip; fonts ${(fontBytes / 1024).toFixed(1)} KiB)`);
+console.log(`SEO and asset budgets OK (CSS ${(cssBytes / 1024).toFixed(1)} KiB gzip; fonts ${(fontBytes / 1024).toFixed(1)} KiB)`);

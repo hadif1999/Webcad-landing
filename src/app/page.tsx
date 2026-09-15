@@ -1,6 +1,4 @@
 import { ButtonLink, ClosingCTA } from "@/components/layout";
-import { ProductIllustration } from "@/components/product-illustration";
-import { ProductExperience } from "@/components/product-experience";
 import { Features, Workflow } from "@/components/features";
 import { Pricing } from "@/components/pricing";
 import { pageMetadata, site } from "@/lib/site";
@@ -65,27 +63,8 @@ export default function Home() {
             <span className="hero-spec-divider">/</span>
             <span className="hero-spec-item">PARAMETRIC HISTORY</span>
           </div>
-
-          {/* Names the ambient footage so the backdrop reads as the real product surface. */}
-          <div className="hero-hud">
-            <p className="technical hero-hud-group">
-              <span className="stage-live-dot" />
-              <span className="stage-title">
-                LIVE WORKBENCH // 3D PARAMETRIC ENGINE
-              </span>
-            </p>
-            <p className="technical hero-hud-group hero-hud-meta">
-              <span className="stage-meta">
-                1280 × 720 · 24 FPS · TOOLPATH ACTIVE
-              </span>
-              <span className="stage-badge">PRECISION B-REP</span>
-            </p>
-          </div>
         </section>
       </div>
-      <ProductExperience>
-        <ProductIllustration />
-      </ProductExperience>
       <Features />
       <Workflow />
       <Pricing />
