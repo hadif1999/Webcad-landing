@@ -15,25 +15,23 @@ export function Pricing() {
           label={t("pricing.eyebrow", "Plans & access")}
           title={t("pricing.heading", "Choose the capacity your work needs.")}
         >
-          Plans scale the workspace around the same design process. Dashboard is
-          the source of truth for current names, prices and limits.
+          {t("pricing.catalogueDesc", "Plans scale the workspace around the same design process. Dashboard is the source of truth for current names, prices and limits.")}
         </SectionHeading>
         <article className="panel pricing-card">
-          <span className="technical accent">CURRENT CATALOGUE / DASHBOARD</span>
-          <h3>Compare current plans</h3>
+          <span className="technical accent">{t("pricing.catalogueLabel", "CURRENT CATALOGUE / DASHBOARD")}</span>
+          <h3>{t("pricing.comparePlans", "Compare current plans")}</h3>
           <p className="muted">
-            Sign in to see the live catalogue, review your subscription and
-            choose an available upgrade with its current terms in view.
+            {t("pricing.catalogueDesc", "Sign in to see the live catalogue, review your subscription and choose an available upgrade with its current terms in view.")}
           </p>
           <ButtonLink href={site.subscription}>
             {t("pricing.seeDashboard", "See current plans in Dashboard")}
           </ButtonLink>
           <p className="caption">
-            Plan selection and checkout take place in Dashboard.
+            {t("pricing.planCaption", "Plan selection and checkout take place in Dashboard.")}
           </p>
         </article>
       </div>
-      <ul className="entitlement-grid" aria-label="Plan entitlement categories">
+      <ul className="entitlement-grid" aria-label={t("pricing.entitlementLabel", "Plan entitlement categories")}>
         {entitlementCategories.map((category) => (
           <li className="panel entitlement-card" key={category.title}>
             <h3>{category.title}</h3>

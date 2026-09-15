@@ -62,13 +62,13 @@ export function Hero() {
           className="hero-specs-strip technical"
           aria-label="Core modeling workflow"
         >
-          <span className="hero-spec-item">SKETCH</span>
+          <span className="hero-spec-item">{t("hero.specSketch", "SKETCH")}</span>
           <span className="hero-spec-divider">/</span>
-          <span className="hero-spec-item">MODEL</span>
+          <span className="hero-spec-item">{t("hero.specModel", "MODEL")}</span>
           <span className="hero-spec-divider">/</span>
-          <span className="hero-spec-item">REFINE</span>
+          <span className="hero-spec-item">{t("hero.specRefine", "REFINE")}</span>
           <span className="hero-spec-divider">/</span>
-          <span className="hero-spec-item">PARAMETRIC HISTORY</span>
+          <span className="hero-spec-item">{t("hero.specHistory", "PARAMETRIC HISTORY")}</span>
         </div>
       </section>
     </div>

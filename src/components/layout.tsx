@@ -129,7 +129,7 @@ export function Footer() {
         <a href="/features/">{t("nav.features", "Features")}</a>
         <a href="/pricing/">{t("nav.pricing", "Pricing")}</a>
         <a href={site.signIn}>{t("nav.signIn", "Sign in")}</a>
-        <a href={site.projects}>Open your projects</a>
+        <a href={site.projects}>{t("nav.openProjects", "Open your projects")}</a>
       </nav>
       <div className="footer-contact">
         <p className="technical">{t("nav.contact", "Contact")}</p>
@@ -163,7 +163,7 @@ export function ClosingCTA() {
     <section className="container section">
       <div className="cta panel">
         <div>
-          <p className="eyebrow">Ready when you are</p>
+          <p className="eyebrow">{t("cta.eyebrow", "Ready when you are")}</p>
           <h2>{t("cta.heading", "Ready to build without installation?")}</h2>
           <p className="muted">
             {t(
@@ -172,7 +172,7 @@ export function ClosingCTA() {
             )}
           </p>
         </div>
-        <ButtonLink href={site.signUp}>Create your account</ButtonLink>
+        <ButtonLink href={site.signUp}>{t("cta.button", "Create your account")}</ButtonLink>
       </div>
     </section>
   );

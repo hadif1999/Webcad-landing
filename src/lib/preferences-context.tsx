@@ -17,6 +17,7 @@ import {
 } from "./localization.ts";
 import {
   DEFAULT_THEME,
+  THEME_NAMES,
   storedTheme,
   applyTheme,
   watchThemeCookie,
@@ -90,7 +91,8 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const toggleTheme = useCallback(() => {
-    const next = theme === "dark" ? "light" : "dark";
+    const idx = THEME_NAMES.indexOf(theme);
+    const next = THEME_NAMES[(idx + 1) % THEME_NAMES.length];
     applyTheme(next);
   }, [theme]);
 

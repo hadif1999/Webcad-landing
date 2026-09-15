@@ -14,12 +14,12 @@ export function Features({
   return (
     <section className="container section" aria-label="WebCAD features">
       <SectionHeading
-        label={detailed ? t("features.eyebrow", "Six capabilities") : "Built for the process"}
-        title={detailed ? "One model. A complete working context." : "Keep the design moving."}
+        label={detailed ? t("features.eyebrow", "Six capabilities") : t("features.overviewEyebrow", "Built for the process")}
+        title={detailed ? t("features.detailsHeading", "One model. A complete working context.") : t("features.overviewHeading", "Keep the design moving.")}
       >
         {detailed
-          ? "WebCAD connects modeling, durable cloud work and assisted editing without turning the landing into a second product interface."
-          : "From the first sketch to the version you return to, each capability supports the same workbench."}
+          ? t("features.detailsDesc", "WebCAD connects modeling, durable cloud work and assisted editing without turning the landing into a second product interface.")
+          : t("features.overviewDesc", "From the first sketch to the version you return to, each capability supports the same workbench.")}
       </SectionHeading>
       <div className={`feature-grid${detailed ? " feature-grid-detailed" : ""}`}>
         {capabilities.map((capability) => (
@@ -47,10 +47,9 @@ export function Workflow() {
       <div className="workflow-layout">
         <SectionHeading
           label={t("workflow.eyebrow", "A continuous workflow")}
-          title="Move forward without losing context."
+          title={t("workflow.heading", "Move forward without losing context.")}
         >
-          The workbench keeps modeling, assistance and history centered on the
-          design rather than on disconnected files.
+          {t("workflow.desc", "The workbench keeps modeling, assistance and history centered on the design rather than on disconnected files.")}
         </SectionHeading>
         <ol className="workflow-grid">
           {workflow.map((step) => (
