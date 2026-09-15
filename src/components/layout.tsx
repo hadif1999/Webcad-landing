@@ -1,5 +1,10 @@
+"use client";
+
 import type { ReactNode } from "react";
 import { site } from "@/lib/site";
+import { usePreferences } from "@/lib/preferences-context";
+import { PreferenceControls } from "./PreferenceControls";
+
 export function ButtonLink({
   href,
   children,
@@ -16,6 +21,7 @@ export function ButtonLink({
     </a>
   );
 }
+
 export function Brand() {
   return (
     <a className="brand" href="/" aria-label="WebCAD home">
@@ -38,26 +44,34 @@ export function Brand() {
     </a>
   );
 }
+
 function DesktopNavLinks() {
+  const { t } = usePreferences();
   return (
     <>
-      <a href="/features/">Features</a>
-      <a href="/pricing/">Pricing</a>
-      <a href="#contact">Contact</a>
+      <a href="/features/">{t("nav.features", "Features")}</a>
+      <a href="/pricing/">{t("nav.pricing", "Pricing")}</a>
+      <a href="#contact">{t("nav.contact", "Contact")}</a>
     </>
   );
 }
+
 function MobileNavLinks() {
+  const { t } = usePreferences();
   return (
     <>
-      <a href="/features/">Features</a>
-      <a href="/pricing/">Pricing</a>
-      <a href="#contact">Contact</a>
-      <ButtonLink href={site.projects}>Start designing</ButtonLink>
+      <a href="/features/">{t("nav.features", "Features")}</a>
+      <a href="/pricing/">{t("nav.pricing", "Pricing")}</a>
+      <a href="#contact">{t("nav.contact", "Contact")}</a>
+      <ButtonLink href={site.projects}>
+        {t("nav.startDesigning", "Start designing")}
+      </ButtonLink>
     </>
   );
 }
+
 export function Navigation() {
+  const { t } = usePreferences();
   return (
     <header className="site-header">
       <div className="container header-inner">
@@ -68,7 +82,10 @@ export function Navigation() {
           </nav>
         </div>
         <div className="header-actions">
-          <ButtonLink href={site.projects}>Start designing</ButtonLink>
+          <PreferenceControls />
+          <ButtonLink href={site.projects}>
+            {t("nav.startDesigning", "Start designing")}
+          </ButtonLink>
         </div>
         <details className="mobile-menu">
           <summary aria-label="Toggle navigation menu">
@@ -87,32 +104,41 @@ export function Navigation() {
           </summary>
           <nav aria-label="Mobile navigation">
             <MobileNavLinks />
+            <PreferenceControls className="mobile-preference-controls" />
           </nav>
         </details>
       </div>
     </header>
   );
 }
+
 export function Footer() {
+  const { t } = usePreferences();
   return (
     <footer className="container footer" id="contact">
       <div>
         <Brand />
-        <p>Parametric CAD for connected design work.</p>
+        <p>
+          {t(
+            "footer.desc",
+            "Browser-based parametric CAD with cloud workbenches, durable history and AI-assisted editing."
+          )}
+        </p>
       </div>
       <nav aria-label="Footer navigation">
-        <a href="/features/">Features</a>
-        <a href="/pricing/">Pricing</a>
-        <a href={site.signIn}>Sign in</a>
+        <a href="/features/">{t("nav.features", "Features")}</a>
+        <a href="/pricing/">{t("nav.pricing", "Pricing")}</a>
+        <a href={site.signIn}>{t("nav.signIn", "Sign in")}</a>
         <a href={site.projects}>Open your projects</a>
       </nav>
       <div className="footer-contact">
-        <p className="technical">Contact</p>
+        <p className="technical">{t("nav.contact", "Contact")}</p>
         <a href="mailto:contact@webcad.space">contact@webcad.space</a>
       </div>
     </footer>
   );
 }
+
 export function SectionHeading({
   label,
   title,
@@ -130,15 +156,20 @@ export function SectionHeading({
     </div>
   );
 }
+
 export function ClosingCTA() {
+  const { t } = usePreferences();
   return (
     <section className="container section">
       <div className="cta panel">
         <div>
           <p className="eyebrow">Ready when you are</p>
-          <h2>Give the next design a place to grow.</h2>
+          <h2>{t("cta.heading", "Ready to build without installation?")}</h2>
           <p className="muted">
-            Create an account, open a workbench and keep the process connected.
+            {t(
+              "cta.description",
+              "Open WebCAD in any modern browser and start modeling in seconds."
+            )}
           </p>
         </div>
         <ButtonLink href={site.signUp}>Create your account</ButtonLink>

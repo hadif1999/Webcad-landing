@@ -1,16 +1,20 @@
+"use client";
+
 import { SectionHeading } from "./layout";
 import { capabilities, workflow } from "@/lib/marketing";
+import { usePreferences } from "@/lib/preferences-context";
 
 export function Features({
   variant = "overview",
 }: {
   variant?: "overview" | "details";
 }) {
+  const { t } = usePreferences();
   const detailed = variant === "details";
   return (
     <section className="container section" aria-label="WebCAD features">
       <SectionHeading
-        label={detailed ? "Six connected capabilities" : "Built for the process"}
+        label={detailed ? t("features.eyebrow", "Six capabilities") : "Built for the process"}
         title={detailed ? "One model. A complete working context." : "Keep the design moving."}
       >
         {detailed
@@ -37,10 +41,14 @@ export function Features({
 }
 
 export function Workflow() {
+  const { t } = usePreferences();
   return (
     <section className="container section" aria-label="WebCAD modeling workflow">
       <div className="workflow-layout">
-        <SectionHeading label="A continuous workflow" title="Move forward without losing context.">
+        <SectionHeading
+          label={t("workflow.eyebrow", "A continuous workflow")}
+          title="Move forward without losing context."
+        >
           The workbench keeps modeling, assistance and history centered on the
           design rather than on disconnected files.
         </SectionHeading>

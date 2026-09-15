@@ -1,11 +1,19 @@
 @import "tailwindcss";
-/* English marketing copy only needs the local Latin WOFF2 subset. */
+/* Latin and Arabic WOFF2 subsets for multilingual support (kept within 100 KiB budget) */
 @font-face {
   font-family: "Vazirmatn";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
   src: url("@fontsource/vazirmatn/files/vazirmatn-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Vazirmatn";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("@fontsource/vazirmatn/files/vazirmatn-arabic-400-normal.woff2") format("woff2");
+  unicode-range: U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC;
 }
 @font-face {
   font-family: "Vazirmatn";
@@ -20,6 +28,14 @@
   font-weight: 700;
   font-display: swap;
   src: url("@fontsource/vazirmatn/files/vazirmatn-latin-700-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Vazirmatn";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("@fontsource/vazirmatn/files/vazirmatn-arabic-700-normal.woff2") format("woff2");
+  unicode-range: U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC;
 }
 
 /* ────────────────────────────────────────────────────────────────────────────
@@ -65,6 +81,75 @@
   --gradient-theme-h: linear-gradient(90deg, #cd8076 0%, #a07c7d 50%, #5d7a8b 100%);
   --gradient-theme-hover: linear-gradient(135deg, #d88f86 0%, #b28a8b 50%, #6c8a9c 100%);
   --gradient-accent-text: linear-gradient(135deg, #e59d94 0%, #c49ea0 45%, #8ba6b7 100%);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-canvas: #f6f8fb;
+  --color-surface: #ffffff;
+  --color-raised: #e9eef5;
+  --color-ink: #111827;
+  --color-muted: #576579;
+  --color-line: #d1d9e2;
+  --color-action: #bf665b;
+  --color-action-hover: #b0574c;
+  --color-accent: #bf665b;
+  --color-focus: #bf665b;
+  --shadow-panel: 0 16px 48px rgba(17, 24, 39, 0.08);
+  --gradient-accent-text: linear-gradient(135deg, #bf665b 0%, #8b5b63 45%, #3e6378 100%);
+}
+
+:root[data-theme="warm"] {
+  color-scheme: dark;
+  --color-canvas: #211d18;
+  --color-surface: #2b251f;
+  --color-raised: #383028;
+  --color-ink: #f3e7d2;
+  --color-muted: #c8b99f;
+  --color-line: #514638;
+  --color-action: #d3a264;
+  --color-action-hover: #dfb37c;
+  --color-accent: #d3a264;
+  --color-focus: #f5c47f;
+  --gradient-accent-text: linear-gradient(135deg, #f5c47f 0%, #dfb37c 45%, #d3a264 100%);
+}
+
+:root[data-theme="contrast"] {
+  color-scheme: dark;
+  --color-canvas: #000000;
+  --color-surface: #0a0a0a;
+  --color-raised: #181818;
+  --color-ink: #ffffff;
+  --color-muted: #cccccc;
+  --color-line: #ffffff;
+  --color-action: #00e5ff;
+  --color-action-hover: #33ebff;
+  --color-accent: #00e5ff;
+  --color-focus: #00e5ff;
+  --gradient-accent-text: linear-gradient(135deg, #00e5ff 0%, #ffffff 50%, #ff80bf 100%);
+}
+
+:root[data-theme="light"] .hero-video-scrim {
+  background:
+    radial-gradient(ellipse 86% 70% at 50% 68%, transparent 0%, transparent 46%, rgba(246, 248, 251, 0.6) 100%),
+    linear-gradient(
+      to bottom,
+      rgba(246, 248, 251, 0.92) 0%,
+      rgba(246, 248, 251, 0.72) 14%,
+      rgba(246, 248, 251, 0.5) 34%,
+      rgba(246, 248, 251, 0.5) 62%,
+      rgba(246, 248, 251, 0.3) 74%,
+      rgba(246, 248, 251, 0.7) 88%,
+      rgba(246, 248, 251, 0.95) 96%,
+      var(--color-canvas) 100%
+    );
+}
+:root[data-theme="light"] .hero-wrapper .hero-description {
+  color: var(--color-ink);
+  text-shadow: none;
+}
+:root[data-theme="light"] .hero-title {
+  text-shadow: none;
 }
 
 /* ────────────────────────────────────────────────────────────────────────────
@@ -130,6 +215,30 @@
   }
   ::selection {
     @apply bg-action text-on-action;
+  }
+  [dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+  }
+  [dir="rtl"] .hero,
+  [dir="rtl"] .hero-badge-row,
+  [dir="rtl"] .hero-specs-strip,
+  [dir="rtl"] .button-row {
+    text-align: center;
+  }
+  [dir="rtl"] .skip-link {
+    left: auto;
+    right: 1rem;
+  }
+  [dir="rtl"] .model-stage {
+    direction: ltr;
+  }
+  [dir="rtl"] .assembly-layout {
+    direction: ltr;
+  }
+  [dir="rtl"] .button span[aria-hidden="true"] {
+    display: inline-block;
+    transform: scaleX(-1);
   }
 }
 
@@ -226,6 +335,84 @@
   }
   .mobile-menu {
     display: none;
+  }
+
+  /* ── Preference Controls ─────────────────────────────────────────────────── */
+  .preference-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .pref-lang-label {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    color: var(--color-ink);
+  }
+  .pref-lang-icon {
+    position: absolute;
+    inset-inline-start: 0.65rem;
+    pointer-events: none;
+    color: var(--color-muted);
+  }
+  .pref-lang-select,
+  .pref-theme-button {
+    height: 2.375rem;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-control);
+    color: var(--color-ink);
+    background: color-mix(in srgb, var(--color-surface) 90%, transparent);
+    transition: border-color var(--duration-fast) var(--ease-standard),
+                background var(--duration-fast) var(--ease-standard);
+    cursor: pointer;
+  }
+  .pref-lang-select:hover,
+  .pref-theme-button:hover {
+    border-color: var(--color-action);
+    background: var(--color-raised);
+  }
+  .pref-lang-select:focus-visible,
+  .pref-theme-button:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+  .pref-lang-select {
+    padding-block: 0;
+    padding-inline-start: 2rem;
+    padding-inline-end: 0.65rem;
+    font-size: var(--text-small);
+    font-weight: 500;
+    appearance: auto;
+    color-scheme: inherit;
+  }
+  .pref-lang-select option {
+    color: var(--color-ink);
+    background: var(--color-surface);
+  }
+  .pref-theme-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.375rem;
+    padding: 0;
+    color: var(--color-muted);
+  }
+  .pref-theme-button:hover {
+    color: var(--color-ink);
+  }
+  .mobile-preference-controls {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-line);
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .mobile-preference-controls .pref-lang-label {
+    flex: 1;
+  }
+  .mobile-preference-controls .pref-lang-select {
+    width: 100%;
   }
 
   /* ── Buttons ───────────────────────────────────────────────────────────── */

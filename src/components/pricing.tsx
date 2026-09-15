@@ -1,13 +1,19 @@
+"use client";
+
 import { site } from "@/lib/site";
 import { entitlementCategories } from "@/lib/marketing";
+import { usePreferences } from "@/lib/preferences-context";
 import { ButtonLink, SectionHeading } from "./layout";
+
 export function Pricing() {
+  const { t } = usePreferences();
+
   return (
     <section className="container section" aria-label="WebCAD plans and access">
       <div className="pricing-layout">
         <SectionHeading
-          label="Plans & access"
-          title="Choose the capacity your work needs."
+          label={t("pricing.eyebrow", "Plans & access")}
+          title={t("pricing.heading", "Choose the capacity your work needs.")}
         >
           Plans scale the workspace around the same design process. Dashboard is
           the source of truth for current names, prices and limits.
@@ -20,7 +26,7 @@ export function Pricing() {
             choose an available upgrade with its current terms in view.
           </p>
           <ButtonLink href={site.subscription}>
-            See current plans in Dashboard
+            {t("pricing.seeDashboard", "See current plans in Dashboard")}
           </ButtonLink>
           <p className="caption">
             Plan selection and checkout take place in Dashboard.
