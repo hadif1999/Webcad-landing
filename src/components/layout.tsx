@@ -12,7 +12,7 @@ export function ButtonLink({
   return (
     <a href={href} className={`button button-${variant}`}>
       {children}
-      <span aria-hidden="true">↗</span>
+      <span aria-hidden="true">→</span>
     </a>
   );
 }
@@ -20,8 +20,8 @@ export function Brand() {
   return (
     <a className="brand" href="/" aria-label="WebCAD home">
       <svg
-        width="32"
-        height="32"
+        width="28"
+        height="28"
         viewBox="0 0 32 32"
         fill="none"
         aria-hidden="true"
@@ -38,14 +38,22 @@ export function Brand() {
     </a>
   );
 }
-function NavLinks() {
+function DesktopNavLinks() {
   return (
     <>
       <a href="/features/">Features</a>
       <a href="/pricing/">Pricing</a>
-      <a href={site.projects}>Dashboard</a>
-      <a href={site.signIn}>Sign in</a>
-      <ButtonLink href={site.signUp}>Start designing</ButtonLink>
+      <a href="#contact">Contact</a>
+    </>
+  );
+}
+function MobileNavLinks() {
+  return (
+    <>
+      <a href="/features/">Features</a>
+      <a href="/pricing/">Pricing</a>
+      <a href="#contact">Contact</a>
+      <ButtonLink href={site.projects}>Start designing</ButtonLink>
     </>
   );
 }
@@ -53,16 +61,32 @@ export function Navigation() {
   return (
     <header className="site-header">
       <div className="container header-inner">
-        <Brand />
-        <nav className="desktop-nav" aria-label="Main navigation">
-          <NavLinks />
-        </nav>
+        <div className="header-left">
+          <Brand />
+          <nav className="desktop-nav" aria-label="Main navigation">
+            <DesktopNavLinks />
+          </nav>
+        </div>
+        <div className="header-actions">
+          <ButtonLink href={site.projects}>Start designing</ButtonLink>
+        </div>
         <details className="mobile-menu">
-          <summary>
-            Menu <span aria-hidden="true">+</span>
+          <summary aria-label="Toggle navigation menu">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              aria-hidden="true"
+            >
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
           </summary>
           <nav aria-label="Mobile navigation">
-            <NavLinks />
+            <MobileNavLinks />
           </nav>
         </details>
       </div>
@@ -71,7 +95,7 @@ export function Navigation() {
 }
 export function Footer() {
   return (
-    <footer className="container footer">
+    <footer className="container footer" id="contact">
       <div>
         <Brand />
         <p>Parametric CAD for connected design work.</p>
@@ -79,10 +103,13 @@ export function Footer() {
       <nav aria-label="Footer navigation">
         <a href="/features/">Features</a>
         <a href="/pricing/">Pricing</a>
-        <a href={site.signIn}>Dashboard sign in</a>
+        <a href={site.signIn}>Sign in</a>
         <a href={site.projects}>Open your projects</a>
       </nav>
-      <p className="technical">WebCAD / Cloud CAD</p>
+      <div className="footer-contact">
+        <p className="technical">Contact</p>
+        <a href="mailto:contact@webcad.space">contact@webcad.space</a>
+      </div>
     </footer>
   );
 }

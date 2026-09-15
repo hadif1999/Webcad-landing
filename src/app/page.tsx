@@ -38,8 +38,8 @@ export default function Home() {
             <span className="technical hero-engine-tag">BROWSER B-REP ENGINE</span>
           </div>
           <h1 className="hero-title">
-            Parametric CAD for work
-            <br />
+            Parametric CAD for work{" "}
+            <br className="hero-title-break" />
             that <span className="accent">keeps moving.</span>
           </h1>
           <p className="hero-description">

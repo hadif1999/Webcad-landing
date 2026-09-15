@@ -21,6 +21,11 @@
   font-display: swap;
   src: url("@fontsource/vazirmatn/files/vazirmatn-latin-700-normal.woff2") format("woff2");
 }
+
+/* ────────────────────────────────────────────────────────────────────────────
+   DESIGN TOKENS
+   Fluid type scale (1.2 ratio): rem + vw keeps accessibility at 200% zoom.
+   ──────────────────────────────────────────────────────────────────────────── */
 @theme {
   --color-canvas: #0b1018;
   --color-surface: #121b27;
@@ -36,32 +41,48 @@
   --color-success: #8bdfbc;
   --color-warning: #f6cf82;
   --color-danger: #ffabb1;
-  --font-sans: "Vazirmatn", sans-serif;
+  --font-sans: "Vazirmatn", system-ui, -apple-system, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Consolas, monospace;
   --spacing: 0.25rem;
-  --radius-card: 1rem;
+  --radius-card: 0.75rem;
   --radius-control: 0.5rem;
   --shadow-panel: 0 24px 80px #00000026;
   --shadow-focus: 0 0 0 4px #cd807633;
-  --text-display: clamp(2.75rem, 7vw, 5.75rem);
-  --text-heading: clamp(2rem, 4vw, 3rem);
+  /* Fluid type scale: clamp(min, preferred, max) */
+  --text-display: clamp(2.25rem, 1.6rem + 3.25vw, 4.5rem);
+  --text-heading: clamp(1.75rem, 1.3rem + 2vw, 2.75rem);
+  --text-subheading: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+  --text-body: clamp(0.9375rem, 0.9rem + 0.2vw, 1.0625rem);
+  --text-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
   --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 :root {
   color-scheme: dark;
   --duration-fast: 160ms;
   --duration-reveal: 700ms;
-  --gutter: clamp(1rem, 4vw, 3rem);
+  --gutter: clamp(1.25rem, 4vw, 3rem);
   --gradient-theme: linear-gradient(135deg, #cd8076 0%, #a07c7d 50%, #5d7a8b 100%);
   --gradient-theme-h: linear-gradient(90deg, #cd8076 0%, #a07c7d 50%, #5d7a8b 100%);
   --gradient-theme-hover: linear-gradient(135deg, #d88f86 0%, #b28a8b 50%, #6c8a9c 100%);
   --gradient-accent-text: linear-gradient(135deg, #e59d94 0%, #c49ea0 45%, #8ba6b7 100%);
 }
+
+/* ────────────────────────────────────────────────────────────────────────────
+   BASE
+   ──────────────────────────────────────────────────────────────────────────── */
 @layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-canvas text-ink font-sans;
     margin: 0;
-    line-height: 1.65;
+    font-size: var(--text-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   *,
   *::before,
@@ -81,7 +102,7 @@
   button:focus-visible,
   input:focus-visible {
     outline: 2px solid var(--color-focus);
-    outline-offset: 5px;
+    outline-offset: 3px;
   }
   h1,
   h2,
@@ -91,27 +112,33 @@
   }
   h1 {
     font-size: var(--text-display);
-    line-height: 1.1;
-    letter-spacing: -0.045em;
+    line-height: 1.08;
+    letter-spacing: -0.035em;
     font-weight: 700;
   }
   h2 {
     font-size: var(--text-heading);
-    line-height: 1.2;
-    letter-spacing: -0.035em;
-    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    font-weight: 600;
   }
   h3 {
-    @apply text-xl font-medium;
-    line-height: 1.35;
+    font-size: var(--text-subheading);
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
   }
   ::selection {
     @apply bg-action text-on-action;
   }
 }
+
+/* ────────────────────────────────────────────────────────────────────────────
+   COMPONENTS
+   ──────────────────────────────────────────────────────────────────────────── */
 @layer components {
   .container {
-    width: min(100% - var(--gutter) * 2, 75rem);
+    width: min(100% - var(--gutter) * 2, 72rem);
     margin-inline: auto;
   }
   .muted {
@@ -121,76 +148,130 @@
     @apply text-accent;
   }
   .technical {
-    @apply font-mono text-xs;
-    letter-spacing: 0.08em;
+    @apply font-mono;
+    font-size: var(--text-small);
+    letter-spacing: 0.06em;
   }
   .eyebrow {
-    @apply text-accent font-mono text-xs mb-6;
-    letter-spacing: 0.14em;
+    @apply text-accent font-mono mb-4;
+    font-size: var(--text-small);
+    letter-spacing: 0.12em;
     text-transform: uppercase;
   }
+
+  /* ── Brand ─────────────────────────────────────────────────────────────── */
   .brand {
-    @apply inline-flex items-center gap-3 text-2xl font-bold;
-    letter-spacing: -0.05em;
+    @apply inline-flex items-center gap-2.5 font-bold;
+    font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+    letter-spacing: -0.04em;
   }
   .brand svg,
   .brand-dot {
     @apply text-action;
   }
+
+  /* ── Header (Linear / Notion style) ────────────────────────────────────── */
   .site-header {
-    @apply border-b border-line;
     position: sticky;
     top: 0;
     z-index: 40;
-    backdrop-filter: blur(12px);
-    background-color: color-mix(in srgb, var(--color-canvas) 88%, transparent);
+    backdrop-filter: blur(16px) saturate(1.2);
+    background-color: color-mix(in srgb, var(--color-canvas) 85%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-line) 50%, transparent);
   }
   .header-inner {
-    @apply flex items-center justify-between gap-6 py-5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: 0.875rem;
     position: relative;
   }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 2.5vw, 2.5rem);
+  }
   .desktop-nav {
-    @apply flex items-center gap-8 text-sm;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
   }
-  .desktop-nav > a:not(.button):hover,
-  .footer a:hover {
-    @apply text-action;
+  .desktop-nav > a {
+    font-size: var(--text-small);
+    font-weight: 500;
+    color: var(--color-muted);
+    padding: 0.45rem 0.875rem;
+    border-radius: var(--radius-control);
+    border: 1px solid transparent;
+    transition: color var(--duration-fast) var(--ease-standard),
+                background var(--duration-fast) var(--ease-standard),
+                border-color var(--duration-fast) var(--ease-standard);
   }
+  .desktop-nav > a:hover {
+    color: var(--color-ink);
+    background: color-mix(in srgb, var(--color-raised) 70%, transparent);
+    border-color: color-mix(in srgb, var(--color-line) 40%, transparent);
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .header-actions .button {
+    font-size: var(--text-small);
+    padding: 0.5rem 1.25rem;
+    min-height: 2.375rem;
+    gap: 0.375rem;
+  }
+  .mobile-menu {
+    display: none;
+  }
+
+  /* ── Buttons ───────────────────────────────────────────────────────────── */
   .button {
-    @apply inline-flex items-center justify-center gap-6 rounded-control px-6 py-3 font-medium text-sm;
-    min-height: 48px;
-    transition: background var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+    @apply inline-flex items-center justify-center rounded-control font-medium;
+    font-size: var(--text-small);
+    padding: 0.625rem 1.5rem;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    border: none;
+    cursor: pointer;
+    transition: background var(--duration-fast) var(--ease-standard),
+                box-shadow var(--duration-fast) var(--ease-standard),
+                transform var(--duration-fast) var(--ease-standard);
   }
   .button-primary {
     background: var(--gradient-theme);
     color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 4px 18px rgba(205, 128, 118, 0.35), 0 0 16px rgba(93, 122, 139, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 2px 12px rgba(205, 128, 118, 0.3), 0 0 8px rgba(93, 122, 139, 0.2);
   }
   .button-primary:hover {
     background: var(--gradient-theme-hover);
-    box-shadow: 0 6px 28px rgba(205, 128, 118, 0.5), 0 0 24px rgba(93, 122, 139, 0.4);
+    box-shadow: 0 4px 20px rgba(205, 128, 118, 0.45), 0 0 16px rgba(93, 122, 139, 0.35);
+    transform: translateY(-1px);
   }
   .button-secondary {
     @apply border border-line bg-surface text-ink;
   }
   .button-secondary:hover {
-    border-color: rgba(205, 128, 118, 0.45);
+    border-color: rgba(205, 128, 118, 0.4);
     background: var(--color-raised);
-    box-shadow: 0 0 16px rgba(205, 128, 118, 0.15);
+    box-shadow: 0 0 12px rgba(205, 128, 118, 0.12);
+    transform: translateY(-1px);
   }
   .button-row {
-    @apply flex flex-wrap gap-4 mt-8;
+    @apply flex flex-wrap gap-3 mt-8;
   }
+
+  /* ── Hero ───────────────────────────────────────────────────────────────── */
   .hero-wrapper {
     position: relative;
     overflow: hidden;
     border-bottom: 1px solid var(--color-line);
     background: var(--color-canvas);
   }
-  /* Ambient workbench footage sits behind the hero copy as a full-bleed backdrop.
-     The wrapper carries the poster frame, so the hero still paints its CAD viewport
-     before the video decodes, without JavaScript and under reduced motion. */
   .hero-video-stage {
     position: absolute;
     inset: 0;
@@ -205,15 +286,9 @@
     height: 100%;
     object-fit: cover;
     object-position: center 42%;
-    /* The source footage is a near-white CAD plate. Dimming it against the dark
-       canvas while lifting contrast keeps the white dimension lines and the blue
-       toolpath separated from the plate instead of flattening them. */
     filter: brightness(0.62) contrast(1.18) saturate(0.9);
     transform: scale(1.02);
   }
-  /* Shaped scrim rather than a uniform wash: dense under the sticky header and the
-     bottom readout, ~0.38 through the copy band (enough for AA against the lifted
-     hero text), and close to open through the viewing band so the toolpath reads. */
   .hero-video-scrim {
     position: absolute;
     inset: 0;
@@ -254,16 +329,14 @@
   }
   .hero {
     position: relative;
-    /* No isolation/filter here: that would form a backdrop root and stop the glass
-       pill and specs strip from sampling the video behind them. z-index alone
-       stacks the copy above the sibling stage. */
     z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Reserve a viewing band beneath the copy so the toolpath stays observable. */
-    min-height: clamp(40rem, 86vh, 58rem);
-    @apply text-center pt-24 pb-16;
+    min-height: clamp(36rem, 80vh, 52rem);
+    padding-top: clamp(4rem, 10vh, 8rem);
+    padding-bottom: clamp(3rem, 6vh, 5rem);
+    @apply text-center;
   }
   .hero .button-row {
     @apply justify-center;
@@ -272,28 +345,29 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
+    gap: 0.625rem;
     margin-bottom: 1.5rem;
     flex-wrap: wrap;
   }
   .hero-pill {
     margin-bottom: 0 !important;
     background: color-mix(in srgb, var(--color-raised) 75%, transparent);
-    border: 1px solid rgba(205, 128, 118, 0.35);
-    padding: 0.35rem 0.85rem;
+    border: 1px solid rgba(205, 128, 118, 0.3);
+    padding: 0.3rem 0.75rem;
     border-radius: 9999px;
     backdrop-filter: blur(8px);
   }
   .hero-engine-tag {
     font-size: 0.6875rem;
     color: #e59d94;
-    background: rgba(205, 128, 118, 0.12);
-    border: 1px solid rgba(205, 128, 118, 0.3);
-    padding: 0.35rem 0.75rem;
+    background: rgba(205, 128, 118, 0.1);
+    border: 1px solid rgba(205, 128, 118, 0.25);
+    padding: 0.3rem 0.7rem;
     border-radius: 9999px;
     letter-spacing: 0.1em;
   }
   .hero-title {
+    text-wrap: balance;
     text-shadow: 0 4px 30px rgba(0, 0, 0, 0.75);
   }
   .hero-title .accent {
@@ -303,12 +377,11 @@
     text-shadow: none;
   }
   .hero-description {
-    @apply text-muted text-lg mt-6;
-    max-width: 41rem;
+    @apply text-muted mt-5;
+    font-size: var(--text-body);
+    max-width: 38rem;
+    line-height: 1.7;
   }
-  /* Only the video hero needs the lift; the other routes keep the muted token on
-     their flat canvas. Lifting it here is what lets the scrim stay light enough
-     to keep the footage observable while the copy still clears AA. */
   .hero-wrapper .hero-description {
     color: #dce6f4;
     text-shadow: 0 2px 16px rgba(0, 0, 0, 0.85);
@@ -316,21 +389,20 @@
   .hero .hero-description {
     margin-inline: auto;
   }
-
   .hero-specs-strip {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
-    margin-top: 2.75rem;
-    padding: 0.45rem 1.25rem;
+    gap: 0.625rem;
+    margin-top: 2.5rem;
+    padding: 0.4rem 1.125rem;
     border-radius: 9999px;
     background: color-mix(in srgb, var(--color-surface) 80%, transparent);
     border: 1px solid var(--color-line);
     backdrop-filter: blur(8px);
     color: var(--color-muted);
-    font-size: 0.75rem;
-    letter-spacing: 0.09em;
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
     flex-wrap: wrap;
   }
   .hero-spec-item {
@@ -343,16 +415,18 @@
     @apply text-muted mt-10;
   }
   .status-dot {
-    @apply inline-block w-2 h-2 rounded-full mr-3;
+    @apply inline-block w-2 h-2 rounded-full mr-2;
     background: #cd8076;
     box-shadow: 0 0 8px rgba(205, 128, 118, 0.8);
   }
+
+  /* ── Product illustration ──────────────────────────────────────────────── */
   .product {
     @apply border border-line rounded-card bg-surface shadow-panel overflow-hidden;
   }
   .model-toolbar,
   .model-caption {
-    @apply flex flex-wrap items-center justify-between gap-3 px-6 py-4;
+    @apply flex flex-wrap items-center justify-between gap-3 px-6 py-3;
   }
   .model-toolbar {
     @apply border-b border-line;
@@ -373,7 +447,7 @@
     @apply mt-6 pl-5 text-muted;
   }
   .model-stage li {
-    @apply py-3;
+    @apply py-2;
   }
   .model-stage svg {
     display: block;
@@ -381,17 +455,24 @@
     height: auto;
   }
   .model-caption {
-    @apply border-t border-line text-xs;
+    @apply border-t border-line;
+    font-size: var(--text-small);
   }
+
+  /* ── Sections ──────────────────────────────────────────────────────────── */
   .section {
-    @apply py-16;
+    padding-block: clamp(3rem, 6vw, 5rem);
   }
   .section-heading {
     max-width: 36rem;
   }
   .section-heading > .muted {
-    @apply mt-6;
+    @apply mt-4;
+    font-size: var(--text-body);
+    line-height: 1.7;
   }
+
+  /* ── Feature grid ──────────────────────────────────────────────────────── */
   .feature-grid {
     @apply grid gap-4 mt-10;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -404,10 +485,10 @@
     background: linear-gradient(180deg, color-mix(in srgb, var(--color-raised) 45%, transparent) 0%, var(--color-surface) 100%);
   }
   .feature-card {
-    @apply p-8;
+    @apply p-7;
     display: flex;
     flex-direction: column;
-    border-top: 1px solid rgba(205, 128, 118, 0.35);
+    border-top: 1px solid rgba(205, 128, 118, 0.3);
     background: linear-gradient(180deg, color-mix(in srgb, var(--color-raised) 40%, transparent) 0%, var(--color-surface) 100%);
   }
   .feature-card-label {
@@ -417,13 +498,17 @@
     color: #e59d94;
   }
   .feature-card h3 {
-    @apply mt-8 mb-3;
+    @apply mt-6 mb-2;
   }
   .capability-detail {
-    @apply border-t border-line mt-6 pt-6 text-sm;
+    @apply border-t border-line mt-5 pt-5;
+    font-size: var(--text-small);
+    line-height: 1.65;
   }
+
+  /* ── Workflow ───────────────────────────────────────────────────────────── */
   .workflow-layout {
-    @apply grid gap-12 items-start;
+    @apply grid gap-10 items-start;
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
   }
   .workflow-grid {
@@ -431,28 +516,31 @@
     list-style: none;
   }
   .workflow-step {
-    @apply p-6 flex gap-5;
+    @apply p-5 flex gap-4;
     background: linear-gradient(180deg, color-mix(in srgb, var(--color-raised) 45%, transparent) 0%, var(--color-surface) 100%);
     border: 1px solid var(--color-line);
-    border-top: 1px solid rgba(205, 128, 118, 0.35);
+    border-top: 1px solid rgba(205, 128, 118, 0.3);
     border-radius: var(--radius-card);
   }
   .workflow-step h3 {
     @apply mb-2;
   }
+
+  /* ── Pricing ───────────────────────────────────────────────────────────── */
   .pricing-layout {
-    @apply grid grid-cols-2 gap-12 items-center;
+    @apply grid grid-cols-2 gap-10 items-center;
   }
   .pricing-card {
-    @apply p-8;
-    border-top: 1px solid rgba(205, 128, 118, 0.35);
+    @apply p-7;
+    border-top: 1px solid rgba(205, 128, 118, 0.3);
     background: linear-gradient(180deg, color-mix(in srgb, var(--color-raised) 45%, transparent) 0%, var(--color-surface) 100%);
   }
   .pricing-card h3 {
-    @apply mt-8 mb-4 text-2xl;
+    @apply mt-6 mb-3;
+    font-size: var(--text-heading);
   }
   .pricing-card .button {
-    @apply mt-8;
+    @apply mt-6;
   }
   .entitlement-grid {
     @apply grid gap-4 mt-10 p-0;
@@ -460,49 +548,85 @@
     list-style: none;
   }
   .entitlement-card {
-    @apply p-6;
-    border-top: 1px solid rgba(205, 128, 118, 0.25);
+    @apply p-5;
+    border-top: 1px solid rgba(205, 128, 118, 0.2);
   }
   .entitlement-card h3 {
-    @apply text-base mb-3;
+    @apply text-base mb-2;
   }
+
+  /* ── CTA ────────────────────────────────────────────────────────────────── */
   .caption {
-    @apply mt-4 text-xs text-muted;
+    @apply mt-3;
+    font-size: var(--text-small);
+    color: var(--color-muted);
   }
   .cta {
-    @apply flex items-center justify-between gap-8 p-10;
-    border-top: 1px solid rgba(205, 128, 118, 0.45);
+    @apply flex items-center justify-between gap-8 p-8;
+    border-top: 1px solid rgba(205, 128, 118, 0.4);
     background: linear-gradient(
       120deg,
       color-mix(in srgb, var(--color-raised) 65%, #2a1f24),
       var(--color-surface)
     );
-    box-shadow: 0 0 40px rgba(205, 128, 118, 0.1);
+    box-shadow: 0 0 40px rgba(205, 128, 118, 0.08);
   }
   .cta h2 {
     max-width: 35rem;
   }
   .cta .muted {
-    @apply mt-4;
+    @apply mt-3;
   }
   .cta .button {
     flex-shrink: 0;
   }
+
+  /* ── Footer ────────────────────────────────────────────────────────────── */
   .footer {
-    @apply flex flex-wrap justify-between gap-8 py-10 border-t border-line text-sm;
+    @apply flex flex-wrap justify-between gap-8 border-t border-line;
+    padding-block: clamp(2.5rem, 5vw, 3.5rem);
+    font-size: var(--text-small);
+    scroll-margin-top: 5rem;
   }
   .footer p {
-    @apply text-muted mt-4;
+    @apply text-muted mt-3;
   }
   .footer nav {
-    @apply flex flex-wrap gap-6 items-center;
+    @apply flex flex-wrap gap-5 items-center;
   }
+  .footer nav a {
+    color: var(--color-muted);
+    transition: color var(--duration-fast) var(--ease-standard);
+  }
+  .footer nav a:hover {
+    color: var(--color-ink);
+  }
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+  .footer-contact .technical {
+    color: #e59d94;
+    letter-spacing: 0.08em;
+  }
+  .footer-contact a {
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-decoration-color: rgba(205, 128, 118, 0.4);
+    text-underline-offset: 4px;
+    transition: color var(--duration-fast) var(--ease-standard),
+                text-decoration-color var(--duration-fast) var(--ease-standard);
+  }
+  .footer-contact a:hover {
+    color: var(--color-accent);
+    text-decoration-color: var(--color-accent);
+  }
+
+  /* ── Pages ─────────────────────────────────────────────────────────────── */
   .page-intro {
-    @apply py-20;
-    min-height: 28rem;
-  }
-  .mobile-menu {
-    display: none;
+    padding-block: clamp(3rem, 8vw, 5rem);
+    min-height: 24rem;
   }
   .skip-link {
     @apply fixed bg-action text-on-action p-4 rounded-control;
@@ -514,6 +638,10 @@
     top: 1rem;
   }
 }
+
+/* ────────────────────────────────────────────────────────────────────────────
+   RESPONSIVE: Tablet (≤ 64rem)
+   ──────────────────────────────────────────────────────────────────────────── */
 @media (max-width: 63.99rem) {
   .feature-grid,
   .feature-grid-detailed,
@@ -534,51 +662,87 @@
     align-items: flex-start;
   }
 }
+
+/* ────────────────────────────────────────────────────────────────────────────
+   RESPONSIVE: Mobile (≤ 48rem)
+   ──────────────────────────────────────────────────────────────────────────── */
 @media (max-width: 47.99rem) {
+  /* Header: show hamburger, hide desktop nav */
   .desktop-nav {
+    display: none;
+  }
+  .header-actions {
     display: none;
   }
   .mobile-menu {
     display: block;
+    margin-left: auto;
   }
   .mobile-menu summary {
     cursor: pointer;
-    padding: 0.75rem;
-    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--radius-control);
+    color: var(--color-muted);
+    transition: color var(--duration-fast) var(--ease-standard),
+                background var(--duration-fast) var(--ease-standard);
+    list-style: none;
+  }
+  .mobile-menu summary::-webkit-details-marker {
+    display: none;
+  }
+  .mobile-menu summary:hover {
+    color: var(--color-ink);
+    background: color-mix(in srgb, var(--color-raised) 60%, transparent);
   }
   .mobile-menu nav {
     position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
+    top: calc(100% + 0.5rem);
+    left: var(--gutter);
+    right: var(--gutter);
     z-index: 10;
-    display: grid;
-    gap: 0.5rem;
-    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.75rem;
     background: var(--color-surface);
     border: 1px solid var(--color-line);
     border-radius: var(--radius-card);
     box-shadow: var(--shadow-panel);
   }
-  .mobile-menu nav > a {
+  .mobile-menu nav > a:not(.button) {
     padding: 0.75rem 1rem;
+    border-radius: var(--radius-control);
+    font-size: var(--text-body);
+    font-weight: 500;
+    color: var(--color-ink);
   }
+  .mobile-menu nav > a:not(.button):hover {
+    background: color-mix(in srgb, var(--color-raised) 60%, transparent);
+  }
+  .mobile-menu nav > .button {
+    margin-top: 0.5rem;
+  }
+
+  /* Hero adjustments */
   .hero,
   .page-intro {
-    padding-block: 3rem;
+    padding-block: 2.5rem;
   }
   .hero {
-    min-height: clamp(32rem, 86vh, 44rem);
+    min-height: clamp(28rem, 80vh, 40rem);
   }
-  .hero-description {
-    font-size: 1rem;
+  .hero-title-break {
+    display: none;
   }
-  /* The backdrop stays visible on small screens; the copy keeps its contrast through
-     the scrim rather than a shorter frame. */
   .hero-bg-video {
     object-position: center 46%;
   }
 
+  /* Grids stack */
   .feature-grid,
   .feature-grid-detailed,
   .pricing-layout,
@@ -586,13 +750,10 @@
   .entitlement-grid {
     grid-template-columns: 1fr;
   }
-  .section {
-    padding-block: 2.5rem;
-  }
   .feature-card,
   .pricing-card,
   .cta {
-    padding: 1.5rem;
+    padding: 1.25rem;
   }
   .model-stage {
     grid-template-columns: 1fr;
@@ -602,13 +763,44 @@
   }
   .model-toolbar,
   .model-caption {
-    padding: 1rem;
+    padding: 0.75rem;
   }
   .footer {
     flex-direction: column;
+    gap: 2rem;
+  }
+  .footer nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
   }
 }
-/* The 3D study is opt-in; the exported SVG remains the default on every device. */
+
+/* ────────────────────────────────────────────────────────────────────────────
+   RESPONSIVE: Small mobile (≤ 30rem / 480px)
+   ──────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 29.99rem) {
+  .hero-badge-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .hero-specs-strip {
+    gap: 0.375rem;
+    padding: 0.35rem 0.875rem;
+    font-size: 0.625rem;
+  }
+  .button-row {
+    flex-direction: column;
+  }
+  .button-row .button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
+   3D STUDY (opt-in, deferred)
+   ──────────────────────────────────────────────────────────────────────────── */
 @layer components {
   button, input { font: inherit; }
   button { cursor: pointer; }
@@ -695,6 +887,9 @@
   .assembly-controls { border-left: 0; border-top: 1px solid var(--color-line); }
 }
 
+/* ────────────────────────────────────────────────────────────────────────────
+   ANIMATIONS
+   ──────────────────────────────────────────────────────────────────────────── */
 @keyframes entrance {
   from { opacity: 0.6; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
@@ -739,8 +934,6 @@
     transition: none !important;
     scroll-behavior: auto !important;
   }
-  /* CSS cannot pause playing media, so the moving layer is removed entirely and
-     the wrapper's poster frame remains as the CAD viewport. */
   .hero-bg-video {
     display: none;
   }
