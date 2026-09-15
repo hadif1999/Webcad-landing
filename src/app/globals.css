@@ -28,11 +28,11 @@
   --color-ink: #f0f5fc;
   --color-muted: #a6b6ca;
   --color-line: #304158;
-  --color-action: #72caff;
-  --color-action-hover: #a3ddff;
-  --color-on-action: #071b2a;
-  --color-accent: #76d7e7;
-  --color-focus: #b0eaff;
+  --color-action: #cd8076;
+  --color-action-hover: #d88f86;
+  --color-on-action: #ffffff;
+  --color-accent: #cd8076;
+  --color-focus: #e59d94;
   --color-success: #8bdfbc;
   --color-warning: #f6cf82;
   --color-danger: #ffabb1;
@@ -42,7 +42,7 @@
   --radius-card: 1rem;
   --radius-control: 0.5rem;
   --shadow-panel: 0 24px 80px #00000026;
-  --shadow-focus: 0 0 0 4px #72caff33;
+  --shadow-focus: 0 0 0 4px #cd807633;
   --text-display: clamp(2.75rem, 7vw, 5.75rem);
   --text-heading: clamp(2rem, 4vw, 3rem);
   --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -52,6 +52,10 @@
   --duration-fast: 160ms;
   --duration-reveal: 700ms;
   --gutter: clamp(1rem, 4vw, 3rem);
+  --gradient-theme: linear-gradient(135deg, #cd8076 0%, #a07c7d 50%, #5d7a8b 100%);
+  --gradient-theme-h: linear-gradient(90deg, #cd8076 0%, #a07c7d 50%, #5d7a8b 100%);
+  --gradient-theme-hover: linear-gradient(135deg, #d88f86 0%, #b28a8b 50%, #6c8a9c 100%);
+  --gradient-accent-text: linear-gradient(135deg, #e59d94 0%, #c49ea0 45%, #8ba6b7 100%);
 }
 @layer base {
   body {
@@ -158,18 +162,22 @@
     transition: background var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
   }
   .button-primary {
-    @apply bg-action text-on-action;
-    box-shadow: 0 0 20px rgba(114, 202, 255, 0.25);
+    background: var(--gradient-theme);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 18px rgba(205, 128, 118, 0.35), 0 0 16px rgba(93, 122, 139, 0.25);
   }
   .button-primary:hover {
-    @apply bg-action-hover;
-    box-shadow: 0 0 28px rgba(163, 221, 255, 0.45);
+    background: var(--gradient-theme-hover);
+    box-shadow: 0 6px 28px rgba(205, 128, 118, 0.5), 0 0 24px rgba(93, 122, 139, 0.4);
   }
   .button-secondary {
     @apply border border-line bg-surface text-ink;
   }
   .button-secondary:hover {
-    @apply bg-raised;
+    border-color: rgba(205, 128, 118, 0.45);
+    background: var(--color-raised);
+    box-shadow: 0 0 16px rgba(205, 128, 118, 0.15);
   }
   .button-row {
     @apply flex flex-wrap gap-4 mt-8;
@@ -180,44 +188,81 @@
     border-bottom: 1px solid var(--color-line);
     background: var(--color-canvas);
   }
-  .hero-video-backdrop {
+  /* Ambient workbench footage sits behind the hero copy as a full-bleed backdrop.
+     The wrapper carries the poster frame, so the hero still paints its CAD viewport
+     before the video decodes, without JavaScript and under reduced motion. */
+  .hero-video-stage {
     position: absolute;
     inset: 0;
     z-index: 0;
-    pointer-events: none;
     overflow: hidden;
+    pointer-events: none;
+    background: var(--color-canvas) url("/assets/bg_video_poster.jpg") center 42% / cover no-repeat;
   }
-  .hero-video {
-    position: absolute;
+  .hero-bg-video {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 40%;
-    opacity: 0.38;
-    filter: contrast(1.15) brightness(0.85) invert(0.92) hue-rotate(185deg);
-    transform: scale(1.03);
-    transition: opacity var(--duration-reveal) var(--ease-standard);
+    object-position: center 42%;
+    /* The source footage is a near-white CAD plate. Dimming it against the dark
+       canvas while lifting contrast keeps the white dimension lines and the blue
+       toolpath separated from the plate instead of flattening them. */
+    filter: brightness(0.62) contrast(1.18) saturate(0.9);
+    transform: scale(1.02);
   }
+  /* Shaped scrim rather than a uniform wash: dense under the sticky header and the
+     bottom readout, ~0.38 through the copy band (enough for AA against the lifted
+     hero text), and close to open through the viewing band so the toolpath reads. */
   .hero-video-scrim {
     position: absolute;
     inset: 0;
+    pointer-events: none;
     background:
-      radial-gradient(ellipse at 50% 38%, rgba(11, 16, 24, 0.42) 0%, rgba(11, 16, 24, 0.88) 68%, var(--color-canvas) 100%),
-      linear-gradient(to bottom, rgba(11, 16, 24, 0.7) 0%, transparent 22%, transparent 65%, var(--color-canvas) 100%);
+      radial-gradient(ellipse 86% 70% at 50% 68%, transparent 0%, transparent 46%, rgba(11, 16, 24, 0.45) 100%),
+      linear-gradient(
+        to bottom,
+        rgba(11, 16, 24, 0.88) 0%,
+        rgba(11, 16, 24, 0.6) 14%,
+        rgba(11, 16, 24, 0.38) 34%,
+        rgba(11, 16, 24, 0.38) 62%,
+        rgba(11, 16, 24, 0.2) 74%,
+        rgba(11, 16, 24, 0.55) 88%,
+        rgba(11, 16, 24, 0.92) 96%,
+        var(--color-canvas) 100%
+      );
   }
   .hero-video-grid {
     position: absolute;
     inset: 0;
+    pointer-events: none;
     background-image:
-      linear-gradient(rgba(48, 65, 88, 0.18) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(48, 65, 88, 0.18) 1px, transparent 1px);
+      linear-gradient(rgba(48, 65, 88, 0.2) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(48, 65, 88, 0.2) 1px, transparent 1px);
     background-size: 56px 56px;
     background-position: center center;
-    mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.8) 0%, transparent 75%);
+    mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.75) 0%, transparent 78%);
+  }
+  .hero-ambient-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse at 50% 12%, rgba(205, 128, 118, 0.14) 0%, transparent 58%),
+      radial-gradient(ellipse at 86% 42%, rgba(93, 122, 139, 0.12) 0%, transparent 52%),
+      radial-gradient(ellipse at 14% 42%, rgba(205, 128, 118, 0.1) 0%, transparent 52%);
   }
   .hero {
     position: relative;
+    /* No isolation/filter here: that would form a backdrop root and stop the glass
+       pill and specs strip from sampling the video behind them. z-index alone
+       stacks the copy above the sibling stage. */
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Reserve a viewing band beneath the copy so the toolpath stays observable. */
+    min-height: clamp(40rem, 86vh, 58rem);
     @apply text-center pt-24 pb-16;
   }
   .hero .button-row {
@@ -234,16 +279,16 @@
   .hero-pill {
     margin-bottom: 0 !important;
     background: color-mix(in srgb, var(--color-raised) 75%, transparent);
-    border: 1px solid var(--color-line);
+    border: 1px solid rgba(205, 128, 118, 0.35);
     padding: 0.35rem 0.85rem;
     border-radius: 9999px;
     backdrop-filter: blur(8px);
   }
   .hero-engine-tag {
     font-size: 0.6875rem;
-    color: var(--color-accent);
-    background: color-mix(in srgb, var(--color-accent) 12%, transparent);
-    border: 1px solid color-mix(in srgb, var(--color-accent) 28%, transparent);
+    color: #e59d94;
+    background: rgba(205, 128, 118, 0.12);
+    border: 1px solid rgba(205, 128, 118, 0.3);
     padding: 0.35rem 0.75rem;
     border-radius: 9999px;
     letter-spacing: 0.1em;
@@ -252,15 +297,71 @@
     text-shadow: 0 4px 30px rgba(0, 0, 0, 0.75);
   }
   .hero-title .accent {
-    text-shadow: 0 0 28px color-mix(in srgb, var(--color-accent) 45%, transparent);
+    background: var(--gradient-accent-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
   }
   .hero-description {
     @apply text-muted text-lg mt-6;
     max-width: 41rem;
+  }
+  /* Only the video hero needs the lift; the other routes keep the muted token on
+     their flat canvas. Lifting it here is what lets the scrim stay light enough
+     to keep the footage observable while the copy still clears AA. */
+  .hero-wrapper .hero-description {
+    color: #dce6f4;
     text-shadow: 0 2px 16px rgba(0, 0, 0, 0.85);
   }
   .hero .hero-description {
     margin-inline: auto;
+  }
+  /* Names the ambient footage without turning the backdrop into a framed embed. */
+  .hero-hud {
+    align-self: stretch;
+    width: 100%;
+    margin-top: auto;
+    padding-top: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+    border-top: 1px solid color-mix(in srgb, var(--color-line) 70%, transparent);
+    color: #d3ddec;
+  }
+  .hero-hud-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .stage-live-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: #cd8076;
+    box-shadow: 0 0 10px #cd8076;
+  }
+  .stage-title {
+    font-size: 0.75rem;
+    color: #e59d94;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+  }
+  .stage-meta {
+    font-size: 0.7rem;
+    color: var(--color-muted);
+    letter-spacing: 0.06em;
+  }
+  .stage-badge {
+    color: #e59d94;
+    background: rgba(205, 128, 118, 0.12);
+    padding: 0.25rem 0.65rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(205, 128, 118, 0.28);
+    letter-spacing: 0.08em;
   }
   .hero-specs-strip {
     display: inline-flex;
@@ -288,7 +389,9 @@
     @apply text-muted mt-10;
   }
   .status-dot {
-    @apply inline-block w-2 h-2 rounded-full bg-accent mr-3;
+    @apply inline-block w-2 h-2 rounded-full mr-3;
+    background: #cd8076;
+    box-shadow: 0 0 8px rgba(205, 128, 118, 0.8);
   }
   .product {
     @apply border border-line rounded-card bg-surface shadow-panel overflow-hidden;
@@ -350,11 +453,14 @@
     @apply p-8;
     display: flex;
     flex-direction: column;
-    border-top: 1px solid color-mix(in srgb, var(--color-action) 25%, var(--color-line));
+    border-top: 1px solid rgba(205, 128, 118, 0.35);
     background: linear-gradient(180deg, color-mix(in srgb, var(--color-raised) 40%, transparent) 0%, var(--color-surface) 100%);
   }
   .feature-card-label {
     @apply flex flex-wrap items-center justify-between gap-3;
+  }
+  .feature-card-label .technical {
+    color: #e59d94;
   }
   .feature-card h3 {
     @apply mt-8 mb-3;
@@ -374,6 +480,7 @@
     @apply p-6 flex gap-5;
     background: linear-gradient(180deg, color-mix(in srgb, var(--color-raised) 45%, transparent) 0%, var(--color-surface) 100%);
     border: 1px solid var(--color-line);
+    border-top: 1px solid rgba(205, 128, 118, 0.35);
     border-radius: var(--radius-card);
   }
   .workflow-step h3 {
@@ -384,6 +491,8 @@
   }
   .pricing-card {
     @apply p-8;
+    border-top: 1px solid rgba(205, 128, 118, 0.35);
+    background: linear-gradient(180deg, color-mix(in srgb, var(--color-raised) 45%, transparent) 0%, var(--color-surface) 100%);
   }
   .pricing-card h3 {
     @apply mt-8 mb-4 text-2xl;
@@ -398,6 +507,7 @@
   }
   .entitlement-card {
     @apply p-6;
+    border-top: 1px solid rgba(205, 128, 118, 0.25);
   }
   .entitlement-card h3 {
     @apply text-base mb-3;
@@ -407,11 +517,13 @@
   }
   .cta {
     @apply flex items-center justify-between gap-8 p-10;
+    border-top: 1px solid rgba(205, 128, 118, 0.45);
     background: linear-gradient(
       120deg,
-      var(--color-raised),
+      color-mix(in srgb, var(--color-raised) 65%, #2a1f24),
       var(--color-surface)
     );
+    box-shadow: 0 0 40px rgba(205, 128, 118, 0.1);
   }
   .cta h2 {
     max-width: 35rem;
@@ -501,8 +613,24 @@
   .page-intro {
     padding-block: 3rem;
   }
+  .hero {
+    min-height: clamp(32rem, 86vh, 44rem);
+  }
   .hero-description {
     font-size: 1rem;
+  }
+  /* The backdrop stays visible on small screens; the copy keeps its contrast through
+     the scrim rather than a shorter frame. */
+  .hero-bg-video {
+    object-position: center 46%;
+  }
+  .hero-hud {
+    justify-content: center;
+    text-align: center;
+  }
+  /* The resolution readout is supplementary; the live label and badge carry the meaning. */
+  .hero-hud-meta .stage-meta {
+    display: none;
   }
   .feature-grid,
   .feature-grid-detailed,
@@ -619,6 +747,10 @@
   .assembly-camera { top: 120px; scale: 0.8; }
   .assembly-controls { border-left: 0; border-top: 1px solid var(--color-line); }
 }
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 10px #cd8076; }
+  50% { opacity: 0.5; box-shadow: 0 0 4px #cd8076; }
+}
 @keyframes entrance {
   from { opacity: 0.6; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
@@ -638,6 +770,8 @@
   .hero h1 { animation-delay: 60ms; }
   .hero-description { animation-delay: 120ms; }
   .hero .button-row { animation-delay: 180ms; }
+  .hero-hud { animation: entrance var(--duration-reveal) var(--ease-standard) 240ms both; }
+  .stage-live-dot { animation: live-pulse 2s ease-in-out infinite; }
   .product { animation: entrance 1000ms var(--ease-standard) both; }
   .feature-card { transition: transform var(--duration-fast) var(--ease-standard), border-color var(--duration-fast), box-shadow var(--duration-fast); }
   @media (hover: hover) {
@@ -663,10 +797,9 @@
     transition: none !important;
     scroll-behavior: auto !important;
   }
-  .hero-video {
-    display: none !important;
-  }
-  .hero-video-backdrop {
-    background: radial-gradient(ellipse at 50% 35%, var(--color-raised), var(--color-canvas));
+  /* CSS cannot pause playing media, so the moving layer is removed entirely and
+     the wrapper's poster frame remains as the CAD viewport. */
+  .hero-bg-video {
+    display: none;
   }
 }
