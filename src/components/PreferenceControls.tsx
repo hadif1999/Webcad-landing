@@ -3,10 +3,9 @@
 import React from "react";
 import { usePreferences } from "@/lib/preferences-context";
 import type { SupportedLanguage } from "@/lib/localization";
-import type { ThemeName } from "@/lib/theme";
 
 export function PreferenceControls({ className = "" }: { className?: string }) {
-  const { language, setLanguage, theme, setTheme, t } = usePreferences();
+  const { language, setLanguage, theme, toggleTheme, t } = usePreferences();
 
   return (
     <div className={`preference-controls ${className}`}>
@@ -39,35 +38,44 @@ export function PreferenceControls({ className = "" }: { className?: string }) {
         </select>
       </label>
 
-      <label className="pref-theme-label">
-        <svg
-          className="pref-icon pref-theme-icon"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <circle cx="12" cy="12" r="10" />
-          <path d="M12 2v20" />
-          <path d="M12 2a10 10 0 0 1 0 20" fill="currentColor" opacity="0.15" />
-        </svg>
-        <select
-          className="pref-theme-select"
-          value={theme}
-          aria-label={t("preferences.themeToggle")}
-          onChange={(e) => setTheme(e.target.value as ThemeName)}
-        >
-          <option value="dark">{t("preferences.dark", "Dark")}</option>
-          <option value="light">{t("preferences.light", "Light")}</option>
-          <option value="warm">{t("preferences.warm", "Warm")}</option>
-          <option value="contrast">{t("preferences.contrast", "Contrast")}</option>
-        </select>
-      </label>
+      <button
+        type="button"
+        className="pref-theme-button"
+        title={t("preferences.themeToggle")}
+        aria-label={t("preferences.themeToggle")}
+        onClick={toggleTheme}
+      >
+        {theme === "dark" ? (
+          <svg
+            width="17"
+            height="17"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+          </svg>
+        ) : (
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+          </svg>
+        )}
+      </button>
     </div>
   );
 }

@@ -15,16 +15,16 @@ import {
 } from "../src/lib/theme.ts";
 
 assert.equal(DEFAULT_THEME, "dark");
-assert.deepEqual([...THEME_NAMES], ["dark", "light", "warm", "contrast"]);
+assert.deepEqual([...THEME_NAMES], ["dark", "light"]);
 assert.equal(normalizeTheme("dark"), "dark");
 assert.equal(normalizeTheme("light"), "light");
-assert.equal(normalizeTheme("warm"), "warm");
-assert.equal(normalizeTheme("contrast"), "contrast");
+assert.equal(normalizeTheme("warm"), "dark");
+assert.equal(normalizeTheme("contrast"), "dark");
 assert.equal(normalizeTheme("invalid"), "dark");
 
 assert.equal(readThemeCookie(`${THEME_COOKIE}=dark`), "dark");
 assert.equal(readThemeCookie(`${THEME_COOKIE}=light`), "light");
-assert.equal(readThemeCookie(`other=x; ${THEME_COOKIE}=contrast`), "contrast");
+assert.equal(readThemeCookie(`other=x; ${THEME_COOKIE}=contrast`), "dark");
 assert.equal(readThemeCookie(`${THEME_COOKIE}=invalid`), "dark");
 assert.equal(readThemeCookie(""), "dark");
 assert.equal(readThemeCookie("", "light"), "light");

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-const antiFoucScript = `(function(){try{var c=document.cookie;var tm=(c.match(/(?:^|;\\s*)webcad-theme=([^;]+)/)||[])[1];if(tm){var t=decodeURIComponent(tm);if(['dark','light','warm','contrast'].indexOf(t)!==-1){document.documentElement.dataset.theme=t;}}else{var lt=localStorage.getItem('webcad-landing-theme');if(lt&&['dark','light','warm','contrast'].indexOf(lt)!==-1){document.documentElement.dataset.theme=lt;}}var lm=(c.match(/(?:^|;\\s*)webcad-language=([^;]+)/)||[])[1]||(c.match(/(?:^|;\\s*)webcad-studio-language=([^;]+)/)||[])[1];if(lm){var l=decodeURIComponent(lm);if(['en','fa','ru'].indexOf(l)!==-1){document.documentElement.lang=l;document.documentElement.dir=l==='fa'?'rtl':'ltr';}}}catch(e){}})();`;
+const antiFoucScript = `(function(){try{var c=document.cookie;var tm=(c.match(/(?:^|;\\\\s*)webcad-theme=([^;]+)/)||[])[1];if(tm){var t=decodeURIComponent(tm);if(['dark','light'].indexOf(t)!==-1){document.documentElement.dataset.theme=t;}}else{var lt=localStorage.getItem('webcad-landing-theme');if(lt&&['dark','light'].indexOf(lt)!==-1){document.documentElement.dataset.theme=lt;}}var lm=(c.match(/(?:^|;\\\\s*)webcad-language=([^;]+)/)||[])[1]||(c.match(/(?:^|;\\\\s*)webcad-studio-language=([^;]+)/)||[])[1];if(lm){var l=decodeURIComponent(lm);if(['en','fa','ru'].indexOf(l)!==-1){document.documentElement.lang=l;document.documentElement.dir=l==='fa'?'rtl':'ltr';}}}catch(e){}})();`;
 
 export default function RootLayout({
   children,

@@ -1,7 +1,7 @@
 import { site } from "./site.ts";
 import { sharedCookieDomain } from "./localization.ts";
 
-export const THEME_NAMES = Object.freeze(["dark", "light", "warm", "contrast"] as const);
+export const THEME_NAMES = Object.freeze(["dark", "light"] as const);
 export type ThemeName = (typeof THEME_NAMES)[number];
 
 export const DEFAULT_THEME: ThemeName = "dark";

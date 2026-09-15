@@ -70,8 +70,6 @@ export type TranslationKey =
   | "preferences.themeToggle"
   | "preferences.dark"
   | "preferences.light"
-  | "preferences.warm"
-  | "preferences.contrast"
   | "preferences.english"
   | "preferences.persian"
   | "preferences.russian";
@@ -168,8 +166,6 @@ export const translations: Record<"en" | "fa" | "ru", Record<TranslationKey, str
     "preferences.themeToggle": "Theme",
     "preferences.dark": "Dark",
     "preferences.light": "Light",
-    "preferences.warm": "Warm",
-    "preferences.contrast": "Contrast",
     "preferences.english": "English",
     "preferences.persian": "فارسی",
     "preferences.russian": "Русский",
@@ -265,8 +261,6 @@ export const translations: Record<"en" | "fa" | "ru", Record<TranslationKey, str
     "preferences.themeToggle": "پوسته",
     "preferences.dark": "تیره",
     "preferences.light": "روشن",
-    "preferences.warm": "گرم",
-    "preferences.contrast": "کنتراست",
     "preferences.english": "English",
     "preferences.persian": "فارسی",
     "preferences.russian": "Русский",
@@ -362,8 +356,6 @@ export const translations: Record<"en" | "fa" | "ru", Record<TranslationKey, str
     "preferences.themeToggle": "Тема",
     "preferences.dark": "Тёмная",
     "preferences.light": "Светлая",
-    "preferences.warm": "Тёплая",
-    "preferences.contrast": "Контраст",
     "preferences.english": "English",
     "preferences.persian": "فارسی",
     "preferences.russian": "Русский",
