@@ -45,10 +45,8 @@ const PreferencesContext = createContext<PreferencesContextValue>({
 const subscribeLanguage = (callback: () => void) => {
   if (typeof window === "undefined") return () => {};
   window.addEventListener("languagechange", callback);
-  const unwatch = watchLanguageCookie();
   return () => {
     window.removeEventListener("languagechange", callback);
-    unwatch();
   };
 };
 
@@ -58,10 +56,8 @@ const getServerLanguageSnapshot = () => DEFAULT_LANGUAGE;
 const subscribeTheme = (callback: () => void) => {
   if (typeof window === "undefined") return () => {};
   window.addEventListener("themechange", callback);
-  const unwatch = watchThemeCookie();
   return () => {
     window.removeEventListener("themechange", callback);
-    unwatch();
   };
 };
 
@@ -69,6 +65,15 @@ const getThemeSnapshot = () => storedTheme();
 const getServerThemeSnapshot = () => DEFAULT_THEME;
 
 export function PreferencesProvider({ children }: { children: ReactNode }) {
+  React.useEffect(() => {
+    const unwatchTheme = watchThemeCookie();
+    const unwatchLang = watchLanguageCookie();
+    return () => {
+      unwatchTheme();
+      unwatchLang();
+    };
+  }, []);
+
   const language = useSyncExternalStore(
     subscribeLanguage,
     getLanguageSnapshot,
@@ -90,7 +95,10 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const toggleTheme = useCallback(() => {
-    const next = theme === "dark" ? "light" : "dark";
+    const current = typeof document !== "undefined" && document.documentElement.dataset.theme
+      ? (document.documentElement.dataset.theme as ThemeName)
+      : theme;
+    const next = current === "dark" ? "light" : "dark";
     applyTheme(next);
   }, [theme]);
 

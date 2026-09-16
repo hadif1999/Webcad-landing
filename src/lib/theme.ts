@@ -9,6 +9,22 @@ export const THEME_COOKIE = "webcad-theme";
 export const THEME_COOKIE_MAX_AGE = 365 * 24 * 60 * 60;
 export const LEGACY_THEME_STORAGE_KEY = "webcad-landing-theme";
 
+let lastLocalThemeWrite = 0;
+export const markLocalThemeWrite = () => {
+  lastLocalThemeWrite = Date.now();
+};
+
+const broadcastPreference = (type: "theme" | "language", value: string) => {
+  if (typeof window === "undefined" || typeof BroadcastChannel === "undefined") return;
+  try {
+    const ch = new BroadcastChannel("webcad_preferences");
+    ch.postMessage({ type, value });
+    ch.close();
+  } catch {
+    // Ignore BroadcastChannel errors in restricted contexts.
+  }
+};
+
 export const normalizeTheme = (theme: unknown): ThemeName => {
   if (typeof theme === "string" && (THEME_NAMES as readonly string[]).includes(theme)) {
     return theme as ThemeName;
@@ -18,16 +34,19 @@ export const normalizeTheme = (theme: unknown): ThemeName => {
 
 const themeCookieValue = (cookie: string): string | null => {
   const prefix = `${THEME_COOKIE}=`;
+  const matches: string[] = [];
   for (const part of String(cookie).split(";").map((item) => item.trim())) {
     if (!part.startsWith(prefix)) continue;
     try {
       const theme = decodeURIComponent(part.slice(prefix.length));
-      if ((THEME_NAMES as readonly string[]).includes(theme)) return theme;
+      if ((THEME_NAMES as readonly string[]).includes(theme)) {
+        matches.push(theme);
+      }
     } catch {
       // Ignore malformed duplicate cookies and keep looking for a valid value.
     }
   }
-  return null;
+  return matches.length > 0 ? matches[matches.length - 1] : null;
 };
 
 export const readThemeCookie = (cookie = "", fallback = DEFAULT_THEME): ThemeName =>
@@ -74,6 +93,7 @@ export const writeThemeCookie = (
     write?: (value: string) => void;
   } = {}
 ): ThemeName => {
+  markLocalThemeWrite();
   const normalized = normalizeTheme(theme);
   write(`${THEME_COOKIE}=; ${themeCookieAttributes({ secure, maxAge: 0 })}`);
   write(
@@ -109,15 +129,16 @@ export const applyTheme = (theme: string): ThemeName => {
   } catch {
     // Ignore storage issues.
   }
+  broadcastPreference("theme", next);
   if (typeof window !== "undefined") {
     window.dispatchEvent(new Event("themechange"));
   }
   return next;
 };
 
-const applyStoredThemeIfChanged = (): void => {
+const applyStoredThemeIfChanged = (explicitTheme?: string): void => {
   if (typeof document === "undefined") return;
-  const next = storedTheme();
+  const next = explicitTheme ? normalizeTheme(explicitTheme) : storedTheme();
   if (document.documentElement.dataset.theme === next) return;
   document.documentElement.dataset.theme = next;
   if (typeof window !== "undefined") {
@@ -132,6 +153,7 @@ export const watchThemeCookie = (): (() => void) => {
     if (document.visibilityState !== "hidden") applyStoredThemeIfChanged();
   };
   const onCookieChange = (event: Event) => {
+    if (Date.now() - lastLocalThemeWrite < 300) return;
     const cookieEvent = event as { changed?: Array<{ name: string }>; deleted?: Array<{ name: string }> };
     if (
       [...(cookieEvent.changed ?? []), ...(cookieEvent.deleted ?? [])].some(
@@ -142,13 +164,34 @@ export const watchThemeCookie = (): (() => void) => {
     }
   };
 
-  window.addEventListener("focus", applyStoredThemeIfChanged);
-  document.addEventListener("visibilitychange", onVisibilityChange);
+  let channel: BroadcastChannel | null = null;
+  try {
+    if (typeof BroadcastChannel !== "undefined") {
+      channel = new BroadcastChannel("webcad_preferences");
+      (channel as unknown as { unref?: () => void })?.unref?.();
+      channel.onmessage = (event) => {
+        if (event.data?.type === "theme" && typeof event.data.value === "string") {
+          applyStoredThemeIfChanged(event.data.value);
+        }
+      };
+    }
+  } catch {
+    // Ignore BroadcastChannel errors in unsupported contexts.
+  }
+
+  const onFocus = () => applyStoredThemeIfChanged();
+  window.addEventListener?.("focus", onFocus);
+  document.addEventListener?.("visibilitychange", onVisibilityChange);
   const cookieStoreObj = (window as unknown as { cookieStore?: EventTarget }).cookieStore;
-  cookieStoreObj?.addEventListener("change", onCookieChange as EventListener);
+  cookieStoreObj?.addEventListener?.("change", onCookieChange as EventListener);
   return () => {
-    window.removeEventListener("focus", applyStoredThemeIfChanged);
-    document.removeEventListener("visibilitychange", onVisibilityChange);
-    cookieStoreObj?.removeEventListener("change", onCookieChange as EventListener);
+    window.removeEventListener?.("focus", onFocus);
+    document.removeEventListener?.("visibilitychange", onVisibilityChange);
+    cookieStoreObj?.removeEventListener?.("change", onCookieChange as EventListener);
+    try {
+      channel?.close();
+    } catch {
+      // Ignore
+    }
   };
 };

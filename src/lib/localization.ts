@@ -8,6 +8,22 @@ export const LANGUAGE_COOKIE = "webcad-language";
 export const LEGACY_LANGUAGE_COOKIE = "webcad-studio-language";
 export const LANGUAGE_COOKIE_MAX_AGE = 365 * 24 * 60 * 60;
 
+let lastLocalLanguageWrite = 0;
+export const markLocalLanguageWrite = () => {
+  lastLocalLanguageWrite = Date.now();
+};
+
+const broadcastPreference = (type: "theme" | "language", value: string) => {
+  if (typeof window === "undefined" || typeof BroadcastChannel === "undefined") return;
+  try {
+    const ch = new BroadcastChannel("webcad_preferences");
+    ch.postMessage({ type, value });
+    ch.close();
+  } catch {
+    // Ignore BroadcastChannel errors in restricted contexts.
+  }
+};
+
 export const normalizeLanguage = (language: unknown): SupportedLanguage => {
   if (typeof language === "string" && (SUPPORTED_LANGUAGES as readonly string[]).includes(language)) {
     return language as SupportedLanguage;
@@ -30,10 +46,17 @@ export const sharedCookieDomain = (hostname?: string, peerHostname?: string): st
   }
   if (peerStr.endsWith(`.${ownStr}`)) return ownStr;
   if (ownStr.endsWith(`.${peerStr}`)) return peerStr;
-  if (own.length >= 2 && peer.length >= 2) {
-    const ownDomain = own.slice(-2).join(".");
-    const peerDomain = peer.slice(-2).join(".");
-    if (ownDomain === peerDomain) return ownDomain;
+  // Find longest common suffix of domain labels
+  const common: string[] = [];
+  let i = own.length - 1;
+  let j = peer.length - 1;
+  while (i >= 0 && j >= 0 && own[i] === peer[j]) {
+    common.unshift(own[i]);
+    i--;
+    j--;
+  }
+  if (common.length >= 2) {
+    return common.join(".");
   }
   return "";
 };
@@ -53,16 +76,17 @@ export const cookieAttributes = ({
 
 const cookieValue = (cookie: string, name: string): string | null => {
   const prefix = `${name}=`;
+  const matches: string[] = [];
   for (const part of cookie.split(";").map((item) => item.trim())) {
     if (!part.startsWith(prefix)) continue;
     try {
       const language = decodeURIComponent(part.slice(prefix.length));
-      if ((SUPPORTED_LANGUAGES as readonly string[]).includes(language)) return language;
+      if ((SUPPORTED_LANGUAGES as readonly string[]).includes(language)) matches.push(language);
     } catch {
       // Ignore malformed duplicate cookies.
     }
   }
-  return null;
+  return matches.length > 0 ? matches[matches.length - 1] : null;
 };
 
 export const readLanguageCookie = (cookie = ""): SupportedLanguage =>
@@ -100,6 +124,7 @@ export const writeLanguageCookie = (
     write?: (value: string) => void;
   } = {}
 ): SupportedLanguage => {
+  markLocalLanguageWrite();
   const normalized = normalizeLanguage(language);
   write(`${LEGACY_LANGUAGE_COOKIE}=; ${cookieAttributes({ secure, maxAge: 0 })}`);
   write(`${LANGUAGE_COOKIE}=; ${cookieAttributes({ secure, maxAge: 0 })}`);
@@ -109,6 +134,7 @@ export const writeLanguageCookie = (
       domain,
     })}`
   );
+  broadcastPreference("language", normalized);
   return normalized;
 };
 
@@ -124,15 +150,16 @@ export const applyLanguage = (language: string): SupportedLanguage => {
     document.documentElement.dir = languageDirection(next);
   }
   writeLanguageCookie(next, browserLanguageCookieOptions());
+  broadcastPreference("language", next);
   if (typeof window !== "undefined") {
     window.dispatchEvent(new Event("languagechange"));
   }
   return next;
 };
 
-const applyStoredLanguageIfChanged = (): void => {
+const applyStoredLanguageIfChanged = (explicitLanguage?: string): void => {
   if (typeof document === "undefined") return;
-  const next = storedLanguage();
+  const next = explicitLanguage ? normalizeLanguage(explicitLanguage) : storedLanguage();
   if (document.documentElement.lang === next) return;
   document.documentElement.lang = next;
   document.documentElement.dir = languageDirection(next);
@@ -147,6 +174,7 @@ export const watchLanguageCookie = (): (() => void) => {
     if (document.visibilityState !== "hidden") applyStoredLanguageIfChanged();
   };
   const onCookieChange = (event: Event) => {
+    if (Date.now() - lastLocalLanguageWrite < 300) return;
     const cookieEvent = event as { changed?: Array<{ name: string }>; deleted?: Array<{ name: string }> };
     if (
       [...(cookieEvent.changed ?? []), ...(cookieEvent.deleted ?? [])].some(
@@ -157,13 +185,34 @@ export const watchLanguageCookie = (): (() => void) => {
     }
   };
 
-  window.addEventListener("focus", applyStoredLanguageIfChanged);
-  document.addEventListener("visibilitychange", onVisibilityChange);
+  let channel: BroadcastChannel | null = null;
+  try {
+    if (typeof BroadcastChannel !== "undefined") {
+      channel = new BroadcastChannel("webcad_preferences");
+      (channel as unknown as { unref?: () => void })?.unref?.();
+      channel.onmessage = (event) => {
+        if (event.data?.type === "language" && typeof event.data.value === "string") {
+          applyStoredLanguageIfChanged(event.data.value);
+        }
+      };
+    }
+  } catch {
+    // Ignore BroadcastChannel errors in unsupported contexts.
+  }
+
+  const onFocus = () => applyStoredLanguageIfChanged();
+  window.addEventListener?.("focus", onFocus);
+  document.addEventListener?.("visibilitychange", onVisibilityChange);
   const cookieStoreObj = (window as unknown as { cookieStore?: EventTarget }).cookieStore;
-  cookieStoreObj?.addEventListener("change", onCookieChange as EventListener);
+  cookieStoreObj?.addEventListener?.("change", onCookieChange as EventListener);
   return () => {
-    window.removeEventListener("focus", applyStoredLanguageIfChanged);
-    document.removeEventListener("visibilitychange", onVisibilityChange);
-    cookieStoreObj?.removeEventListener("change", onCookieChange as EventListener);
+    window.removeEventListener?.("focus", onFocus);
+    document.removeEventListener?.("visibilitychange", onVisibilityChange);
+    cookieStoreObj?.removeEventListener?.("change", onCookieChange as EventListener);
+    try {
+      channel?.close();
+    } catch {
+      // Ignore
+    }
   };
 };
