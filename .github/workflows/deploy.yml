@@ -28,7 +28,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: ${{ github.event.workflow_run.head_sha }}
+          ref: ${{ github.event.workflow_run.head_sha || 'main' }}
 
       - name: Log in to GHCR
         uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
@@ -105,4 +105,4 @@ jobs:
             base_domain=$(sed -n 's/^WEBCAD_BASE_DOMAIN=//p' .env | tail -1)
             test -n "$base_domain"
             page=$(curl --max-time 20 -fsS "https://$base_domain/features/")
-            printf '%s' "$page" | grep -Fq "Built around"
+            printf '%s' "$page" | grep -Fq "Isometric mechanical bracket"
