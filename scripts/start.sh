@@ -12,8 +12,16 @@ if [[ -f "$PID_FILE" ]]; then
 fi
 cd "$ROOT"
 [[ -x node_modules/.bin/next ]] || corepack pnpm install --frozen-lockfile
-setsid node node_modules/next/dist/bin/next dev --hostname 127.0.0.1 --port 5557 >"$LOG_FILE" 2>&1 9>&- &
-pid=$!
+# setsid may fork when the shell is already a process group leader (common in
+# CI containers), making $! the dead wrapper PID instead of the node PID.
+# Use a FIFO to let the child report its own PID before exec-ing node.
+_pid_fifo="$RUN_DIR/.start-pid-$$"
+mkfifo "$_pid_fifo"
+(
+  setsid bash -c 'echo $$ >"'"$_pid_fifo"'"; exec node node_modules/next/dist/bin/next dev --hostname 127.0.0.1 --port 5557' >"$LOG_FILE" 2>&1 9>&-
+) &
+read -r pid < "$_pid_fifo"
+rm -f "$_pid_fifo"
 stamp="$(process_stamp "$pid")"
 printf '%s %s\n' "$pid" "$stamp" > "$PID_FILE"
 for _ in {1..30}; do
