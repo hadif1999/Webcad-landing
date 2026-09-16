@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
+trap 'echo "ERR at line $LINENO: $BASH_COMMAND (exit $?)" >&2' ERR
+[[ "${CI:-}" = "true" ]] && set -x
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 tmp="$(mktemp -d)"
 cleanup() {
