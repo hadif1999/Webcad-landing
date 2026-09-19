@@ -696,6 +696,15 @@
   .workflow-step:hover .workflow-number {
     filter: drop-shadow(0 2px 14px var(--accent-glow));
   }
+  .feature-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    margin-block: 1.25rem 0.5rem;
+  }
+  .feature-card-header h3 {
+    margin: 0;
+  }
   .feature-card h3 {
     @apply mt-6 mb-2;
   }
@@ -707,7 +716,7 @@
   .feature-icon {
     width: 2rem;
     height: 2rem;
-    margin-block-start: 1.5rem;
+    flex-shrink: 0;
     color: var(--color-accent);
   }
   .feature-card-spotlight {
@@ -715,12 +724,12 @@
     border-top-color: var(--accent-tint);
   }
   .feature-card-spotlight h3 {
-    max-width: 24ch;
+    max-width: 28ch;
     font-size: clamp(1.25rem, 2vw, 1.6rem);
   }
   .feature-card-compact { background: var(--color-surface); }
   .feature-card-compact .feature-icon { width: 1.5rem; height: 1.5rem; }
-  .feature-card-compact h3 { margin-block-start: 1rem; }
+  .feature-card-compact .feature-card-header { margin-block: 1rem 0.35rem; }
   .workflow-icon, .tier-icon {
     display: inline-grid;
     place-items: center;

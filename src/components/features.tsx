@@ -40,8 +40,10 @@ export function Features({ variant = "overview" }: { variant?: "overview" | "det
         {capabilities.map((capability, index) => (
           <article className={`panel feature-card${index < 4 ? " feature-card-spotlight" : " feature-card-compact"}`} key={capability.id}>
             <div className="feature-card-label"><span className="feature-number">{capability.number}</span><span className="feature-tag">{t(capability.labelKey)}</span></div>
-            <CapabilityIcon icon={capability.icon} />
-            <h3>{t(capability.titleKey)}</h3>
+            <div className="feature-card-header">
+              <CapabilityIcon icon={capability.icon} />
+              <h3>{t(capability.titleKey)}</h3>
+            </div>
             <p className="muted">{t(capability.summaryKey)}</p>
             {detailed && <p className="capability-detail">{t(capability.detailKey)}</p>}
           </article>
