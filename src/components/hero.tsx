@@ -60,11 +60,11 @@ export function Hero() {
           aria-label={t("a11y.workflow")}
         >
           <span className="hero-spec-item">{t("hero.specSketch")}</span>
-          <span className="hero-spec-divider">/</span>
+          <span className="hero-spec-divider" aria-hidden="true">→</span>
           <span className="hero-spec-item">{t("hero.specModel")}</span>
-          <span className="hero-spec-divider">/</span>
+          <span className="hero-spec-divider" aria-hidden="true">→</span>
           <span className="hero-spec-item">{t("hero.specRefine")}</span>
-          <span className="hero-spec-divider">/</span>
+          <span className="hero-spec-divider" aria-hidden="true">→</span>
           <span className="hero-spec-item">{t("hero.specHistory")}</span>
         </div>
       </section>

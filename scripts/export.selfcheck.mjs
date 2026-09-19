@@ -7,7 +7,7 @@ const site = publicConfig(process.env, true);
 const initialScripts = new Set();
 for (const [route, texts] of [
   ["", ["Parametric CAD,", "your browser.", "From sketch to next revision"]],
-  ["features/", ["Six capabilities", "Portable design data"]],
+  ["features/", ["Six capabilities", "Keep your design yours."]],
   ["pricing/", ["Start free. Find room to grow.", "Plan entitlement categories"]],
   ["login/", ["Welcome back", "Continue to Dashboard"]],
 ]) {

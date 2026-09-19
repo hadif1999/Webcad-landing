@@ -9,7 +9,7 @@ export function AssemblyScene() {
   return (
     <figure className="container product assembly-study">
       <div className="model-toolbar">
-        <span className="technical">WEBCAD / ASSEMBLY STUDY</span>
+        <span className="technical">WEBCAD → ASSEMBLY STUDY</span>
         <span className="technical muted">BEARING HOUSING — 002</span>
       </div>
       <div className="assembly-layout">
@@ -31,7 +31,7 @@ export function AssemblyScene() {
             ))}
             <div className="assembly-axis" />
           </div>
-          <span className="technical assembly-label">Z / ASSEMBLY AXIS</span>
+          <span className="technical assembly-label">Z → ASSEMBLY AXIS</span>
         </div>
         <fieldset className="assembly-controls">
           <legend>Inspect the assembly</legend>
@@ -49,7 +49,7 @@ export function AssemblyScene() {
       </div>
       <figcaption className="model-caption">
         <span><span className="status-dot" />One assembly. Three connected parts.</span>
-        <span className="muted">Illustrative model / not a CAD editor</span>
+        <span className="muted">Illustrative model → not a CAD editor</span>
       </figcaption>
     </figure>
   );

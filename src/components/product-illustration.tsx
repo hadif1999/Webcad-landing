@@ -2,7 +2,7 @@ export function ProductIllustration() {
   return (
     <figure className="container product">
       <div className="model-toolbar">
-        <span className="technical">WEBCAD / PARAMETRIC WORKBENCH</span>
+        <span className="technical">WEBCAD → PARAMETRIC WORKBENCH</span>
         <span className="technical muted">DESIGN STUDY — 001</span>
       </div>
       <div className="model-stage">
