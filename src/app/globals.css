@@ -698,25 +698,6 @@
     box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.35), inset 0 0 12px rgba(var(--accent-rgb), 0.2);
     transform: scale(1.06);
   }
-  .workflow-number {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: clamp(1.4rem, 2.2vw, 1.75rem);
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    font-variant-numeric: tabular-nums;
-    color: var(--color-accent);
-    background: var(--gradient-accent-text);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 2px 8px var(--accent-glow));
-    margin-block-end: 0.35rem;
-    transition: filter var(--duration-fast) var(--ease-standard);
-  }
-  .workflow-step:hover .workflow-number {
-    filter: drop-shadow(0 2px 14px var(--accent-glow));
-  }
   .feature-card-header {
     display: flex;
     align-items: center;
@@ -759,7 +740,6 @@
     color: var(--color-accent);
   }
   .workflow-icon svg, .tier-icon svg { width: 100%; height: 100%; }
-  .workflow-step h3 { margin-block-start: 0.35rem; }
 
   /* ── Workflow ───────────────────────────────────────────────────────────── */
   .workflow-layout {
@@ -767,18 +747,113 @@
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
   }
   .workflow-grid {
-    @apply grid grid-cols-2 gap-4 m-0 p-0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
     list-style: none;
+    position: relative;
   }
   .workflow-step {
     @apply p-5 flex gap-4;
+    position: relative;
     background: linear-gradient(180deg, color-mix(in srgb, var(--color-raised) 45%, transparent) 0%, var(--color-surface) 100%);
     border: 1px solid var(--color-line);
     border-top: 1px solid rgba(var(--accent-rgb), 0.3);
     border-radius: var(--radius-card);
   }
   .workflow-step h3 {
-    @apply mb-2;
+    margin: 0 0 0.35rem 0;
+  }
+  .workflow-loop-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9999px;
+    background: var(--color-surface);
+    border: 1.5px solid var(--accent-tint);
+    color: var(--accent-tint);
+    box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.3), 0 2px 6px rgba(0, 0, 0, 0.4);
+    position: absolute;
+    z-index: 10;
+    pointer-events: none;
+    transition: transform var(--duration-fast) var(--ease-standard),
+                box-shadow var(--duration-fast) var(--ease-standard);
+  }
+  .workflow-loop-arrow svg {
+    width: 1rem;
+    height: 1rem;
+  }
+  .workflow-step:hover .workflow-loop-arrow {
+    box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.55), 0 2px 8px rgba(0, 0, 0, 0.5);
+  }
+
+  @media (min-width: 48rem) {
+    .workflow-step[data-step="sketch"] {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .workflow-step[data-step="build"] {
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .workflow-step[data-step="refine"] {
+      grid-column: 2;
+      grid-row: 2;
+    }
+    .workflow-step[data-step="revisit"] {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .workflow-step[data-step="sketch"] .workflow-loop-arrow {
+      top: 50%;
+      right: -0.75rem;
+      transform: translate(50%, -50%) rotate(0deg);
+    }
+    .workflow-step[data-step="build"] .workflow-loop-arrow {
+      left: 50%;
+      bottom: -0.75rem;
+      transform: translate(-50%, 50%) rotate(90deg);
+    }
+    .workflow-step[data-step="refine"] .workflow-loop-arrow {
+      top: 50%;
+      left: -0.75rem;
+      transform: translate(-50%, -50%) rotate(180deg);
+    }
+    .workflow-step[data-step="revisit"] .workflow-loop-arrow {
+      left: 50%;
+      top: -0.75rem;
+      transform: translate(-50%, -50%) rotate(-90deg);
+    }
+
+    [dir="rtl"] .workflow-step[data-step="sketch"] .workflow-loop-arrow {
+      right: auto;
+      left: -0.75rem;
+      transform: translate(-50%, -50%) rotate(180deg);
+    }
+    [dir="rtl"] .workflow-step[data-step="refine"] .workflow-loop-arrow {
+      left: auto;
+      right: -0.75rem;
+      transform: translate(50%, -50%) rotate(0deg);
+    }
+  }
+
+  @media (max-width: 47.99rem) {
+    .workflow-grid {
+      gap: 2rem;
+    }
+    .workflow-step .workflow-loop-arrow {
+      bottom: -1rem;
+      left: 50%;
+      transform: translate(-50%, 50%) rotate(90deg);
+    }
+    .workflow-step[data-step="revisit"] .workflow-loop-arrow {
+      transform: translate(-50%, 50%) rotate(-90deg);
+    }
   }
 
   /* ── Pricing ───────────────────────────────────────────────────────────── */

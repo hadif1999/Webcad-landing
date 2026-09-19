@@ -60,7 +60,24 @@ export function Workflow() {
       <div className="workflow-layout">
         <SectionHeading label={t("workflow.eyebrow")} title={t("workflow.heading")}>{t("workflow.desc")}</SectionHeading>
         <ol className="workflow-grid">
-          {workflow.map((step) => <li className="panel workflow-step" key={step.id}><span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">{workflowIcons[step.id]}</svg></span><div><span className="workflow-number">{step.number}</span><h3>{t(step.titleKey)}</h3><p className="muted">{t(step.descriptionKey)}</p></div></li>)}
+          {workflow.map((step) => (
+            <li className="panel workflow-step" key={step.id} data-step={step.id}>
+              <span className="workflow-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  {workflowIcons[step.id]}
+                </svg>
+              </span>
+              <div>
+                <h3>{t(step.titleKey)}</h3>
+                <p className="muted">{t(step.descriptionKey)}</p>
+              </div>
+              <span className="workflow-loop-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M13 5l7 7-7 7" />
+                </svg>
+              </span>
+            </li>
+          ))}
         </ol>
       </div>
     </section>
