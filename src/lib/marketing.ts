@@ -12,12 +12,12 @@ export type MarketingCapability = {
 };
 
 export const capabilities = [
-  { id: "browser", number: "01", icon: "browser", labelKey: "features.browser.label", titleKey: "features.browser.title", summaryKey: "features.browser.summary", detailKey: "features.browser.detail" },
-  { id: "copilot", number: "02", icon: "copilot", labelKey: "features.copilot.label", titleKey: "features.copilot.title", summaryKey: "features.copilot.summary", detailKey: "features.copilot.detail" },
-  { id: "team", number: "03", icon: "team", labelKey: "features.team.label", titleKey: "features.team.title", summaryKey: "features.team.summary", detailKey: "features.team.detail" },
-  { id: "history", number: "04", icon: "history", labelKey: "features.history.label", titleKey: "features.history.title", summaryKey: "features.history.summary", detailKey: "features.history.detail" },
-  { id: "workbench", number: "05", icon: "workbench", labelKey: "features.workbench.label", titleKey: "features.workbench.title", summaryKey: "features.workbench.summary", detailKey: "features.workbench.detail" },
-  { id: "portable", number: "06", icon: "portable", labelKey: "features.portable.label", titleKey: "features.portable.title", summaryKey: "features.portable.summary", detailKey: "features.portable.detail" },
+  { id: "browser", number: "1", icon: "browser", labelKey: "features.browser.label", titleKey: "features.browser.title", summaryKey: "features.browser.summary", detailKey: "features.browser.detail" },
+  { id: "copilot", number: "2", icon: "copilot", labelKey: "features.copilot.label", titleKey: "features.copilot.title", summaryKey: "features.copilot.summary", detailKey: "features.copilot.detail" },
+  { id: "team", number: "3", icon: "team", labelKey: "features.team.label", titleKey: "features.team.title", summaryKey: "features.team.summary", detailKey: "features.team.detail" },
+  { id: "history", number: "4", icon: "history", labelKey: "features.history.label", titleKey: "features.history.title", summaryKey: "features.history.summary", detailKey: "features.history.detail" },
+  { id: "workbench", number: "5", icon: "workbench", labelKey: "features.workbench.label", titleKey: "features.workbench.title", summaryKey: "features.workbench.summary", detailKey: "features.workbench.detail" },
+  { id: "portable", number: "6", icon: "portable", labelKey: "features.portable.label", titleKey: "features.portable.title", summaryKey: "features.portable.summary", detailKey: "features.portable.detail" },
 ] as const satisfies readonly MarketingCapability[];
 
 export type WorkflowStep = { id: string; number: string; titleKey: TranslationKey; descriptionKey: TranslationKey };

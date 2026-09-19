@@ -672,9 +672,34 @@
   .feature-card:hover .feature-tag {
     text-shadow: 0 0 20px rgba(var(--accent-rgb), 0.6);
   }
-  .feature-number,
+  .feature-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(2.1rem, 2.5vw, 2.45rem);
+    height: clamp(2.1rem, 2.5vw, 2.45rem);
+    border-radius: 9999px;
+    border: 1.5px solid rgba(var(--accent-rgb), 0.35);
+    background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.12) 0%, rgba(var(--accent-rgb), 0.03) 100%);
+    box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.12), inset 0 0 8px rgba(var(--accent-rgb), 0.08);
+    font-family: var(--font-mono);
+    font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+    font-weight: 800;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: var(--accent-tint);
+    text-shadow: 0 0 8px rgba(var(--accent-rgb), 0.4);
+    transition: border-color var(--duration-fast) var(--ease-standard),
+                box-shadow var(--duration-fast) var(--ease-standard),
+                transform var(--duration-fast) var(--ease-standard);
+  }
+  .feature-card:hover .feature-number {
+    border-color: var(--accent-tint);
+    box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.35), inset 0 0 12px rgba(var(--accent-rgb), 0.2);
+    transform: scale(1.06);
+  }
   .workflow-number {
-    display: inline-block;
+    display: block;
     font-family: var(--font-mono);
     font-size: clamp(1.4rem, 2.2vw, 1.75rem);
     font-weight: 800;
@@ -686,13 +711,9 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 2px 8px var(--accent-glow));
+    margin-block-end: 0.35rem;
     transition: filter var(--duration-fast) var(--ease-standard);
   }
-  .workflow-number {
-    display: block;
-    margin-block-end: 0.35rem;
-  }
-  .feature-card:hover .feature-number,
   .workflow-step:hover .workflow-number {
     filter: drop-shadow(0 2px 14px var(--accent-glow));
   }
