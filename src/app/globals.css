@@ -662,6 +662,30 @@
   .feature-card-label .technical {
     color: var(--accent-tint);
   }
+  .feature-number,
+  .workflow-number {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: clamp(1.4rem, 2.2vw, 1.75rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-accent);
+    background: var(--gradient-accent-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 8px var(--accent-glow));
+    transition: filter var(--duration-fast) var(--ease-standard);
+  }
+  .workflow-number {
+    display: block;
+    margin-block-end: 0.35rem;
+  }
+  .feature-card:hover .feature-number,
+  .workflow-step:hover .workflow-number {
+    filter: drop-shadow(0 2px 14px var(--accent-glow));
+  }
   .feature-card h3 {
     @apply mt-6 mb-2;
   }
@@ -687,6 +711,15 @@
   .feature-card-compact { background: var(--color-surface); }
   .feature-card-compact .feature-icon { width: 1.5rem; height: 1.5rem; }
   .feature-card-compact h3 { margin-block-start: 1rem; }
+  .workflow-icon, .tier-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    color: var(--color-accent);
+  }
+  .workflow-icon svg, .tier-icon svg { width: 100%; height: 100%; }
+  .workflow-step h3 { margin-block-start: 0.35rem; }
 
   /* ── Workflow ───────────────────────────────────────────────────────────── */
   .workflow-layout {

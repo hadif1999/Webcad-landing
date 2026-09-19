@@ -14,6 +14,13 @@ const icons: Record<IconKey, ReactNode> = {
   portable: <><path d="M5 4h10l4 4v12H5zM15 4v5h4M8 14h8M8 17h5" /></>,
 };
 
+const workflowIcons: Record<string, ReactNode> = {
+  sketch: <><path d="m5 19 9.5-9.5" /><path d="m13 6 5 5M4 20l4-1 9-9-3-3-9 9z" /></>,
+  build: <><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z" /><path d="m4 7.5 8 4.5 8-4.5M12 12v9" /></>,
+  refine: <><path d="M4 18h16M6 14l3-3 3 2 5-6" /><path d="M17 7h2v2" /></>,
+  revisit: <><path d="M4 12a8 8 0 1 0 2.3-5.7" /><path d="M4 5v5h5M12 7v5l3 2" /></>,
+};
+
 function CapabilityIcon({ icon }: { icon: IconKey }) {
   return <svg className="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{icons[icon]}</svg>;
 }
@@ -32,7 +39,7 @@ export function Features({ variant = "overview" }: { variant?: "overview" | "det
       <div className={`feature-grid${detailed ? " feature-grid-detailed" : ""}`}>
         {capabilities.map((capability, index) => (
           <article className={`panel feature-card${index < 4 ? " feature-card-spotlight" : " feature-card-compact"}`} key={capability.id}>
-            <div className="feature-card-label"><span className="technical accent">{capability.number} /</span><span className="technical muted">{t(capability.labelKey)}</span></div>
+            <div className="feature-card-label"><span className="feature-number">{capability.number}</span><span className="technical muted">{t(capability.labelKey)}</span></div>
             <CapabilityIcon icon={capability.icon} />
             <h3>{t(capability.titleKey)}</h3>
             <p className="muted">{t(capability.summaryKey)}</p>
@@ -51,7 +58,7 @@ export function Workflow() {
       <div className="workflow-layout">
         <SectionHeading label={t("workflow.eyebrow")} title={t("workflow.heading")}>{t("workflow.desc")}</SectionHeading>
         <ol className="workflow-grid">
-          {workflow.map((step) => <li className="panel workflow-step" key={step.id}><span className="technical accent">{step.number}</span><div><h3>{t(step.titleKey)}</h3><p className="muted">{t(step.descriptionKey)}</p></div></li>)}
+          {workflow.map((step) => <li className="panel workflow-step" key={step.id}><span className="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">{workflowIcons[step.id]}</svg></span><div><span className="workflow-number">{step.number}</span><h3>{t(step.titleKey)}</h3><p className="muted">{t(step.descriptionKey)}</p></div></li>)}
         </ol>
       </div>
     </section>
