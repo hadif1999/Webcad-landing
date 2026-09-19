@@ -659,8 +659,18 @@
   .feature-card-label {
     @apply flex flex-wrap items-center justify-between gap-3;
   }
+  .feature-card-label .feature-tag,
   .feature-card-label .technical {
+    font-family: var(--font-mono);
+    font-size: clamp(0.9375rem, 0.9rem + 0.15vw, 1.0625rem);
+    font-weight: 700;
+    letter-spacing: 0.03em;
     color: var(--accent-tint);
+    text-shadow: 0 0 14px rgba(var(--accent-rgb), 0.35);
+    transition: text-shadow var(--duration-fast) var(--ease-standard);
+  }
+  .feature-card:hover .feature-tag {
+    text-shadow: 0 0 20px rgba(var(--accent-rgb), 0.6);
   }
   .feature-number,
   .workflow-number {
