@@ -747,9 +747,10 @@
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
   }
   .workflow-grid {
+    --workflow-gap: clamp(3.25rem, 4.5vw, 4rem);
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.5rem;
+    gap: var(--workflow-gap);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -811,43 +812,43 @@
 
     .workflow-step[data-step="sketch"] .workflow-loop-arrow {
       top: 50%;
-      right: -0.75rem;
+      right: calc(-1 * var(--workflow-gap) / 2);
       transform: translate(50%, -50%) rotate(0deg);
     }
     .workflow-step[data-step="build"] .workflow-loop-arrow {
       left: 50%;
-      bottom: -0.75rem;
+      bottom: calc(-1 * var(--workflow-gap) / 2);
       transform: translate(-50%, 50%) rotate(90deg);
     }
     .workflow-step[data-step="refine"] .workflow-loop-arrow {
       top: 50%;
-      left: -0.75rem;
+      left: calc(-1 * var(--workflow-gap) / 2);
       transform: translate(-50%, -50%) rotate(180deg);
     }
     .workflow-step[data-step="revisit"] .workflow-loop-arrow {
       left: 50%;
-      top: -0.75rem;
+      top: calc(-1 * var(--workflow-gap) / 2);
       transform: translate(-50%, -50%) rotate(-90deg);
     }
 
     [dir="rtl"] .workflow-step[data-step="sketch"] .workflow-loop-arrow {
       right: auto;
-      left: -0.75rem;
+      left: calc(-1 * var(--workflow-gap) / 2);
       transform: translate(-50%, -50%) rotate(180deg);
     }
     [dir="rtl"] .workflow-step[data-step="refine"] .workflow-loop-arrow {
       left: auto;
-      right: -0.75rem;
+      right: calc(-1 * var(--workflow-gap) / 2);
       transform: translate(50%, -50%) rotate(0deg);
     }
   }
 
   @media (max-width: 47.99rem) {
     .workflow-grid {
-      gap: 2rem;
+      gap: 3.5rem;
     }
     .workflow-step .workflow-loop-arrow {
-      bottom: -1rem;
+      bottom: calc(-1 * 3.5rem / 2);
       left: 50%;
       transform: translate(-50%, 50%) rotate(90deg);
     }
