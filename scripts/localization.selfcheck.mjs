@@ -13,6 +13,7 @@ import {
   writeLanguageCookie,
 } from "../src/lib/localization.ts";
 import { translations } from "../src/lib/translations.ts";
+import { capabilities, workflow, entitlementCategories, tiers } from "../src/lib/marketing.ts";
 
 assert.equal(DEFAULT_LANGUAGE, "en");
 assert.deepEqual([...SUPPORTED_LANGUAGES], ["en", "fa", "ru"]);
@@ -55,7 +56,7 @@ assert.deepEqual(writes, [
 
 const englishKeys = Object.keys(translations.en).sort();
 assert.ok(englishKeys.length > 20, "translation dictionary is populated");
-for (const language of ["fa", "ru"]) {
+for (const language of ["en", "fa", "ru"]) {
   const langKeys = Object.keys(translations[language]).sort();
   assert.deepEqual(langKeys, englishKeys, `keys for ${language} must match english`);
   for (const key of englishKeys) {
@@ -67,4 +68,21 @@ for (const language of ["fa", "ru"]) {
   }
 }
 
+// Structural records must resolve in every language; English fallback could
+// otherwise mask the original untranslated-card regression.
+for (const record of [...capabilities, ...workflow, ...entitlementCategories, ...tiers]) {
+  for (const [field, key] of Object.entries(record)) {
+    if (!field.endsWith("Key")) continue;
+    for (const language of SUPPORTED_LANGUAGES) {
+      assert.ok(translations[language][key]?.trim(), `${record.id}: missing ${language}:${key}`);
+    }
+  }
+}
+const sharedNames = new Set(["preferences.english", "preferences.persian", "preferences.russian", "pricing.tiers.pro.name"]);
+for (const language of ["fa", "ru"]) {
+  for (const key of englishKeys) {
+    if (sharedNames.has(key)) continue;
+    assert.notEqual(translations[language][key], translations.en[key], `${language}:${key} still uses English copy`);
+  }
+}
 console.log("landing localization self-check passed");

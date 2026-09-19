@@ -4,8 +4,8 @@ The source of truth is src/app/globals.css. Tailwind v4 exposes semantic tokens
 through @theme: canvas, surface, raised, ink, muted, line, action, action-hover,
 on-action, accent, focus, success, warning and danger. Components consume these
 names through utilities and CSS variables. Illustration pigments are confined to
-the SVG and are not UI tokens. Dark is local to Landing; no preference cookies
-are read or written.
+the SVG and are not UI tokens. Dark/light themes and English/Persian/Russian use the existing shared
+preference-cookie system. Landing never writes authentication/session cookies.
 
 Vazirmatn 400, 500 and 700 ships locally through @fontsource (including its OFL
 license). Use system monospace for short technical labels. The fluid display
@@ -15,8 +15,8 @@ line height; small technical labels are supplementary, never essential body copy
 Layout uses a 1200px maximum width, fluid 16–48px gutters, and a 4px spacing unit.
 Below 768px, cards and pricing stack, product history is decorative and hidden,
 and navigation uses a native details disclosure. From 768–1023px the layout uses
-two card columns with a smaller illustration sidebar. Desktop uses three columns
-for capability overviews, two for detailed capabilities, and a horizontal CTA.
+two card columns with a smaller illustration sidebar. Desktop uses two capability columns, three pricing guidance cards,
+and a horizontal CTA.
 Long labels wrap and buttons have at least 48px height.
 
 Reusable components:
@@ -39,21 +39,28 @@ and finite scene reveals of at most 1.4 seconds, disabled for
 prefers-reduced-motion. Focus is visible with a 2px light outline and 5px offset.
 A skip link, semantic header/main/footer, native disclosure and text link labels
 support keyboard use without hydration. Text on surfaces must retain WCAG AA
-contrast. No looping animation, canvas, pricing placeholders or simulated product UI.
+contrast. The existing decorative video hero is retained, with its reduced-motion fallback.
+New cards add no animation, canvas or simulated product UI. Placeholder proof is
+preview-only and disabled by default.
 
-Marketing content is centralized in `src/lib/marketing.ts`. Claims must describe
+Marketing text is centralized in `src/lib/translations.ts`, with complete English,
+Persian and Russian dictionaries. `src/lib/marketing.ts` owns typed key references,
+IDs, icons and presentation order. The first four capability cards have a spotlight
+style; cloud workbenches and portable data use compact supporting cards. Claims must describe
 implemented product behavior: ordered parametric modeling, account-backed cloud
 workbenches, durable changes and revisions, hosted AI assistance, authorized team
-projects, and portable workbench data. Dashboard remains authoritative for plan
-names, prices, limits, subscriptions and checkout. Do not add testimonials,
+projects, and portable workbench data. Free / Pro / Team cards are labelled workspace guidance with qualitative
+review checklists, not fixed feature inclusions. The editable backend catalogue
+has AI/revision allowances on Free and no fixed Team SKU. Dashboard remains
+authoritative for available names, features, prices, limits and checkout. Do not add testimonials,
 customer logos, usage metrics, simulation, cloud geometry processing or real-time
 co-editing claims without an approved source.
 
 
 ## Interactive assembly and motion (stages 5–6)
 
-`ProductExperience` wraps the server-rendered `ProductIllustration` on the home
-route. Its real button loads `AssemblyScene` only on request. Loading failures
+The optional `ProductExperience` component wraps a server-rendered
+`ProductIllustration`; the current home composition uses the video hero instead. Its real button loads `AssemblyScene` only on request. Loading failures
 keep the illustration and expose a retry; the same button returns to the static
 view. Without JavaScript the button is hidden, leaving the useful illustration.
 The features page keeps the lightweight SVG without loading the scene controller.
@@ -72,6 +79,25 @@ Unsupported scroll timelines fall back to static sections. Motion uses semantic
 duration/easing tokens; colors use the existing palette. The study is explicitly
 illustrative and does not simulate the authenticated CAD editor.
 
-Fonts now use only Latin WOFF2 at weights 400, 500 and 700, with `font-display:
-swap`; add appropriate subsets when introducing other languages. The source and
-OFL license remain in the pinned `@fontsource/vazirmatn` package.
+Fonts use local Latin WOFF2 weights 400/500/700 and Arabic-script 400/700
+for Persian; Russian uses the system fallback for Cyrillic. Keep the exported
+font total below 100 KiB and retain the OFL license from `@fontsource/vazirmatn`.
+
+## Moderate refresh
+
+`Features` renders six small decorative inline SVG glyphs; visible labels carry
+all meaning. Pricing cards use semantic accent/success tokens, wrap long labels,
+and stack below 768px. Logical spacing and inherited text direction support RTL
+without a separate layout. The Pro guidance card has the accent border.
+
+`PlaceholderProof` has one `SHOW_PLACEHOLDER_PROOF = false` switch. Its preview
+includes a translated warning badge, three neutral quote slots and a logo
+skeleton strip. Replace all placeholders with authorized material before any
+publication. The export self-check rejects this section when enabled.
+
+Home retains the video hero. The features page retains the static bracket SVG;
+this refresh does not change the optional assembly implementation or preference
+behavior. English content remains server-rendered; client components resolve the
+same translation keys after language selection. Metadata stays canonical English.
+
+Current verification and browser limitations are recorded in [README.md](../README.md).

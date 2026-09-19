@@ -1,26 +1,15 @@
 import { Pricing } from "@/components/pricing";
-import { ClosingCTA } from "@/components/layout";
+import { ClosingCTA, PageIntro } from "@/components/layout";
 import { pageMetadata } from "@/lib/site";
 export const metadata = pageMetadata(
-  "Pricing",
-  "Understand what WebCAD plans scale, then compare current prices and limits in Dashboard.",
+  "Free, Pro and Team plan guidance",
+  "Explore Free, Pro and Team workspace guidance, then compare available plans, current prices and limits in Dashboard.",
   "/pricing/"
 );
 export default function PricingPage() {
   return (
     <>
-      <section className="container page-intro">
-        <p className="eyebrow">Pricing</p>
-        <h1>
-          Plans that match
-          <br />
-          <span className="accent">the way you work.</span>
-        </h1>
-        <p className="hero-description">
-          Compare the workspace capacity each plan controls, then review the
-          live catalogue and your current subscription in Dashboard.
-        </p>
-      </section>
+      <PageIntro labelKey="page.pricing.eyebrow" titleKey="page.pricing.title" descriptionKey="page.pricing.desc" />
       <Pricing />
       <ClosingCTA />
     </>

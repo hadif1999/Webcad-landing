@@ -1,27 +1,16 @@
 import { Features, Workflow } from "@/components/features";
 import { ProductIllustration } from "@/components/product-illustration";
-import { ClosingCTA } from "@/components/layout";
+import { ClosingCTA, PageIntro } from "@/components/layout";
 import { pageMetadata } from "@/lib/site";
 export const metadata = pageMetadata(
-  "Features",
-  "Explore WebCAD parametric modeling, cloud workbenches, durable history, AI-assisted editing and team projects.",
+  "Browser CAD, AI copilot, teams and revision history",
+  "Explore browser parametric modeling, an AI copilot for parts, team collaboration, workbench revision history and portable design data.",
   "/features/"
 );
 export default function FeaturesPage() {
   return (
     <>
-      <section className="container page-intro">
-        <p className="eyebrow">The WebCAD workspace</p>
-        <h1>
-          Six capabilities.
-          <br />
-          <span className="accent">One design context.</span>
-        </h1>
-        <p className="hero-description">
-          Move from sketches to solids while the model, its project, its history
-          and its assisted changes stay connected.
-        </p>
-      </section>
+      <PageIntro labelKey="page.features.eyebrow" titleKey="page.features.title" descriptionKey="page.features.desc" />
       <Features variant="details" />
       <ProductIllustration />
       <Workflow />

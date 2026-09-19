@@ -6,14 +6,22 @@ import { gzipSync } from "node:zlib";
 const site = publicConfig(process.env, true);
 const initialScripts = new Set();
 for (const [route, texts] of [
-  ["", ["Parametric CAD for work", "A continuous workflow"]],
+  ["", ["Parametric CAD,", "your browser.", "From sketch to next revision"]],
   ["features/", ["Six capabilities", "Portable design data"]],
-  ["pricing/", ["Plans that match", "Plan entitlement categories"]],
+  ["pricing/", ["Start free. Find room to grow.", "Plan entitlement categories"]],
   ["login/", ["Welcome back", "Continue to Dashboard"]],
 ]) {
   const html = readFileSync(`out/${route}index.html`, "utf8");
   for (const text of texts) {
     assert.ok(html.includes(text), `missing useful HTML: ${route} / ${text}`);
+  }
+  if (route === "" || route === "pricing/") {
+    const staticHtml = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "");
+    for (const tier of ["Free", "Pro", "Team"]) {
+      assert.ok(staticHtml.includes(`<h3>${tier}</h3>`), `missing rendered tier ${tier}: ${route}`);
+    }
+    assert.equal((staticHtml.match(/class="panel tier-card/g) ?? []).length, 3, `tier count: ${route}`);
+    assert.ok(!staticHtml.includes('class="container section proof"'), "placeholder proof must stay disabled");
   }
   assert.ok(
     html.includes(`href="${site.site}/${route}"`),

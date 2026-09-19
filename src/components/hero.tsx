@@ -31,44 +31,41 @@ export function Hero() {
       <section className="container hero">
         <div className="hero-badge-row">
           <p className="eyebrow hero-pill">
-            <span className="status-dot" /> {t("hero.badge", "CAD, connected")}
+            <span className="status-dot" /> {t("hero.badge")}
           </p>
           <span className="technical hero-engine-tag">
-            {t("hero.engineTag", "BROWSER B-REP ENGINE")}
+            {t("hero.engineTag")}
           </span>
         </div>
         <h1 className="hero-title">
-          {t("hero.title", "Parametric CAD for work")}{" "}
+          {t("hero.title")}{" "}
           <br className="hero-title-break" />
-          {t("hero.titleBreak", "that")}{" "}
-          <span className="accent">{t("hero.titleAccent", "keeps moving.")}</span>
+          {t("hero.titleBreak")}{" "}
+          <span className="accent">{t("hero.titleAccent")}</span>
         </h1>
         <p className="hero-description">
-          {t(
-            "hero.description",
-            "Build precise models in your browser, keep cloud workbenches and revision history together, and use AI assistance when the next change is easier to describe than assemble."
-          )}
+          {t("hero.description")}
         </p>
         <div className="button-row">
           <ButtonLink href={site.signUp}>
-            {t("hero.startDesigning", "Start designing")}
+            {t("hero.startDesigning")}
           </ButtonLink>
           <ButtonLink href="/features/" variant="secondary">
-            {t("hero.exploreCapabilities", "Explore capabilities")}
+            {t("hero.exploreCapabilities")}
           </ButtonLink>
         </div>
 
         <div
           className="hero-specs-strip technical"
-          aria-label="Core modeling workflow"
+          aria-label={t("a11y.workflow")}
         >
-          <span className="hero-spec-item">{t("hero.specSketch", "SKETCH")}</span>
+          <span className="hero-spec-item">{t("hero.specSketch")}</span>
           <span className="hero-spec-divider">/</span>
-          <span className="hero-spec-item">{t("hero.specModel", "MODEL")}</span>
+          <span className="hero-spec-item">{t("hero.specModel")}</span>
           <span className="hero-spec-divider">/</span>
-          <span className="hero-spec-item">{t("hero.specRefine", "REFINE")}</span>
+          <span className="hero-spec-item">{t("hero.specRefine")}</span>
           <span className="hero-spec-divider">/</span>
-          <span className="hero-spec-item">{t("hero.specHistory", "PARAMETRIC HISTORY")}</span>
+          <span className="hero-spec-item">{t("hero.specHistory")}</span>
         </div>
       </section>
     </div>

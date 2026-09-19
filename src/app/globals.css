@@ -640,7 +640,7 @@
   /* ── Feature grid ──────────────────────────────────────────────────────── */
   .feature-grid {
     @apply grid gap-4 mt-10;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .feature-grid-detailed {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -670,6 +670,23 @@
     font-size: var(--text-small);
     line-height: 1.65;
   }
+  .feature-icon {
+    width: 2rem;
+    height: 2rem;
+    margin-block-start: 1.5rem;
+    color: var(--color-accent);
+  }
+  .feature-card-spotlight {
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    border-top-color: var(--accent-tint);
+  }
+  .feature-card-spotlight h3 {
+    max-width: 24ch;
+    font-size: clamp(1.25rem, 2vw, 1.6rem);
+  }
+  .feature-card-compact { background: var(--color-surface); }
+  .feature-card-compact .feature-icon { width: 1.5rem; height: 1.5rem; }
+  .feature-card-compact h3 { margin-block-start: 1rem; }
 
   /* ── Workflow ───────────────────────────────────────────────────────────── */
   .workflow-layout {
@@ -693,7 +710,50 @@
 
   /* ── Pricing ───────────────────────────────────────────────────────────── */
   .pricing-layout {
-    @apply grid grid-cols-2 gap-10 items-center;
+    @apply grid grid-cols-2 gap-10 items-center mt-10;
+  }
+  .tier-grid, .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-block-start: 2.5rem;
+  }
+  .tier-card {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.25rem, 2.5vw, 2rem);
+    min-width: 0;
+  }
+  .tier-card-recommended { border-color: var(--color-accent); }
+  .tier-heading { min-height: 10rem; }
+  .tier-heading h3 { font-size: var(--text-heading); }
+  .tier-heading p { margin-block-start: 0.75rem; }
+  .tier-checklist { list-style: none; padding: 0; margin-block: 1.5rem 2rem; }
+  .tier-checklist li {
+    display: flex;
+    gap: 0.75rem;
+    padding-block: 0.85rem;
+    border-top: 1px solid var(--color-line);
+  }
+  .tier-check { color: var(--color-success); }
+  .tier-checklist p { font-size: var(--text-small); }
+  .tier-card > .button { margin-block-start: auto; }
+  .proof-badge {
+    display: inline-block;
+    padding: 0.75rem 1rem;
+    margin-block-end: 1.5rem;
+    border: 1px dashed var(--color-warning);
+    color: var(--color-ink);
+    background: var(--color-surface);
+  }
+  .proof-slot { padding: 2rem; border-style: dashed; }
+  .proof-logos { display: flex; flex-wrap: wrap; gap: 1rem; margin-block-start: 1.5rem; }
+  .proof-logos span {
+    flex: 1 1 10rem;
+    padding: 1rem;
+    border: 1px dashed var(--color-line);
+    text-align: center;
+    color: var(--color-muted);
   }
   .pricing-card {
     @apply p-7;
@@ -911,6 +971,8 @@
   .feature-grid,
   .feature-grid-detailed,
   .pricing-layout,
+  .tier-grid,
+  .proof-grid,
   .workflow-grid,
   .entitlement-grid {
     grid-template-columns: 1fr;
@@ -920,6 +982,7 @@
   .cta {
     padding: 1.25rem;
   }
+  .tier-heading { min-height: 0; }
   .model-stage {
     grid-template-columns: 1fr;
   }

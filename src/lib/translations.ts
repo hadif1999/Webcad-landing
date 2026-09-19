@@ -1,363 +1,397 @@
-export type TranslationKey =
-  | "nav.features"
-  | "nav.pricing"
-  | "nav.contact"
-  | "nav.startDesigning"
-  | "nav.signIn"
-  | "nav.openProjects"
-  | "hero.badge"
-  | "hero.engineTag"
-  | "hero.title"
-  | "hero.titleBreak"
-  | "hero.titleAccent"
-  | "hero.description"
-  | "hero.startDesigning"
-  | "hero.exploreCapabilities"
-  | "hero.specs"
-  | "hero.specSketch"
-  | "hero.specModel"
-  | "hero.specRefine"
-  | "hero.specHistory"
-  | "features.eyebrow"
-  | "features.heading"
-  | "features.overviewEyebrow"
-  | "features.overviewHeading"
-  | "features.overviewDesc"
-  | "features.detailsHeading"
-  | "features.detailsDesc"
-  | "features.brepTitle"
-  | "features.brepDesc"
-  | "features.cloudTitle"
-  | "features.cloudDesc"
-  | "features.aiTitle"
-  | "features.aiDesc"
-  | "features.portableTitle"
-  | "features.portableDesc"
-  | "features.revisionsTitle"
-  | "features.revisionsDesc"
-  | "features.collabTitle"
-  | "features.collabDesc"
-  | "workflow.eyebrow"
-  | "workflow.heading"
-  | "workflow.desc"
-  | "workflow.step1"
-  | "workflow.step1Desc"
-  | "workflow.step2"
-  | "workflow.step2Desc"
-  | "workflow.step3"
-  | "workflow.step3Desc"
-  | "pricing.eyebrow"
-  | "pricing.heading"
-  | "pricing.seeDashboard"
-  | "pricing.catalogueLabel"
-  | "pricing.comparePlans"
-  | "pricing.catalogueDesc"
-  | "pricing.planCaption"
-  | "pricing.entitlementLabel"
-  | "pricing.freeTitle"
-  | "pricing.freeDesc"
-  | "pricing.proTitle"
-  | "pricing.proDesc"
-  | "pricing.teamTitle"
-  | "pricing.teamDesc"
-  | "cta.eyebrow"
-  | "cta.heading"
-  | "cta.description"
-  | "cta.button"
-  | "footer.desc"
-  | "footer.copyright"
-  | "preferences.language"
-  | "preferences.themeToggle"
-  | "preferences.dark"
-  | "preferences.light"
-  | "preferences.english"
-  | "preferences.persian"
-  | "preferences.russian";
+const en = {
+  "nav.features": "Features",
+  "nav.pricing": "Pricing",
+  "nav.contact": "Contact",
+  "nav.startDesigning": "Start designing",
+  "nav.signIn": "Sign in",
+  "nav.openProjects": "Open your projects",
+  "hero.badge": "CAD, connected",
+  "hero.engineTag": "DESIGN / COLLABORATE / REVISIT",
+  "hero.title": "Parametric CAD,",
+  "hero.titleBreak": "right in",
+  "hero.titleAccent": "your browser.",
+  "hero.description": "Model parts in your browser, get help from an AI copilot, collaborate in team projects, and track each workbench with revision history and version control.",
+  "hero.startDesigning": "Start designing",
+  "hero.exploreCapabilities": "Explore capabilities",
+  "hero.specSketch": "SKETCH",
+  "hero.specModel": "MODEL",
+  "hero.specRefine": "REFINE",
+  "hero.specHistory": "REVISION HISTORY",
+  "features.eyebrow": "Six capabilities",
+  "features.overviewEyebrow": "Built around your workbench",
+  "features.overviewHeading": "Keep the design moving.",
+  "features.overviewDesc": "Browser CAD, an AI copilot, team projects and revision history lead a workflow that stays connected from first sketch to next version.",
+  "features.detailsHeading": "One model. A complete working context.",
+  "features.detailsDesc": "Model a part, discuss its next change, share project access and revisit earlier decisions—all within a connected design workflow.",
+  "features.browser.label": "Browser parametric modeling",
+  "features.browser.title": "Shape parts with a history you can follow.",
+  "features.browser.summary": "Create parametric parts in the browser with operations that preserve design intent.",
+  "features.browser.detail": "Ordered features remain understandable as dimensions and operations change, so the model can keep evolving without losing its structure.",
+  "features.copilot.label": "AI copilot for parts",
+  "features.copilot.title": "Describe the next modeling change.",
+  "features.copilot.summary": "Use hosted AI assistance when explaining a part change is easier than assembling it step by step.",
+  "features.copilot.detail": "The copilot works with the same validated workbench model, using the AI-prompt allowance available on your current plan.",
+  "features.team.label": "Team collaboration",
+  "features.team.title": "Bring the right people into your project.",
+  "features.team.summary": "Share project access with your team when the project owner’s plan includes team mode.",
+  "features.team.detail": "Owners, editors and viewers work through project membership, keeping access inside the workspace they are authorized to use.",
+  "features.history.label": "History & version control",
+  "features.history.title": "Revisit the versions that matter.",
+  "features.history.summary": "Keep durable changes and named revisions together for each workbench.",
+  "features.history.detail": "Restoring an earlier revision creates a new forward-moving change, preserving the history that led there.",
+  "features.workbench.label": "Cloud workbenches",
+  "features.workbench.title": "Keep projects and workbenches connected.",
+  "features.workbench.summary": "Organize your CAD documents inside projects and pick up where you left off through Dashboard.",
+  "features.workbench.detail": "Account-backed workbenches keep documents, assets and project context together in the cloud.",
+  "features.portable.label": "Portable design data",
+  "features.portable.title": "Portable design data. Yours to take.",
+  "features.portable.summary": "Bring external assets into a workbench and take a portable document with you when needed.",
+  "features.portable.detail": "Portable exports carry workbench data beyond the cloud workspace, while referenced source assets remain recoverable.",
+  "workflow.eyebrow": "From sketch to next revision",
+  "workflow.heading": "Move forward without losing context.",
+  "workflow.desc": "The workbench keeps modeling, assistance, collaboration and history centered on the design.",
+  "workflow.step1": "Sketch",
+  "workflow.step1Desc": "Start with profiles, parameters and design intent.",
+  "workflow.step2": "Build",
+  "workflow.step2Desc": "Turn those inputs into an ordered parametric history.",
+  "workflow.step3": "Refine",
+  "workflow.step3Desc": "Adjust the model directly or ask the copilot for help with the next change.",
+  "workflow.step4": "Revisit",
+  "workflow.step4Desc": "Use durable changes and revisions to continue with the context you built.",
+  "pricing.eyebrow": "Plans & access",
+  "pricing.heading": "Choose the capacity your work needs.",
+  "pricing.catalogueLabel": "CURRENT CATALOGUE / DASHBOARD",
+  "pricing.comparePlans": "Compare plan categories",
+  "pricing.catalogueDesc": "Plans scale the workspace around the same design process. Dashboard is the source of truth for current names, prices and limits.",
+  "pricing.seeDashboard": "See current plans in Dashboard",
+  "pricing.planCaption": "Plan selection and checkout take place in Dashboard.",
+  "pricing.entitlementLabel": "Plan entitlement categories",
+  "pricing.tierCta": "Review in Dashboard",
+  "pricing.tiers.free.name": "Free",
+  "pricing.tiers.free.positioning": "Explore browser CAD with a personal project.",
+  "pricing.tiers.pro.name": "Pro",
+  "pricing.tiers.pro.positioning": "Make room for regular design work and assisted changes.",
+  "pricing.tiers.team.name": "Team",
+  "pricing.tiers.team.positioning": "Plan a shared workspace around project membership.",
+  "pricing.recommended": "Recommended for regular design",
+  "pricing.entitlements.projects.title": "Projects",
+  "pricing.entitlements.projects.desc": "Design spaces an account can own.",
+  "pricing.entitlements.workbenches.title": "Workbenches",
+  "pricing.entitlements.workbenches.desc": "CAD documents available inside each project.",
+  "pricing.entitlements.ai.title": "AI prompts",
+  "pricing.entitlements.ai.desc": "Hosted assistant turns available per plan period for each workbench and user.",
+  "pricing.entitlements.revisions.title": "Revisions",
+  "pricing.entitlements.revisions.desc": "Named workbench versions retained as durable bookmarks.",
+  "pricing.entitlements.team.title": "Team mode",
+  "pricing.entitlements.team.desc": "Whether a project owner can add other members.",
+  "cta.eyebrow": "Ready when you are",
+  "cta.heading": "Your next part starts in the browser.",
+  "cta.description": "Free to start. Create an account, open a workbench and build from your first sketch.",
+  "cta.button": "Start designing",
+  "footer.desc": "Parametric CAD, an AI copilot, team projects and workbench revisions. Free to start, in your browser.",
+  "page.features.eyebrow": "The WebCAD workspace",
+  "page.features.title": "Six capabilities. One design context.",
+  "page.features.desc": "Move from sketches to parts while the model, its project, its history and its assisted changes stay connected.",
+  "page.pricing.eyebrow": "Pricing",
+  "page.pricing.title": "Start free. Find room to grow.",
+  "page.pricing.desc": "Compare the workspace capacity each tier controls, then review the live catalogue and your current subscription in Dashboard.",
+  "proof.badge": "PLACEHOLDER — not for production",
+  "proof.eyebrow": "Customer stories · preview only",
+  "proof.heading": "Reserved for real engineering stories.",
+  "proof.quote1": "Customer quote placeholder.",
+  "proof.quote2": "Customer quote placeholder.",
+  "proof.quote3": "Customer quote placeholder.",
+  "proof.logo": "Logo placeholder",
+  "preferences.language": "Language",
+  "preferences.themeToggle": "Theme",
+  "preferences.dark": "Dark",
+  "preferences.light": "Light",
+  "preferences.english": "English",
+  "preferences.persian": "فارسی",
+  "preferences.russian": "Русский",
+  "pricing.guidance": "Free, Pro and Team describe ways to work—not a live catalogue. Confirm available plans, included features and allowances in Dashboard.",
+  "pricing.rows.personal": "Personal design spaces",
+  "pricing.rows.regular": "Ongoing design projects",
+  "pricing.rows.shared": "Shared project spaces",
+  "pricing.rows.starter": "Explore the starting allowance",
+  "pricing.rows.capacity": "Compare capacity for regular work",
+  "pricing.rows.teamCapacity": "Review capacity for your project",
+  "pricing.rows.ai": "Review the prompt allowance",
+  "pricing.rows.revisions": "Compare revision retention",
+  "pricing.rows.team": "Confirm member access in Dashboard",
+  "a11y.home": "WebCAD home",
+  "a11y.nav": "Main navigation",
+  "a11y.mobileNav": "Mobile navigation",
+  "a11y.menu": "Toggle navigation menu",
+  "a11y.footer": "Footer navigation",
+  "a11y.workflow": "Core modeling workflow",
+  "pricing.checklist": "What to review",
+  "pricing.handoffDesc": "Open the live catalogue to compare current terms and choose the plan that fits your work."
+} as const;
 
-export const translations: Record<"en" | "fa" | "ru", Record<TranslationKey, string>> = {
-  en: {
-    "nav.features": "Features",
-    "nav.pricing": "Pricing",
-    "nav.contact": "Contact",
-    "nav.startDesigning": "Start designing",
-    "nav.signIn": "Sign in",
-    "nav.openProjects": "Open your projects",
-    "hero.badge": "CAD, connected",
-    "hero.engineTag": "BROWSER B-REP ENGINE",
-    "hero.title": "Parametric CAD for work",
-    "hero.titleBreak": "that",
-    "hero.titleAccent": "keeps moving.",
-    "hero.description":
-      "Build precise models in your browser, keep cloud workbenches and revision history together, and use AI assistance when the next change is easier to describe than assemble.",
-    "hero.startDesigning": "Start designing",
-    "hero.exploreCapabilities": "Explore capabilities",
-    "hero.specs": "SKETCH / MODEL / REFINE / PARAMETRIC HISTORY",
-    "hero.specSketch": "SKETCH",
-    "hero.specModel": "MODEL",
-    "hero.specRefine": "REFINE",
-    "hero.specHistory": "PARAMETRIC HISTORY",
-    "features.eyebrow": "Six capabilities",
-    "features.heading": "Built for real engineering workflow",
-    "features.overviewEyebrow": "Built for the process",
-    "features.overviewHeading": "Keep the design moving.",
-    "features.overviewDesc":
-      "From the first sketch to the version you return to, each capability supports the same workbench.",
-    "features.detailsHeading": "One model. A complete working context.",
-    "features.detailsDesc":
-      "WebCAD connects modeling, durable cloud work and assisted editing without turning the landing into a second product interface.",
-    "features.brepTitle": "Parametric B-Rep in the browser",
-    "features.brepDesc":
-      "Extrude, revolve, loft, fillet and boolean with precise boundary representation geometry executed in WebAssembly.",
-    "features.cloudTitle": "Cloud workbenches",
-    "features.cloudDesc":
-      "Every part is backed by durable cloud storage with instantaneous load times and secure project workspaces.",
-    "features.aiTitle": "AI design assistant",
-    "features.aiDesc":
-      "Describe modifications or new features in natural language and watch the model update step by step.",
-    "features.portableTitle": "Portable design data",
-    "features.portableDesc":
-      "Export to STEP, STL, and standard formats without vendor lock-in or proprietary walls.",
-    "features.revisionsTitle": "Revision bookmarks",
-    "features.revisionsDesc":
-      "Named version checkpoints with visual thumbnails make rollbacks and design exploration effortless.",
-    "features.collabTitle": "Team collaboration",
-    "features.collabDesc":
-      "Invite team members, assign permissions, and share workbench access across your organization.",
-    "workflow.eyebrow": "A continuous workflow",
-    "workflow.heading": "From initial sketch to manufacturing-ready part",
-    "workflow.desc":
-      "The workbench keeps modeling, assistance and history centered on the design rather than on disconnected files.",
-    "workflow.step1": "1. Constrained Sketching",
-    "workflow.step1Desc":
-      "Draft parametric sketches with dimensional constraints and geometric relationships.",
-    "workflow.step2": "2. Feature Tree Modeling",
-    "workflow.step2Desc":
-      "Build 3D solids through an ordered, editable history of parametric operations.",
-    "workflow.step3": "3. Verify & Export",
-    "workflow.step3Desc":
-      "Inspect measurements, check topology, and download clean STEP/STL assets.",
-    "pricing.eyebrow": "Plans that match your momentum",
-    "pricing.heading": "Start free, scale with your team",
-    "pricing.seeDashboard": "See current plans in Dashboard",
-    "pricing.catalogueLabel": "CURRENT CATALOGUE / DASHBOARD",
-    "pricing.comparePlans": "Compare current plans",
-    "pricing.catalogueDesc":
-      "Sign in to see the live catalogue, review your subscription and choose an available upgrade with its current terms in view.",
-    "pricing.planCaption": "Plan selection and checkout take place in Dashboard.",
-    "pricing.entitlementLabel": "Plan entitlement categories",
-    "pricing.freeTitle": "Free",
-    "pricing.freeDesc":
-      "Essential parametric CAD for individual makers and personal projects.",
-    "pricing.proTitle": "Pro",
-    "pricing.proDesc":
-      "Unlimited workbenches, advanced AI assistance, and high-frequency revisions.",
-    "pricing.teamTitle": "Team",
-    "pricing.teamDesc":
-      "Organization workspaces, member management, and dedicated capacity.",
-    "cta.eyebrow": "Ready when you are",
-    "cta.heading": "Ready to build without installation?",
-    "cta.description":
-      "Open WebCAD in any modern browser and start modeling in seconds.",
-    "cta.button": "Create your account",
-    "footer.desc":
-      "Browser-based parametric CAD with cloud workbenches, durable history and AI-assisted editing.",
-    "footer.copyright": "WebCAD. Modern parametric CAD in the browser.",
-    "preferences.language": "Language",
-    "preferences.themeToggle": "Theme",
-    "preferences.dark": "Dark",
-    "preferences.light": "Light",
-    "preferences.english": "English",
-    "preferences.persian": "فارسی",
-    "preferences.russian": "Русский",
-  },
-  fa: {
-    "nav.features": "ویژگی‌ها",
-    "nav.pricing": "قیمت‌گذاری",
-    "nav.contact": "تماس",
-    "nav.startDesigning": "شروع طراحی",
-    "nav.signIn": "ورود",
-    "nav.openProjects": "باز کردن پروژه‌ها",
-    "hero.badge": "طراحی مهندسی، متصل و یکپارچه",
-    "hero.engineTag": "موتور B-REP تحت مرورگر",
-    "hero.title": "طراحی پارامتریک برای کارهایی",
-    "hero.titleBreak": "که",
-    "hero.titleAccent": "در حرکت‌اند.",
-    "hero.description":
-      "مدل‌های دقیق را در مرورگر خود بسازید، میزکارهای ابری و تاریخچه نسخه‌ها را یکپارچه نگه دارید و هر زمان که توصیف تغییر بعدی ساده‌تر از ساخت آن است از دستیار هوش مصنوعی بهره بگیرید.",
-    "hero.startDesigning": "شروع طراحی",
-    "hero.exploreCapabilities": "مشاهده قابلیت‌ها",
-    "hero.specs": "طرح دوبعدی / مدلسازی / اصلاح / تاریخچه پارامتریک",
-    "hero.specSketch": "طرح دوبعدی",
-    "hero.specModel": "مدلسازی",
-    "hero.specRefine": "اصلاح",
-    "hero.specHistory": "تاریخچه پارامتریک",
-    "features.eyebrow": "شش قابلیت کلیدی",
-    "features.heading": "طراحی‌شده برای فرآیندهای واقعی مهندسی",
-    "features.overviewEyebrow": "طراحی‌شده برای فرآیند",
-    "features.overviewHeading": "طراحی را در حرکت نگه دارید.",
-    "features.overviewDesc":
-      "از اولین طرح تا نسخه‌ای که به آن بازمی‌گردید، هر قابلیت از همان میزکار پشتیبانی می‌کند.",
-    "features.detailsHeading": "یک مدل. یک زمینه کاری کامل.",
-    "features.detailsDesc":
-      "وب‌کد مدلسازی، کار ابری پایدار و ویرایش هوشمند را بدون تبدیل صفحه به رابط محصول دوم متصل می‌کند.",
-    "features.brepTitle": "هندسه B-Rep پارامتریک در مرورگر",
-    "features.brepDesc":
-      "اکسترود، چرخش، لافت، فیلت و عملیات بولی با هندسه دقیق مبتنی بر وب‌اسمبلی.",
-    "features.cloudTitle": "میزکارهای ابری",
-    "features.cloudDesc":
-      "هر قطعه توسط ذخیره‌سازی ابری پایدار با بارگذاری آنی و پروژه‌های امن پشتیبانی می‌شود.",
-    "features.aiTitle": "دستیار هوشمند طراحی",
-    "features.aiDesc":
-      "تغییرات یا ویژگی‌های جدید را به زبان طبیعی توصیف کنید و به‌روزرسانی گام‌به‌گام مدل را مشاهده نمایید.",
-    "features.portableTitle": "داده‌های طراحی قابل انتقال",
-    "features.portableDesc":
-      "خروجی به قالب‌های استاندارد STEP و STL بدون محدودیت مالکیت پلتفرم یا قفل نرم‌افزاری.",
-    "features.revisionsTitle": "نشانه‌گذاری نسخه‌ها",
-    "features.revisionsDesc":
-      "نقاط عطف نام‌گذاری‌شده همراه با پیش‌نمایش بصری برای بازگشت و مقایسه آسان تغییرات.",
-    "features.collabTitle": "همکاری تیمی",
-    "features.collabDesc":
-      "دعوت از اعضای تیم، تعیین سطوح دسترسی و اشتراک‌گذاری امن پروژه‌ها در سراسر سازمان.",
-    "workflow.eyebrow": "یک جریان کاری پیوسته",
-    "workflow.heading": "از طرح اولیه تا قطعه آماده ساخت",
-    "workflow.desc":
-      "میزکار، مدلسازی، دستیاری و تاریخچه را حول طراحی متمرکز نگه می‌دارد، نه فایل‌های جداگانه.",
-    "workflow.step1": "۱. طرح دوبعدی مقید",
-    "workflow.step1Desc":
-      "ترسیم اسکچ‌های پارامتریک با قیدهای ابعادی و روابط هندسی دقیق.",
-    "workflow.step2": "۲. مدلسازی با درخت ویژگی‌ها",
-    "workflow.step2Desc":
-      "ساخت حجم سه‌بعدی از طریق تاریخچه منظم، منسجم و قابل ویرایش دستورها.",
-    "workflow.step3": "۳. اعتبارسنجی و استخراج",
-    "workflow.step3Desc":
-      "بررسی ابعاد، سنجش صحت توپولوژی و دانلود فایل‌های استاندارد STEP و STL.",
-    "pricing.eyebrow": "پلن‌های متناسب با نیاز شما",
-    "pricing.heading": "رایگان شروع کنید، با تیم خود رشد کنید",
-    "pricing.seeDashboard": "مشاهده پلن‌های جاری در داشبورد",
-    "pricing.catalogueLabel": "کاتالوگ جاری / داشبورد",
-    "pricing.comparePlans": "مقایسه پلن‌های فعلی",
-    "pricing.catalogueDesc":
-      "وارد شوید تا کاتالوگ زنده را ببینید، اشتراک خود را بررسی کنید و ارتقاء موجود را با شرایط فعلی انتخاب نمایید.",
-    "pricing.planCaption": "انتخاب و پرداخت پلن در داشبورد انجام می‌شود.",
-    "pricing.entitlementLabel": "دسته‌بندی امکانات پلن‌ها",
-    "pricing.freeTitle": "رایگان",
-    "pricing.freeDesc":
-      "امکانات ضروری مدلسازی پارامتریک برای سازندگان و پروژه‌های فردی.",
-    "pricing.proTitle": "حرفه‌ای",
-    "pricing.proDesc":
-      "میزکارهای نامحدود، هوش مصنوعی پیشرفته و تاریخچه نسخه‌های نامحدود.",
-    "pricing.teamTitle": "تیمی",
-    "pricing.teamDesc":
-      "فضای اختصاصی سازمانی، مدیریت دسترسی کاربران و ظرفیت پردازش اختصاصی.",
-    "cta.eyebrow": "هر زمان آماده باشید",
-    "cta.heading": "آماده ساخت بدون نیاز به نصب نرم‌افزار هستید؟",
-    "cta.description":
-      "وب‌کد را در هر مرورگر مدرنی باز کنید و در چند ثانیه مدلسازی را آغاز نمایید.",
-    "cta.button": "ساخت حساب کاربری",
-    "footer.desc":
-      "مدلسازی پارامتریک مبتنی بر مرورگر همراه با میزکارهای ابری، تاریخچه پایدار و هوش مصنوعی.",
-    "footer.copyright": "وب‌کد. مدلسازی نوین پارامتریک در بستر وب.",
-    "preferences.language": "زبان",
-    "preferences.themeToggle": "پوسته",
-    "preferences.dark": "تیره",
-    "preferences.light": "روشن",
-    "preferences.english": "English",
-    "preferences.persian": "فارسی",
-    "preferences.russian": "Русский",
-  },
-  ru: {
-    "nav.features": "Возможности",
-    "nav.pricing": "Цены",
-    "nav.contact": "Контакты",
-    "nav.startDesigning": "Начать проектирование",
-    "nav.signIn": "Войти",
-    "nav.openProjects": "Открыть проекты",
-    "hero.badge": "САПР на связи",
-    "hero.engineTag": "ДВИЖОК B-REP В БРАУЗЕРЕ",
-    "hero.title": "Параметрическое САПР для проектов,",
-    "hero.titleBreak": "которые",
-    "hero.titleAccent": "не стоят на месте.",
-    "hero.description":
-      "Создавайте точные модели в браузере, объединяйте облачные проекты с историей версий и используйте ИИ-ассистента, когда проще описать изменение, чем собрать его вручную.",
-    "hero.startDesigning": "Начать проектирование",
-    "hero.exploreCapabilities": "Все возможности",
-    "hero.specs": "ЭСКИЗ / МОДЕЛЬ / ДОРАБОТКА / ПАРАМЕТРИЧЕСКАЯ ИСТОРИЯ",
-    "hero.specSketch": "ЭСКИЗ",
-    "hero.specModel": "МОДЕЛЬ",
-    "hero.specRefine": "ДОРАБОТКА",
-    "hero.specHistory": "ПАРАМЕТРИЧЕСКАЯ ИСТОРИЯ",
-    "features.eyebrow": "Шесть возможностей",
-    "features.heading": "Создано для реальных инженерных задач",
-    "features.overviewEyebrow": "Создано для процесса",
-    "features.overviewHeading": "Продолжайте проектирование.",
-    "features.overviewDesc":
-      "От первого наброска до версии, к которой вы вернётесь — каждая возможность работает в одном верстаке.",
-    "features.detailsHeading": "Одна модель. Полный рабочий контекст.",
-    "features.detailsDesc":
-      "WebCAD объединяет моделирование, облачную работу и ИИ-редактирование, не превращая страницу во второй интерфейс продукта.",
-    "features.brepTitle": "Параметрический B-Rep в браузере",
-    "features.brepDesc":
-      "Выдавливание, вращение, лофтинг, скругление и булевы операции на WebAssembly с точной граничной геометрией.",
-    "features.cloudTitle": "Облачные верстаки",
-    "features.cloudDesc":
-      "Каждая деталь надежно сохраняется в облаке с мгновенной загрузкой и безопасными рабочими пространствами.",
-    "features.aiTitle": "ИИ-ассистент проектирования",
-    "features.aiDesc":
-      "Описывайте изменения на естественном языке и наблюдайте пошаговую генерацию геометрии.",
-    "features.portableTitle": "Переносимые данные проекта",
-    "features.portableDesc":
-      "Экспорт в STEP, STL и стандартные форматы без привязки к проприетарным экосистемам.",
-    "features.revisionsTitle": "Закладки версий",
-    "features.revisionsDesc":
-      "Именованные контрольные точки с визуальным предпросмотром для быстрого анализа и отката изменений.",
-    "features.collabTitle": "Командная работа",
-    "features.collabDesc":
-      "Приглашайте участников, настраивайте роли и управляйте общим доступом к проектам компании.",
-    "workflow.eyebrow": "Непрерывный рабочий процесс",
-    "workflow.heading": "От первого наброска до готовой детали",
-    "workflow.desc":
-      "Верстак фокусирует моделирование, ассистента и историю на проекте, а не на разрозненных файлах.",
-    "workflow.step1": "1. Параметрический эскиз",
-    "workflow.step1Desc":
-      "Создавайте эскизы с размерными и геометрическими ограничениями.",
-    "workflow.step2": "2. Дерево операций",
-    "workflow.step2Desc":
-      "Формируйте 3D-тела через упорядоченную и редактируемую историю операций.",
-    "workflow.step3": "3. Проверка и экспорт",
-    "workflow.step3Desc":
-      "Проверяйте размеры, исследуйте топологию и скачивайте чистые файлы STEP и STL.",
-    "pricing.eyebrow": "Тарифы под ваши задачи",
-    "pricing.heading": "Начните бесплатно, масштабируйтесь с командой",
-    "pricing.seeDashboard": "Посмотреть актуальные тарифы в панели управления",
-    "pricing.catalogueLabel": "АКТУАЛЬНЫЙ КАТАЛОГ / ПАНЕЛЬ УПРАВЛЕНИЯ",
-    "pricing.comparePlans": "Сравнить текущие тарифы",
-    "pricing.catalogueDesc":
-      "Войдите, чтобы увидеть актуальный каталог, проверить подписку и выбрать доступное обновление на текущих условиях.",
-    "pricing.planCaption": "Выбор и оплата тарифа происходят в панели управления.",
-    "pricing.entitlementLabel": "Категории возможностей тарифов",
-    "pricing.freeTitle": "Бесплатный",
-    "pricing.freeDesc":
-      "Базовые возможности параметрического САПР для индивидуальных мейкеров и личных проектов.",
-    "pricing.proTitle": "Про",
-    "pricing.proDesc":
-      "Неограниченные верстаки, продвинутый ИИ-ассистент и детальная история ревизий.",
-    "pricing.teamTitle": "Командный",
-    "pricing.teamDesc":
-      "Рабочие пространства организации, управление доступом участников и выделенные мощности.",
-    "cta.eyebrow": "Когда вы готовы",
-    "cta.heading": "Готовы проектировать прямо сейчас?",
-    "cta.description":
-      "Откройте WebCAD в современном браузере и начните моделирование за считанные секунды.",
-    "cta.button": "Создать аккаунт",
-    "footer.desc":
-      "Параметрический САПР в браузере с облачными верстаками, надежной историей и поддержкой ИИ.",
-    "footer.copyright": "WebCAD. Современный параметрический САПР в браузере.",
-    "preferences.language": "Язык",
-    "preferences.themeToggle": "Тема",
-    "preferences.dark": "Тёмная",
-    "preferences.light": "Светлая",
-    "preferences.english": "English",
-    "preferences.persian": "فارسی",
-    "preferences.russian": "Русский",
-  },
+export type TranslationKey = keyof typeof en;
+type Dictionary = Record<TranslationKey, string>;
+
+const fa: Dictionary = {
+  "nav.features": "قابلیت‌ها",
+  "nav.pricing": "قیمت‌گذاری",
+  "nav.contact": "تماس",
+  "nav.startDesigning": "شروع طراحی",
+  "nav.signIn": "ورود",
+  "nav.openProjects": "پروژه‌های شما",
+  "hero.badge": "طراحی یکپارچه",
+  "hero.engineTag": "طراحی / همکاری / بازبینی",
+  "hero.title": "طراحی پارامتریک،",
+  "hero.titleBreak": "در",
+  "hero.titleAccent": "مرورگر شما.",
+  "hero.description": "قطعات را در مرورگر مدل‌سازی کنید، از دستیار هوش مصنوعی کمک بگیرید، در پروژه‌های تیمی همکاری کنید و تغییرات هر میزکار را با تاریخچه و مدیریت نسخه‌ها دنبال کنید.",
+  "hero.startDesigning": "شروع طراحی",
+  "hero.exploreCapabilities": "مشاهده قابلیت‌ها",
+  "hero.specSketch": "اسکیس",
+  "hero.specModel": "مدل",
+  "hero.specRefine": "اصلاح",
+  "hero.specHistory": "تاریخچه نسخه‌ها",
+  "features.eyebrow": "شش قابلیت",
+  "features.overviewEyebrow": "ساخته‌شده پیرامون میزکار شما",
+  "features.overviewHeading": "طراحی را در حرکت نگه دارید.",
+  "features.overviewDesc": "طراحی در مرورگر، دستیار هوش مصنوعی، پروژه‌های تیمی و تاریخچه نسخه‌ها مسیر کار را از اولین طرح تا نسخه بعدی یکپارچه نگه می‌دارند.",
+  "features.detailsHeading": "یک مدل؛ زمینه‌ای کامل برای کار.",
+  "features.detailsDesc": "قطعه‌ای بسازید، تغییر بعدی را با دستیار مطرح کنید، دسترسی پروژه را به اشتراک بگذارید و تصمیم‌های قبلی را در یک روند طراحی یکپارچه مرور کنید.",
+  "features.browser.label": "مدلسازی پارامتریک در مرورگر",
+  "features.browser.title": "قطعات را با تاریخچه‌ای روشن و قابل پیگیری بسازید.",
+  "features.browser.summary": "قطعات پارامتریک را در مرورگر بسازید و هدف طراحی را حفظ کنید.",
+  "features.browser.detail": "ویژگی‌های مرتب با تغییر ابعاد و عملیات قابل فهم می‌مانند تا مدل بدون از دست دادن ساختار تکامل پیدا کند.",
+  "features.copilot.label": "دستیار هوش مصنوعی قطعات",
+  "features.copilot.title": "تغییر بعدی مدل را توصیف کنید.",
+  "features.copilot.summary": "وقتی توضیح تغییر آسان‌تر از ساخت مرحله‌به‌مرحله است از کمک هوش مصنوعی میزبانی‌شده استفاده کنید.",
+  "features.copilot.detail": "دستیار با همان مدل اعتبارسنجی‌شده میزکار و در محدوده سهمیه درخواست‌های هوش مصنوعی پلن شما کار می‌کند.",
+  "features.team.label": "همکاری تیمی",
+  "features.team.title": "افراد مناسب را به پروژه خود دعوت کنید.",
+  "features.team.summary": "اگر پلن مالک پروژه شامل حالت تیمی باشد، دسترسی پروژه را با اعضای تیم به اشتراک بگذارید.",
+  "features.team.detail": "مالک، ویرایشگر و مشاهده‌گر از مسیر عضویت پروژه کار می‌کنند و دسترسی در همان فضای مجاز می‌ماند.",
+  "features.history.label": "تاریخچه و مدیریت نسخه‌ها",
+  "features.history.title": "به نسخه‌های مهم طراحی بازگردید.",
+  "features.history.summary": "تغییرهای پایدار و نسخه‌های نام‌گذاری‌شده هر میزکار را کنار هم نگه دارید.",
+  "features.history.detail": "بازگردانی نسخه قدیمی یک تغییر جدید می‌سازد و تاریخچه مسیر قبلی را حفظ می‌کند.",
+  "features.workbench.label": "میزکارهای ابری",
+  "features.workbench.title": "پروژه‌ها و میزکارها را متصل نگه دارید.",
+  "features.workbench.summary": "اسناد طراحی را در پروژه‌ها سازمان‌دهی کنید و از طریق داشبورد کار را از همان‌جا ادامه دهید.",
+  "features.workbench.detail": "میزکارهای متصل به حساب شما، اسناد، فایل‌ها و اطلاعات پروژه را کنار هم در فضای ابری نگه می‌دارند.",
+  "features.portable.label": "داده طراحی قابل حمل",
+  "features.portable.title": "داده‌های طراحی قابل حمل؛ همراه شما.",
+  "features.portable.summary": "دارایی‌های خارجی را وارد کنید و در صورت نیاز سند قابل حمل خود را همراه ببرید.",
+  "features.portable.detail": "خروجی قابل حمل، داده‌های میزکار را بیرون از فضای ابری در دسترس قرار می‌دهد و فایل‌های منبعِ مورد استفاده نیز قابل بازیابی می‌مانند.",
+  "workflow.eyebrow": "از طرح اولیه تا نسخه بعدی",
+  "workflow.heading": "بدون از دست دادن زمینه جلو بروید.",
+  "workflow.desc": "میزکار، مدل‌سازی، کمک، همکاری و تاریخچه را پیرامون طراحی نگه می‌دارد.",
+  "workflow.step1": "اسکیس",
+  "workflow.step1Desc": "با پروفایل، پارامتر و هدف طراحی شروع کنید.",
+  "workflow.step2": "ساخت",
+  "workflow.step2Desc": "ورودی‌ها را به تاریخچه پارامتریک مرتب تبدیل کنید.",
+  "workflow.step3": "اصلاح",
+  "workflow.step3Desc": "مدل را مستقیم تغییر دهید یا برای تغییر بعدی از دستیار کمک بگیرید.",
+  "workflow.step4": "بازبینی",
+  "workflow.step4Desc": "با تغییرهای پایدار و نسخه‌ها، همراه با زمینه ادامه دهید.",
+  "pricing.eyebrow": "پلن‌ها و دسترسی",
+  "pricing.heading": "ظرفیت مناسب کارتان را انتخاب کنید.",
+  "pricing.catalogueLabel": "کاتالوگ فعلی / داشبورد",
+  "pricing.comparePlans": "مقایسه دسته‌های پلن",
+  "pricing.catalogueDesc": "پلن‌ها ظرفیت میزکار را پیرامون یک فرآیند طراحی مشترک تغییر می‌دهند. نام، قیمت و محدودیت‌های فعلی در داشبورد معتبر هستند.",
+  "pricing.seeDashboard": "مشاهده پلن‌های فعلی در داشبورد",
+  "pricing.planCaption": "انتخاب پلن و پرداخت در داشبورد انجام می‌شود.",
+  "pricing.entitlementLabel": "دسته‌های دسترسی پلن",
+  "pricing.tierCta": "بررسی در داشبورد",
+  "pricing.tiers.free.name": "رایگان",
+  "pricing.tiers.free.positioning": "طراحی در مرورگر را با یک پروژه شخصی آغاز کنید.",
+  "pricing.tiers.pro.name": "حرفه‌ای",
+  "pricing.tiers.pro.positioning": "برای طراحی مستمر و تغییرات با کمک دستیار، ظرفیت بیشتری در نظر بگیرید.",
+  "pricing.tiers.team.name": "تیمی",
+  "pricing.tiers.team.positioning": "فضای کاری مشترک را بر پایه عضویت در پروژه شکل دهید.",
+  "pricing.recommended": "پیشنهاد برای طراحی مستمر",
+  "pricing.entitlements.projects.title": "پروژه‌ها",
+  "pricing.entitlements.projects.desc": "فضاهای طراحی که حساب می‌تواند مالک آن‌ها باشد.",
+  "pricing.entitlements.workbenches.title": "میزکارها",
+  "pricing.entitlements.workbenches.desc": "اسناد طراحی در دسترس در هر پروژه.",
+  "pricing.entitlements.ai.title": "درخواست‌های هوش مصنوعی",
+  "pricing.entitlements.ai.desc": "نوبت‌های استفاده از دستیار در هر دوره پلن، برای هر میزکار و کاربر.",
+  "pricing.entitlements.revisions.title": "نسخه‌ها",
+  "pricing.entitlements.revisions.desc": "نسخه‌های نام‌گذاری‌شده میزکار به‌عنوان نشانک پایدار.",
+  "pricing.entitlements.team.title": "حالت تیمی",
+  "pricing.entitlements.team.desc": "امکان افزودن اعضای دیگر توسط مالک پروژه.",
+  "cta.eyebrow": "هر زمان آماده باشید",
+  "cta.heading": "قطعه بعدی شما از مرورگر آغاز می‌شود.",
+  "cta.description": "رایگان شروع کنید. حساب بسازید، میزکاری باز کنید و از اولین طرح خود مدل بسازید.",
+  "cta.button": "شروع طراحی",
+  "footer.desc": "طراحی پارامتریک، دستیار هوش مصنوعی، پروژه‌های تیمی و نسخه‌های میزکار؛ شروع رایگان در مرورگر شما.",
+  "page.features.eyebrow": "میزکار وب‌کد",
+  "page.features.title": "شش قابلیت؛ یک زمینه طراحی.",
+  "page.features.desc": "از اسکیس تا قطعه پیش بروید و مدل، پروژه، تاریخچه و تغییرهای کمکی را یکپارچه نگه دارید.",
+  "page.pricing.eyebrow": "قیمت‌گذاری",
+  "page.pricing.title": "رایگان شروع کنید؛ متناسب با نیازتان گسترش دهید.",
+  "page.pricing.desc": "ظرفیت میزکاری هر پلن را مقایسه کنید و سپس کاتالوگ زنده و اشتراک فعلی را در داشبورد ببینید.",
+  "proof.badge": "جای‌نگهدار — برای انتشار نیست",
+  "proof.eyebrow": "تجربه مشتریان · فقط پیش‌نمایش",
+  "proof.heading": "جایی برای تجربه‌های واقعی مهندسی.",
+  "proof.quote1": "جای‌نگهدار نقل‌قول مشتری.",
+  "proof.quote2": "جای‌نگهدار نقل‌قول مشتری.",
+  "proof.quote3": "جای‌نگهدار نقل‌قول مشتری.",
+  "proof.logo": "جای‌نگهدار لوگو",
+  "preferences.language": "زبان",
+  "preferences.themeToggle": "پوسته",
+  "preferences.dark": "تیره",
+  "preferences.light": "روشن",
+  "preferences.english": "English",
+  "preferences.persian": "فارسی",
+  "preferences.russian": "Русский",
+  "pricing.guidance": "رایگان، حرفه‌ای و تیمی راهنمای شیوه‌های کار هستند و کاتالوگ زنده نیستند. پلن‌های موجود، امکانات و سهمیه‌ها را در داشبورد بررسی کنید.",
+  "pricing.rows.personal": "فضاهای طراحی شخصی",
+  "pricing.rows.regular": "پروژه‌های طراحی مستمر",
+  "pricing.rows.shared": "فضاهای پروژه مشترک",
+  "pricing.rows.starter": "بررسی سهمیه شروع کار",
+  "pricing.rows.capacity": "مقایسه ظرفیت برای کار مستمر",
+  "pricing.rows.teamCapacity": "بررسی ظرفیت مورد نیاز پروژه",
+  "pricing.rows.ai": "بررسی سهمیه درخواست‌ها",
+  "pricing.rows.revisions": "مقایسه ظرفیت نگهداری نسخه‌ها",
+  "pricing.rows.team": "بررسی دسترسی اعضا در داشبورد",
+  "a11y.home": "خانه وب‌کد",
+  "a11y.nav": "پیمایش اصلی",
+  "a11y.mobileNav": "پیمایش موبایل",
+  "a11y.menu": "باز و بسته کردن منوی پیمایش",
+  "a11y.footer": "پیمایش پایین صفحه",
+  "a11y.workflow": "روند اصلی مدل‌سازی",
+  "pricing.checklist": "مواردی که باید بررسی کنید",
+  "pricing.handoffDesc": "کاتالوگ زنده را باز کنید، شرایط فعلی را مقایسه کنید و پلن مناسب کارتان را انتخاب کنید."
 };
+
+const ru: Dictionary = {
+  "nav.features": "Возможности",
+  "nav.pricing": "Цены",
+  "nav.contact": "Контакты",
+  "nav.startDesigning": "Начать проектирование",
+  "nav.signIn": "Войти",
+  "nav.openProjects": "Открыть проекты",
+  "hero.badge": "САПР на связи",
+  "hero.engineTag": "ПРОЕКТИРУЙТЕ / РАБОТАЙТЕ ВМЕСТЕ / ВОЗВРАЩАЙТЕСЬ",
+  "hero.title": "Параметрическая САПР",
+  "hero.titleBreak": "прямо",
+  "hero.titleAccent": "в браузере.",
+  "hero.description": "Моделируйте детали в браузере, обращайтесь к ИИ-помощнику, работайте вместе в командных проектах и отслеживайте изменения каждой рабочей области с помощью истории и управления версиями.",
+  "hero.startDesigning": "Начать проектирование",
+  "hero.exploreCapabilities": "Все возможности",
+  "hero.specSketch": "ЭСКИЗ",
+  "hero.specModel": "МОДЕЛЬ",
+  "hero.specRefine": "ДОРАБОТКА",
+  "hero.specHistory": "ИСТОРИЯ РЕВИЗИЙ",
+  "features.eyebrow": "Шесть возможностей",
+  "features.overviewEyebrow": "Вокруг вашей рабочей области",
+  "features.overviewHeading": "Держите проект в движении.",
+  "features.overviewDesc": "САПР в браузере, ИИ-ассистент, командные проекты и история ревизий связывают путь от первого эскиза до следующей версии.",
+  "features.detailsHeading": "Одна модель. Полный рабочий контекст.",
+  "features.detailsDesc": "Создавайте детали, обсуждайте изменения с помощником, предоставляйте доступ к проекту и возвращайтесь к прежним решениям в едином процессе проектирования.",
+  "features.browser.label": "Параметрическое моделирование в браузере",
+  "features.browser.title": "Создавайте детали с понятной историей построения.",
+  "features.browser.summary": "Создавайте параметрические детали в браузере, сохраняя замысел проекта.",
+  "features.browser.detail": "Упорядоченные операции остаются понятными при изменении размеров и действий.",
+  "features.copilot.label": "ИИ-ассистент деталей",
+  "features.copilot.title": "Опишите следующее изменение модели.",
+  "features.copilot.summary": "Используйте помощь облачного ИИ-сервиса, когда описать изменение проще, чем собрать его вручную.",
+  "features.copilot.detail": "Помощник работает с той же проверенной моделью рабочей области в пределах доступной квоты ИИ-запросов.",
+  "features.team.label": "Командная работа",
+  "features.team.title": "Приглашайте нужных людей в проект.",
+  "features.team.summary": "Предоставляйте команде доступ к проекту, если тариф владельца поддерживает командный режим.",
+  "features.team.detail": "Роли работают через членство в проекте, поэтому доступ остаётся внутри разрешённой области.",
+  "features.history.label": "История и управление версиями",
+  "features.history.title": "Возвращайтесь к важным версиям.",
+  "features.history.summary": "Храните изменения и именованные ревизии каждой рабочей области вместе.",
+  "features.history.detail": "Восстановление старой ревизии создаёт новое изменение и сохраняет предыдущую историю.",
+  "features.workbench.label": "Облачные рабочие области",
+  "features.workbench.title": "Связывайте проекты и рабочие области.",
+  "features.workbench.summary": "Объединяйте CAD-документы в проекты и возвращайтесь к работе через панель управления.",
+  "features.workbench.detail": "Рабочие области вашего аккаунта хранят документы, ресурсы и контекст проекта вместе в облаке.",
+  "features.portable.label": "Переносимые данные",
+  "features.portable.title": "Переносимые данные: заберите свою работу.",
+  "features.portable.summary": "Импортируйте внешние ресурсы и при необходимости забирайте переносимый документ.",
+  "features.portable.detail": "Переносимый экспорт позволяет использовать данные рабочей области за пределами облака, а исходные ресурсы остаются доступными, пока на них есть ссылки.",
+  "workflow.eyebrow": "От эскиза к следующей ревизии",
+  "workflow.heading": "Двигайтесь дальше, не теряя контекст.",
+  "workflow.desc": "Рабочая область связывает моделирование, помощь, команду и историю вокруг проекта.",
+  "workflow.step1": "Эскиз",
+  "workflow.step1Desc": "Начните с профилей, параметров и замысла.",
+  "workflow.step2": "Сборка",
+  "workflow.step2Desc": "Превратите вводные в упорядоченную параметрическую историю.",
+  "workflow.step3": "Доработка",
+  "workflow.step3Desc": "Изменяйте модель напрямую или попросите ассистента помочь.",
+  "workflow.step4": "Возврат",
+  "workflow.step4Desc": "Продолжайте работу с изменениями и ревизиями в контексте.",
+  "pricing.eyebrow": "Планы и доступ",
+  "pricing.heading": "Выберите подходящую ёмкость для работы.",
+  "pricing.catalogueLabel": "ТЕКУЩИЙ КАТАЛОГ / DASHBOARD",
+  "pricing.comparePlans": "Сравнение категорий планов",
+  "pricing.catalogueDesc": "Планы меняют ёмкость рабочей области вокруг одного процесса. Актуальные названия, цены и лимиты находятся в Dashboard.",
+  "pricing.seeDashboard": "Смотреть планы в Dashboard",
+  "pricing.planCaption": "Выбор плана и оплата происходят в Dashboard.",
+  "pricing.entitlementLabel": "Категории возможностей плана",
+  "pricing.tierCta": "Открыть в Dashboard",
+  "pricing.tiers.free.name": "Бесплатный",
+  "pricing.tiers.free.positioning": "Начните знакомство с САПР в браузере с личного проекта.",
+  "pricing.tiers.pro.name": "Pro",
+  "pricing.tiers.pro.positioning": "Подберите ресурсы для регулярного проектирования и работы с помощником.",
+  "pricing.tiers.team.name": "Командный",
+  "pricing.tiers.team.positioning": "Организуйте совместную работу через участие в проектах.",
+  "pricing.recommended": "Для регулярного проектирования",
+  "pricing.entitlements.projects.title": "Проекты",
+  "pricing.entitlements.projects.desc": "Пространства, которыми может владеть аккаунт.",
+  "pricing.entitlements.workbenches.title": "Рабочие области",
+  "pricing.entitlements.workbenches.desc": "CAD-документы внутри каждого проекта.",
+  "pricing.entitlements.ai.title": "Запросы ИИ",
+  "pricing.entitlements.ai.desc": "Запросы к ИИ-помощнику, доступные в течение периода тарифа для каждой рабочей области и пользователя.",
+  "pricing.entitlements.revisions.title": "Ревизии",
+  "pricing.entitlements.revisions.desc": "Именованные версии рабочей области как долговечные закладки.",
+  "pricing.entitlements.team.title": "Командный режим",
+  "pricing.entitlements.team.desc": "Возможность владельца добавить участников.",
+  "cta.eyebrow": "Когда вы готовы",
+  "cta.heading": "Ваша следующая деталь начинается в браузере.",
+  "cta.description": "Начните бесплатно: создайте аккаунт, откройте рабочую область и постройте модель по первому эскизу.",
+  "cta.button": "Начать проектирование",
+  "footer.desc": "Параметрическая САПР, ИИ-помощник, командные проекты и ревизии рабочих областей. Начните бесплатно, прямо в браузере.",
+  "page.features.eyebrow": "Рабочая область WebCAD",
+  "page.features.title": "Шесть возможностей. Один контекст.",
+  "page.features.desc": "Переходите от эскизов к деталям, сохраняя модель, проект, историю и изменения вместе.",
+  "page.pricing.eyebrow": "Цены",
+  "page.pricing.title": "Начните бесплатно. Растите вместе с проектами.",
+  "page.pricing.desc": "Сравните ёмкость каждого уровня, затем откройте актуальный каталог и подписку в Dashboard.",
+  "proof.badge": "ЗАПОЛНИТЕЛЬ — НЕ ДЛЯ ПУБЛИКАЦИИ",
+  "proof.eyebrow": "Истории клиентов · только макет",
+  "proof.heading": "Место для реальных историй инженеров.",
+  "proof.quote1": "Заполнитель отзыва клиента.",
+  "proof.quote2": "Заполнитель отзыва клиента.",
+  "proof.quote3": "Заполнитель отзыва клиента.",
+  "proof.logo": "Заполнитель логотипа",
+  "preferences.language": "Язык",
+  "preferences.themeToggle": "Тема",
+  "preferences.dark": "Тёмная",
+  "preferences.light": "Светлая",
+  "preferences.english": "English",
+  "preferences.persian": "فارسی",
+  "preferences.russian": "Русский",
+  "pricing.guidance": "Free, Pro и Team — ориентиры для разных способов работы, а не текущий каталог. Доступные тарифы, возможности и квоты проверяйте в панели управления.",
+  "pricing.rows.personal": "Пространства для личных проектов",
+  "pricing.rows.regular": "Текущие проекты",
+  "pricing.rows.shared": "Совместные проекты",
+  "pricing.rows.starter": "Проверьте начальную квоту",
+  "pricing.rows.capacity": "Сравните ресурсы для регулярной работы",
+  "pricing.rows.teamCapacity": "Оцените ресурсы для вашего проекта",
+  "pricing.rows.ai": "Проверьте квоту запросов",
+  "pricing.rows.revisions": "Сравните лимиты хранения ревизий",
+  "pricing.rows.team": "Уточните доступ участников в панели управления",
+  "a11y.home": "Главная WebCAD",
+  "a11y.nav": "Основная навигация",
+  "a11y.mobileNav": "Мобильная навигация",
+  "a11y.menu": "Открыть или закрыть меню",
+  "a11y.footer": "Навигация внизу страницы",
+  "a11y.workflow": "Основные этапы моделирования",
+  "pricing.checklist": "Что проверить",
+  "pricing.handoffDesc": "Откройте текущий каталог, сравните условия и выберите подходящий тариф."
+};
+
+export const translations: Record<"en" | "fa" | "ru", Dictionary> = { en, fa, ru };

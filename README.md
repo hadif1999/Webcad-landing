@@ -69,16 +69,40 @@ and docs/STAGE_3_4.md for the marketing content boundary and
 docs/STAGE_5_8.md for the interactive study, motion and performance budgets. No browser or
 release-level performance scores are claimed for these stages.
 
-## Interactive study and performance
+## Marketing content and presentation
 
-The home page keeps its SVG illustration as the default, including on mobile and
-without JavaScript. “Explore the 3D assembly” loads an independent CSS/SVG scene
-on demand, with keyboard-accessible rotation, separation and reset controls.
-Reduced-motion preferences disable animation; no renderer or animation library
-is required. Dashboard owns sign-in, registration, protected projects and upgrades.
+`src/lib/translations.ts` owns English, Persian and Russian marketing copy.
+`src/lib/marketing.ts` contains typed translation keys, stable IDs, icons and
+presentation order. The four lead capabilities are browser parametric CAD,
+AI assistance for parts, team projects and workbench revision history; cloud
+workbenches and portable data form the supporting row. All four workflow steps,
+page intros, tier guidance, entitlement descriptions and shared calls to action
+use the same translation layer. English remains useful in exported HTML before
+JavaScript; language switching uses the existing shared preference system.
 
-The export check enforces 225 KiB gzip initial JavaScript per route, a 12 KiB
-gzip deferred scene, 30 KiB gzip CSS and 100 KiB of local fonts. It also checks
-robots.txt, sitemap.xml, social metadata and the static illustration fallback.
-These are asset budgets, not Lighthouse scores. See [stages 5–8](docs/STAGE_5_8.md)
-for implementation decisions and remaining browser/performance validation.
+Free / Pro / Team cards are explicitly workspace guidance, not a live catalogue
+or a promise of fixed feature inclusions. The backend catalogue is editable and
+already allows AI/revisions on Free; it does not define a fixed Team SKU. Each
+card links to Dashboard, which owns current names, availability, prices, limits,
+selection and checkout. No exact prices, unlimited allowances or named export
+formats are published here.
+
+`SHOW_PLACEHOLDER_PROOF` in `src/components/placeholder-proof.tsx` defaults to
+`false`. Set it to `true` only for local layout preview. The warning badge, quote
+slots and logo skeletons are explicitly placeholders; replace them with real,
+authorized proof before publication. The export check rejects visible preview
+proof. No testimonials, customer logos or metrics ship by default.
+
+The existing video hero remains on home; `/features/` retains the static SVG
+illustration. The optional assembly components remain available without changes.
+The export check enforces 225 KiB gzip initial JavaScript per route, 30 KiB gzip
+CSS and 100 KiB local fonts, along with static content, Dashboard destinations,
+metadata, sitemap/robots and private-config exclusion. Latin and Persian font
+subsets remain local; Russian uses the system fallback for Cyrillic.
+
+The refresh was checked with lint, config/theme/localization self-checks,
+TypeScript, production build and static export checks using explicit HTTPS
+origins. The browser tool had no available browser, so live language/theme
+switching and responsive visual inspection remain unverified. No browser suite
+or new testing infrastructure was introduced. Historical stage measurements in
+[STAGE_5_8.md](docs/STAGE_5_8.md) predate this refresh.

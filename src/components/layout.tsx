@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { site } from "@/lib/site";
 import { usePreferences } from "@/lib/preferences-context";
 import { PreferenceControls } from "./PreferenceControls";
+import type { TranslationKey } from "@/lib/translations";
 
 export function ButtonLink({
   href,
@@ -23,8 +24,9 @@ export function ButtonLink({
 }
 
 export function Brand() {
+  const { t } = usePreferences();
   return (
-    <a className="brand" href="/" aria-label="WebCAD home">
+    <a className="brand" href="/" aria-label={t("a11y.home")}>
       <svg
         width="28"
         height="28"
@@ -49,9 +51,9 @@ function DesktopNavLinks() {
   const { t } = usePreferences();
   return (
     <>
-      <a href="/features/">{t("nav.features", "Features")}</a>
-      <a href="/pricing/">{t("nav.pricing", "Pricing")}</a>
-      <a href="#contact">{t("nav.contact", "Contact")}</a>
+      <a href="/features/">{t("nav.features")}</a>
+      <a href="/pricing/">{t("nav.pricing")}</a>
+      <a href="#contact">{t("nav.contact")}</a>
     </>
   );
 }
@@ -60,11 +62,11 @@ function MobileNavLinks() {
   const { t } = usePreferences();
   return (
     <>
-      <a href="/features/">{t("nav.features", "Features")}</a>
-      <a href="/pricing/">{t("nav.pricing", "Pricing")}</a>
-      <a href="#contact">{t("nav.contact", "Contact")}</a>
+      <a href="/features/">{t("nav.features")}</a>
+      <a href="/pricing/">{t("nav.pricing")}</a>
+      <a href="#contact">{t("nav.contact")}</a>
       <ButtonLink href={site.projects}>
-        {t("nav.startDesigning", "Start designing")}
+        {t("nav.startDesigning")}
       </ButtonLink>
     </>
   );
@@ -77,18 +79,18 @@ export function Navigation() {
       <div className="container header-inner">
         <div className="header-left">
           <Brand />
-          <nav className="desktop-nav" aria-label="Main navigation">
+          <nav className="desktop-nav" aria-label={t("a11y.nav")}>
             <DesktopNavLinks />
           </nav>
         </div>
         <div className="header-actions">
           <PreferenceControls />
           <ButtonLink href={site.projects}>
-            {t("nav.startDesigning", "Start designing")}
+            {t("nav.startDesigning")}
           </ButtonLink>
         </div>
         <details className="mobile-menu">
-          <summary aria-label="Toggle navigation menu">
+          <summary aria-label={t("a11y.menu")}>
             <svg
               width="24"
               height="24"
@@ -102,7 +104,7 @@ export function Navigation() {
               <path d="M4 7h16M4 12h16M4 17h16" />
             </svg>
           </summary>
-          <nav aria-label="Mobile navigation">
+          <nav aria-label={t("a11y.mobileNav")}>
             <MobileNavLinks />
             <PreferenceControls className="mobile-preference-controls" />
           </nav>
@@ -119,20 +121,17 @@ export function Footer() {
       <div>
         <Brand />
         <p>
-          {t(
-            "footer.desc",
-            "Browser-based parametric CAD with cloud workbenches, durable history and AI-assisted editing."
-          )}
+          {t("footer.desc")}
         </p>
       </div>
-      <nav aria-label="Footer navigation">
-        <a href="/features/">{t("nav.features", "Features")}</a>
-        <a href="/pricing/">{t("nav.pricing", "Pricing")}</a>
-        <a href={site.signIn}>{t("nav.signIn", "Sign in")}</a>
-        <a href={site.projects}>{t("nav.openProjects", "Open your projects")}</a>
+      <nav aria-label={t("a11y.footer")}>
+        <a href="/features/">{t("nav.features")}</a>
+        <a href="/pricing/">{t("nav.pricing")}</a>
+        <a href={site.signIn}>{t("nav.signIn")}</a>
+        <a href={site.projects}>{t("nav.openProjects")}</a>
       </nav>
       <div className="footer-contact">
-        <p className="technical">{t("nav.contact", "Contact")}</p>
+        <p className="technical">{t("nav.contact")}</p>
         <a href="mailto:contact@webcad.space">contact@webcad.space</a>
       </div>
     </footer>
@@ -163,17 +162,29 @@ export function ClosingCTA() {
     <section className="container section">
       <div className="cta panel">
         <div>
-          <p className="eyebrow">{t("cta.eyebrow", "Ready when you are")}</p>
-          <h2>{t("cta.heading", "Ready to build without installation?")}</h2>
+          <p className="eyebrow">{t("cta.eyebrow")}</p>
+          <h2>{t("cta.heading")}</h2>
           <p className="muted">
-            {t(
-              "cta.description",
-              "Open WebCAD in any modern browser and start modeling in seconds."
-            )}
+            {t("cta.description")}
           </p>
         </div>
-        <ButtonLink href={site.signUp}>{t("cta.button", "Create your account")}</ButtonLink>
+        <ButtonLink href={site.signUp}>{t("cta.button")}</ButtonLink>
       </div>
+    </section>
+  );
+}
+
+export function PageIntro({ labelKey, titleKey, descriptionKey }: {
+  labelKey: TranslationKey;
+  titleKey: TranslationKey;
+  descriptionKey: TranslationKey;
+}) {
+  const { t } = usePreferences();
+  return (
+    <section className="container page-intro">
+      <p className="eyebrow">{t(labelKey)}</p>
+      <h1>{t(titleKey)}</h1>
+      <p className="hero-description">{t(descriptionKey)}</p>
     </section>
   );
 }
