@@ -126,7 +126,23 @@ const en = {
   "a11y.footer": "Footer navigation",
   "a11y.workflow": "Core modeling workflow",
   "pricing.checklist": "What to review",
-  "pricing.handoffDesc": "Open the live catalogue to compare current terms and choose the plan that fits your work."
+  "pricing.handoffDesc": "Open the live catalogue to compare current terms and choose the plan that fits your work.",
+  "pricing.liveEyebrow": "Live catalogue",
+  "pricing.liveHeading": "Current plans, straight from WebCAD.",
+  "pricing.liveDesc": "Availability and limits update automatically from the active catalogue. Choose a plan to continue in Dashboard.",
+  "pricing.liveLoading": "Loading current plans…",
+  "pricing.liveEmpty": "No plans are currently available. Check back soon.",
+  "pricing.liveError": "We couldn’t load the current plans.",
+  "pricing.liveRetry": "Try again",
+  "pricing.perMonth": "per month",
+  "pricing.perMonths": "per {months} months",
+  "pricing.liveProjects": "projects",
+  "pricing.liveWorkbenches": "workbenches per project",
+  "pricing.liveAi": "AI prompts",
+  "pricing.liveRevisions": "saved revisions",
+  "pricing.liveTeam": "Team access",
+  "pricing.liveTeamYes": "Included",
+  "pricing.liveTeamNo": "Personal"
 } as const;
 
 export type TranslationKey = keyof typeof en;
@@ -260,7 +276,23 @@ const fa: Dictionary = {
   "a11y.footer": "پیمایش پایین صفحه",
   "a11y.workflow": "روند اصلی مدل‌سازی",
   "pricing.checklist": "مواردی که باید بررسی کنید",
-  "pricing.handoffDesc": "کاتالوگ زنده را باز کنید، شرایط فعلی را مقایسه کنید و پلن مناسب کارتان را انتخاب کنید."
+  "pricing.handoffDesc": "کاتالوگ زنده را باز کنید، شرایط فعلی را مقایسه کنید و پلن مناسب کارتان را انتخاب کنید.",
+  "pricing.liveEyebrow": "کاتالوگ زنده",
+  "pricing.liveHeading": "پلن‌های فعلی، مستقیم از وب‌کد.",
+  "pricing.liveDesc": "موجودی و محدودیت‌ها به‌صورت خودکار از کاتالوگ فعال به‌روز می‌شوند. برای ادامه، پلن را در داشبورد انتخاب کنید.",
+  "pricing.liveLoading": "در حال دریافت پلن‌های فعلی…",
+  "pricing.liveEmpty": "در حال حاضر پلنی در دسترس نیست. به‌زودی دوباره بررسی کنید.",
+  "pricing.liveError": "دریافت پلن‌های فعلی ممکن نشد.",
+  "pricing.liveRetry": "تلاش دوباره",
+  "pricing.perMonth": "ماهانه",
+  "pricing.perMonths": "هر {months} ماه",
+  "pricing.liveProjects": "پروژه",
+  "pricing.liveWorkbenches": "میزکار در هر پروژه",
+  "pricing.liveAi": "پرامپت هوش مصنوعی",
+  "pricing.liveRevisions": "نسخه ذخیره‌شده",
+  "pricing.liveTeam": "دسترسی تیمی",
+  "pricing.liveTeamYes": "شامل می‌شود",
+  "pricing.liveTeamNo": "شخصی"
 };
 
 const ru: Dictionary = {
@@ -391,7 +423,23 @@ const ru: Dictionary = {
   "a11y.footer": "Навигация внизу страницы",
   "a11y.workflow": "Основные этапы моделирования",
   "pricing.checklist": "Что проверить",
-  "pricing.handoffDesc": "Откройте текущий каталог, сравните условия и выберите подходящий тариф."
+  "pricing.handoffDesc": "Откройте текущий каталог, сравните условия и выберите подходящий тариф.",
+  "pricing.liveEyebrow": "Текущий каталог",
+  "pricing.liveHeading": "Актуальные тарифы WebCAD.",
+  "pricing.liveDesc": "Доступность и лимиты автоматически обновляются из активного каталога. Выберите тариф и продолжите в Dashboard.",
+  "pricing.liveLoading": "Загрузка актуальных тарифов…",
+  "pricing.liveEmpty": "Сейчас доступных тарифов нет. Проверьте позже.",
+  "pricing.liveError": "Не удалось загрузить актуальные тарифы.",
+  "pricing.liveRetry": "Повторить",
+  "pricing.perMonth": "в месяц",
+  "pricing.perMonths": "каждые {months} мес.",
+  "pricing.liveProjects": "проекты",
+  "pricing.liveWorkbenches": "рабочие области на проект",
+  "pricing.liveAi": "запросы ИИ",
+  "pricing.liveRevisions": "сохранённые версии",
+  "pricing.liveTeam": "Командный доступ",
+  "pricing.liveTeamYes": "Включён",
+  "pricing.liveTeamNo": "Личный"
 };
 
 export const translations: Record<"en" | "fa" | "ru", Dictionary> = { en, fa, ru };
