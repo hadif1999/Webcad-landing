@@ -16,6 +16,7 @@ jobs:
     env:
       LANDING_SITE_URL: https://webcad.space
       LANDING_DASHBOARD_BASE_URL: https://dashboard.webcad.space
+      LANDING_API_BASE_URL: https://api.webcad.space/api
       PRIVATE_CONFIG_TEST: PRIVATE_CONFIG_SENTINEL
       NEXT_TELEMETRY_DISABLED: '1'
 

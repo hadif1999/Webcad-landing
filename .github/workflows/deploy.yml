@@ -57,6 +57,7 @@ jobs:
           build-args: |
             LANDING_SITE_URL=${{ vars.LANDING_SITE_URL }}
             LANDING_DASHBOARD_BASE_URL=${{ vars.LANDING_DASHBOARD_BASE_URL }}
+            LANDING_API_BASE_URL=${{ vars.LANDING_API_BASE_URL }}
 
       - name: Deploy to VPS
         uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 # v1.2.5

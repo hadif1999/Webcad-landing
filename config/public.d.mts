@@ -4,6 +4,8 @@ export function publicConfig(
 ): Readonly<{
   site: string;
   dashboard: string;
+  apiBase: string;
+  plans: string;
   projects: string;
   signIn: string;
   signUp: string;
