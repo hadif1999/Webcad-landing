@@ -24,10 +24,7 @@ for (const [route, texts] of [
   }
   if (route === "" || route === "pricing/") {
     const staticHtml = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "");
-    for (const tier of ["Free", "Pro", "Team"]) {
-      assert.ok(staticHtml.includes(`<h3>${tier}</h3>`), `missing rendered tier ${tier}: ${route}`);
-    }
-    assert.equal((staticHtml.match(/class="panel tier-card/g) ?? []).length, 3, `tier count: ${route}`);
+    assert.ok(!staticHtml.includes('class="panel tier-card'), `static tier cards must stay disabled: ${route}`);
     assert.ok(!staticHtml.includes('class="container section proof"'), "placeholder proof must stay disabled");
   }
   assert.ok(
@@ -64,6 +61,9 @@ assert.ok(
     `href="${site.subscription}"`
   )
 );
+const pricingHtml = readFileSync("out/pricing/index.html", "utf8");
+assert.equal((pricingHtml.match(/class="tier-card/g) ?? []).length, 0, "static tier cards must not ship");
+assert.equal((pricingHtml.match(/class="tier-grid/g) ?? []).length, 0, "static tier grid must not ship");
 assert.ok(
   readFileSync("out/pricing/index.html", "utf8").includes(
     "See current plans in Dashboard"
