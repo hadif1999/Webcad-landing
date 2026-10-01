@@ -4,6 +4,13 @@ import { dirname, resolve } from "node:path";
 import { publicConfig } from "../config/public.mjs";
 import { gzipSync } from "node:zlib";
 const site = publicConfig(process.env, true);
+const clientScripts = readdirSync("out/_next/static/chunks", { recursive: true })
+  .filter((entry) => entry.endsWith(".js"))
+  .map((entry) => readFileSync(`out/_next/static/chunks/${entry}`, "utf8"));
+assert.ok(
+  clientScripts.some((script) => script.includes(`LANDING_API_BASE_URL:"${site.apiBase}"`)),
+  "client bundle must inline the configured public API base URL"
+);
 const initialScripts = new Set();
 for (const [route, texts] of [
   ["", ["Parametric CAD,", "your browser.", "From sketch to next revision"]],
