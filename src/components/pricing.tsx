@@ -73,7 +73,6 @@ function LivePlans() {
   return (
     <section className="live-plans" aria-live="polite" aria-label={t("pricing.liveHeading")}>
       <div className="section-heading live-plans-heading">
-        <p className="eyebrow">{t("pricing.liveEyebrow")}</p>
         <h3>{t("pricing.liveHeading")}</h3>
         <p className="muted">{t("pricing.liveDesc")}</p>
       </div>
@@ -118,7 +117,6 @@ function LivePlanCard({ plan, language, index }: { plan: PublicPlan; language: s
     <article className="panel live-plan-card">
       <div className="live-plan-card-top">
         <span className="live-plan-icon" aria-hidden="true">{planEmojis[index % planEmojis.length]}</span>
-        <span className="live-plan-status"><span className="live-plan-dot" aria-hidden="true" />{t("pricing.liveEyebrow")}</span>
       </div>
       <h4>{plan.title}</h4>
       <p className="muted live-plan-description">{plan.description}</p>
