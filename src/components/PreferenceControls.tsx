@@ -3,6 +3,7 @@
 import React from "react";
 import { usePreferences } from "@/lib/preferences-context";
 import type { SupportedLanguage } from "@/lib/localization";
+import { localizedPath } from "@/lib/site";
 
 export function PreferenceControls({ className = "" }: { className?: string }) {
   const { language, setLanguage, theme, toggleTheme, t } = usePreferences();
@@ -30,7 +31,14 @@ export function PreferenceControls({ className = "" }: { className?: string }) {
           className="pref-lang-select"
           value={language}
           aria-label={t("preferences.language")}
-          onChange={(e) => setLanguage(e.target.value as SupportedLanguage)}
+          onChange={(e) => {
+            const next = e.target.value as SupportedLanguage;
+            setLanguage(next);
+            if (typeof window !== "undefined") {
+              const nextPath = localizedPath(next, window.location.pathname);
+              if (nextPath !== window.location.pathname) window.location.assign(nextPath);
+            }
+          }}
         >
           <option value="en">English (EN)</option>
           <option value="fa">فارسی (FA)</option>

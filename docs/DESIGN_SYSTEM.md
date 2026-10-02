@@ -98,6 +98,8 @@ publication. The export self-check rejects this section when enabled.
 Home retains the video hero. The features page retains the static bracket SVG;
 this refresh does not change the optional assembly implementation or preference
 behavior. English content remains server-rendered; client components resolve the
-same translation keys after language selection. Metadata stays canonical English.
+same translation keys after language selection. Each indexed locale now owns native
+metadata, canonical URLs and language alternates; the English root remains the
+default and `x-default` variant.
 
 Current verification and browser limitations are recorded in [README.md](../README.md).

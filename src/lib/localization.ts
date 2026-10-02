@@ -7,6 +7,22 @@ export const DEFAULT_LANGUAGE: SupportedLanguage = "en";
 export const LANGUAGE_COOKIE = "webcad-language";
 export const LEGACY_LANGUAGE_COOKIE = "webcad-studio-language";
 export const LANGUAGE_COOKIE_MAX_AGE = 365 * 24 * 60 * 60;
+export const GEO_COUNTRY_COOKIE = "webcad-geo-country";
+
+export const readCountryCookie = (cookie = ""): string => {
+  const prefix = `${GEO_COUNTRY_COOKIE}=`;
+  const value = cookie
+    .split(";")
+    .map((part) => part.trim())
+    .find((part) => part.startsWith(prefix))
+    ?.slice(prefix.length);
+  if (!value) return "";
+  try {
+    return decodeURIComponent(value).trim().toUpperCase();
+  } catch {
+    return "";
+  }
+};
 
 /** Map a deployment-resolved ISO 3166-1 country code to the default language. */
 export const languageForCountry = (country: unknown): SupportedLanguage => {

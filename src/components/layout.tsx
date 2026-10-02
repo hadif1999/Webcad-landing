@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { site } from "@/lib/site";
+import { currentLocalizedPath, site } from "@/lib/site";
 import { usePreferences } from "@/lib/preferences-context";
 import { PreferenceControls } from "./PreferenceControls";
 import type { TranslationKey } from "@/lib/translations";
@@ -26,7 +26,7 @@ export function ButtonLink({
 export function Brand() {
   const { t } = usePreferences();
   return (
-    <a className="brand" href="/" aria-label={t("a11y.home")}>
+    <a className="brand" href={currentLocalizedPath("/")} aria-label={t("a11y.home")}>
       <svg
         width="28"
         height="28"
@@ -51,8 +51,8 @@ function DesktopNavLinks() {
   const { t } = usePreferences();
   return (
     <>
-      <a href="/features/">{t("nav.features")}</a>
-      <a href="/pricing/">{t("nav.pricing")}</a>
+      <a href={currentLocalizedPath("/features/")}>{t("nav.features")}</a>
+      <a href={currentLocalizedPath("/pricing/")}>{t("nav.pricing")}</a>
       <a href="#contact">{t("nav.contact")}</a>
     </>
   );
@@ -62,8 +62,8 @@ function MobileNavLinks() {
   const { t } = usePreferences();
   return (
     <>
-      <a href="/features/">{t("nav.features")}</a>
-      <a href="/pricing/">{t("nav.pricing")}</a>
+      <a href={currentLocalizedPath("/features/")}>{t("nav.features")}</a>
+      <a href={currentLocalizedPath("/pricing/")}>{t("nav.pricing")}</a>
       <a href="#contact">{t("nav.contact")}</a>
       <ButtonLink href={site.projects}>
         {t("nav.startDesigning")}
@@ -125,8 +125,8 @@ export function Footer() {
         </p>
       </div>
       <nav aria-label={t("a11y.footer")}>
-        <a href="/features/">{t("nav.features")}</a>
-        <a href="/pricing/">{t("nav.pricing")}</a>
+        <a href={currentLocalizedPath("/features/")}>{t("nav.features")}</a>
+        <a href={currentLocalizedPath("/pricing/")}>{t("nav.pricing")}</a>
         <a href={site.signIn}>{t("nav.signIn")}</a>
         <a href={site.projects}>{t("nav.openProjects")}</a>
       </nav>

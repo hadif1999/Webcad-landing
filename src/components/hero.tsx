@@ -1,6 +1,7 @@
 "use client";
 
 import { ButtonLink } from "@/components/layout";
+import { currentLocalizedPath } from "@/lib/site";
 import { site } from "@/lib/site";
 import { usePreferences } from "@/lib/preferences-context";
 
@@ -50,7 +51,7 @@ export function Hero() {
           <ButtonLink href={site.signUp}>
             {t("hero.startDesigning")}
           </ButtonLink>
-          <ButtonLink href="/features/" variant="secondary">
+          <ButtonLink href={currentLocalizedPath("/features/")} variant="secondary">
             {t("hero.exploreCapabilities")}
           </ButtonLink>
         </div>

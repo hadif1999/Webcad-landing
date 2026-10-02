@@ -1,6 +1,7 @@
 "use client";
 
 import { ButtonLink } from "@/components/layout";
+import { currentLocalizedPath } from "@/lib/site";
 import { usePreferences } from "@/lib/preferences-context";
 import { routeTranslations } from "@/lib/route-translations";
 
@@ -12,7 +13,7 @@ export function LocalizedNotFound() {
       <p className="eyebrow">{copy.notFoundEyebrow}</p>
       <h1>{copy.notFoundTitle}</h1>
       <p className="hero-description">{copy.notFoundDescription}</p>
-      <ButtonLink href="/">{copy.notFoundBack}</ButtonLink>
+      <ButtonLink href={currentLocalizedPath("/")}>{copy.notFoundBack}</ButtonLink>
     </section>
   );
 }

@@ -75,9 +75,10 @@ into `out/`, served by the existing Nginx setup.
   replacing the full multi-script WOFF/WOFF2 set. Add language subsets if localized
   copy is introduced. The pinned font package retains its OFL license.
 - Static `robots.txt` and `sitemap.xml` derive from the allowlisted HTTPS site
-  origin. The sitemap contains home, features and pricing. The account handoff
-  has `noindex, follow`; canonical/Open Graph metadata remains, with Twitter
-  summary metadata added to each page.
+  origin. The sitemap contains English, Persian and Russian home, features and
+  pricing URLs. The account handoff has `noindex, follow`; every locale owns a
+  self-canonical URL, `hreflang` alternates, localized Open Graph/Twitter metadata,
+  and a shared social preview image.
 - The export self-check now enforces initial/deferred JavaScript, CSS and font
   budgets, verifies the static fallback and deferred chunk, and checks project
   destinations, social metadata, robots and sitemap output.

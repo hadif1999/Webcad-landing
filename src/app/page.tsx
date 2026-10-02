@@ -4,16 +4,17 @@ import { Pricing } from "@/components/pricing";
 import { ClosingCTA } from "@/components/layout";
 import { pageMetadata } from "@/lib/site";
 import { PlaceholderProof } from "@/components/placeholder-proof";
+import { SeoStructuredData } from "@/components/seo-structured-data";
 
 export const metadata = pageMetadata(
-  "Parametric CAD in your browser",
-  "Design parts in your browser with an AI copilot, team projects and revision history for each workbench.",
+  "home",
   "/"
 );
 
 export default function Home() {
   return (
     <>
+      <SeoStructuredData page="home" />
       <Hero />
       <Features />
       <PlaceholderProof />

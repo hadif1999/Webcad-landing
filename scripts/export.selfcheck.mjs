@@ -102,11 +102,35 @@ const features = readFileSync("out/features/index.html", "utf8");
 assert.ok(features.includes("Isometric mechanical bracket"), "missing static 3D fallback on features");
 assert.ok(readFileSync("out/login/index.html", "utf8").includes('content="noindex, follow"'));
 const sitemap = readFileSync("out/sitemap.xml", "utf8");
-for (const route of ["/", "/features/", "/pricing/"]) {
-  assert.ok(sitemap.includes(`<loc>${site.site}${route}</loc>`), `sitemap: ${route}`);
+const publicRoutes = ["/", "/features/", "/pricing/"];
+for (const language of ["en", "fa", "ru"]) {
+  for (const route of publicRoutes) {
+    const publicPath = language === "en" ? route : `/${language}${route}`;
+    assert.ok(sitemap.includes(`<loc>${site.site}${publicPath}</loc>`), `sitemap: ${publicPath}`);
+  }
 }
 assert.ok(!sitemap.includes("/login/"), "handoff page must not appear in sitemap");
 assert.ok(readFileSync("out/robots.txt", "utf8").includes(`Sitemap: ${site.site}/sitemap.xml`));
+assert.equal((sitemap.match(/<loc>/g) ?? []).length, 9, "sitemap must contain every public locale route");
+
+for (const language of ["fa", "ru"]) {
+  for (const route of publicRoutes) {
+    const file = `out/${language}${route}index.html`;
+    const html = readFileSync(file, "utf8");
+    const publicPath = `/${language}${route}`;
+    assert.ok(html.includes(`<html lang="${language}"`), `locale html language: ${file}`);
+    assert.ok(html.includes(`rel="canonical" href="${site.site}${publicPath}"`), `locale canonical: ${file}`);
+    for (const alternate of ["en", "fa", "ru"]) {
+      const alternatePath = alternate === "en" ? route : `/${alternate}${route}`;
+      assert.ok(html.includes(`hrefLang="${alternate}" href="${site.site}${alternatePath}"`), `hreflang: ${file}/${alternate}`);
+    }
+    assert.ok(html.includes(`hrefLang="x-default" href="${site.site}${route}"`), `x-default: ${file}`);
+    assert.ok(html.includes('application/ld+json'), `structured data: ${file}`);
+    assert.ok(html.includes('property="og:image"'), `social image: ${file}`);
+    assert.ok(!html.includes('href="/features/"'), `locale feature links must remain localized: ${file}`);
+    assert.ok(!html.includes('href="/pricing/"'), `locale pricing links must remain localized: ${file}`);
+  }
+}
 let cssBytes = 0;
 let fontBytes = 0;
 for (const entry of readdirSync("out/_next/static", { recursive: true })) {

@@ -334,7 +334,7 @@
     color: var(--color-muted);
   }
   .pref-lang-select,
-  .pref-theme-button {
+.pref-theme-button {
     height: 2.375rem;
     border: 1px solid var(--color-line);
     border-radius: var(--radius-control);
@@ -1314,5 +1314,34 @@
   }
   .hero-bg-video {
     display: none;
+  }
+}
+
+.language-suggestion {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+}
+
+.language-suggestion button {
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+}
+
+.language-suggestion-dismiss {
+  color: var(--muted) !important;
+}
+
+@media (max-width: 640px) {
+  .language-suggestion {
+    align-items: flex-start;
+    flex-wrap: wrap;
   }
 }

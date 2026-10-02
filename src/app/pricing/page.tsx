@@ -1,14 +1,15 @@
 import { Pricing } from "@/components/pricing";
 import { ClosingCTA, PageIntro } from "@/components/layout";
 import { pageMetadata } from "@/lib/site";
+import { SeoStructuredData } from "@/components/seo-structured-data";
 export const metadata = pageMetadata(
-  "Free, Pro and Team plan guidance",
-  "Explore Free, Pro and Team workspace guidance, then compare available plans, current prices and limits in Dashboard.",
+  "pricing",
   "/pricing/"
 );
 export default function PricingPage() {
   return (
     <>
+      <SeoStructuredData page="pricing" />
       <PageIntro labelKey="page.pricing.eyebrow" titleKey="page.pricing.title" descriptionKey="page.pricing.desc" />
       <Pricing />
       <ClosingCTA />

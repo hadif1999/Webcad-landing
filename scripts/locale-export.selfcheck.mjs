@@ -9,10 +9,10 @@ const expectations = {
 
 for (const [language, expectation] of Object.entries(expectations)) {
   for (const route of ["index.html", "features/index.html", "pricing/index.html", "login/index.html"]) {
-    const file = `out/locales/${language}/${route}`;
+    const file = `out/${language}/${route}`;
     assert.ok(existsSync(file), `missing ${language} export: ${route}`);
     const html = readFileSync(file, "utf8");
-    for (const [, asset] of html.matchAll(/(?:src|href)="(\/_next\/[^"?#]+)[^" ]*"/g)) {
+    for (const [, asset] of html.matchAll(new RegExp(`(?:src|href)="(\\/${language}\\/_next\\/[^"?#]+)[^" ]*"`, "g"))) {
       const target = `out${asset}`;
       assert.ok(existsSync(target), `${language} ${route} references missing shared asset: ${asset}`);
       if (target.endsWith(".css")) {
