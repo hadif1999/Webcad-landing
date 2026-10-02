@@ -19,6 +19,14 @@ mv .locale-build/en out
 mkdir -p out/locales
 cp -a .locale-build/fa out/locales/fa
 cp -a .locale-build/ru out/locales/ru
+
+# Each locale build can produce different hashed CSS/JS names. Keep those
+# assets under the locale prefix and rewrite absolute Next asset references so
+# the gateway can serve the matching bundle.
+for language in fa ru; do
+  find "out/locales/$language" -type f \( -name '*.html' -o -name '*.js' -o -name '*.css' -o -name '*.json' \) \
+    -exec sed -i "s#/_next/#/locales/$language/_next/#g" {} +
+done
 rm -rf .locale-build
 
 echo "Landing locale exports ready in out/ and out/locales/."
