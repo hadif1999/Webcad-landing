@@ -48,6 +48,12 @@ Nginx configuration, which supports deep routes and real 404 status codes.
 Production runs Nginx on 8080, without a Node application server. The Dockerfile
 accepts the same two public build arguments. For localhost HTTP links use next dev;
 static production images intentionally require HTTPS public destinations.
+The production gateway selects a localized static document variant from the
+visitor's country: Iran uses Persian, Russia uses Russian, and all other or
+unresolved countries use English. A valid `webcad-language` or legacy
+`webcad-studio-language` cookie always takes precedence. Mount a locally
+maintained GeoIP2 country database in the gateway's `GEOIP_COUNTRY_DIR`
+directory; missing or unmapped results fall back to English.
 
 ## Verification and release
 

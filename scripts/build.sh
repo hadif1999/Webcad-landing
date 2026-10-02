@@ -12,6 +12,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")/.."
 # Validate before installing dependencies or starting an expensive build.
 node --input-type=module -e 'import { publicConfig } from "./config/public.mjs"; publicConfig(process.env, true);'
 [[ -x node_modules/.bin/next ]] || corepack pnpm install --frozen-lockfile
-corepack pnpm build
+corepack pnpm build:locales
 corepack pnpm check:export
+corepack pnpm check:locales-export
 echo "Landing static export ready in out/."

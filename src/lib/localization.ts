@@ -8,6 +8,19 @@ export const LANGUAGE_COOKIE = "webcad-language";
 export const LEGACY_LANGUAGE_COOKIE = "webcad-studio-language";
 export const LANGUAGE_COOKIE_MAX_AGE = 365 * 24 * 60 * 60;
 
+/** Map a deployment-resolved ISO 3166-1 country code to the default language. */
+export const languageForCountry = (country: unknown): SupportedLanguage => {
+  if (typeof country !== "string") return DEFAULT_LANGUAGE;
+  switch (country.trim().toUpperCase()) {
+    case "IR":
+      return "fa";
+    case "RU":
+      return "ru";
+    default:
+      return DEFAULT_LANGUAGE;
+  }
+};
+
 let lastLocalLanguageWrite = 0;
 export const markLocalLanguageWrite = () => {
   lastLocalLanguageWrite = Date.now();

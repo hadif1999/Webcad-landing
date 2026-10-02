@@ -1,5 +1,5 @@
-import { ButtonLink } from "@/components/layout";
 import { pageMetadata, site } from "@/lib/site";
+import { LocalizedLogin } from "@/components/localized-login";
 export const metadata = {
   ...pageMetadata(
     "Sign in",
@@ -9,20 +9,5 @@ export const metadata = {
   robots: { index: false, follow: true },
 };
 export default function LoginPage() {
-  return (
-    <section className="container page-intro">
-      <p className="eyebrow">Your WebCAD account</p>
-      <h1>Welcome back.</h1>
-      <p className="hero-description">
-        Continue through Dashboard to open your projects, return to your
-        workbenches and manage the plan behind them.
-      </p>
-      <div className="button-row">
-        <ButtonLink href={site.signIn}>Continue to Dashboard</ButtonLink>
-        <ButtonLink href={site.signUp} variant="secondary">
-          Create an account
-        </ButtonLink>
-      </div>
-    </section>
-  );
+  return <LocalizedLogin signIn={site.signIn} signUp={site.signUp} />;
 }

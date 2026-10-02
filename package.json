@@ -11,12 +11,15 @@
     "dev": "next dev --hostname 127.0.0.1 --port 5557",
     "start": "next dev --hostname 127.0.0.1 --port 5557",
     "build": "next build",
+    "build:locales": "sh scripts/build-locales.sh",
     "lint": "eslint .",
     "typecheck": "next typegen && tsc --noEmit",
-    "check": "node scripts/config.selfcheck.mjs && node scripts/theme.selfcheck.mjs && node scripts/localization.selfcheck.mjs",
+    "check": "node scripts/config.selfcheck.mjs && node scripts/theme.selfcheck.mjs && node scripts/localization.selfcheck.mjs && node --experimental-strip-types scripts/locale-selection.selfcheck.mjs",
     "check:theme": "node scripts/theme.selfcheck.mjs",
     "check:localization": "node scripts/localization.selfcheck.mjs",
-    "check:export": "node scripts/export.selfcheck.mjs"
+    "check:export": "node scripts/export.selfcheck.mjs",
+    "check:locales-export": "node scripts/locale-export.selfcheck.mjs",
+    "check:locale-selection": "node --experimental-strip-types scripts/locale-selection.selfcheck.mjs"
   },
   "dependencies": {
     "next": "16.3.5",

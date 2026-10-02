@@ -3,6 +3,7 @@ import "./globals.css";
 import { Navigation, Footer } from "@/components/layout";
 import { PreferencesProvider } from "@/lib/preferences-context";
 import { site } from "@/lib/site";
+import { normalizeLanguage } from "@/lib/localization";
 export const metadata: Metadata = {
   metadataBase: new URL(site.site),
   title: {
@@ -19,8 +20,9 @@ const antiFoucScript = `(function(){try{var c=document.cookie;var tm=(c.match(/(
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const initialLanguage = normalizeLanguage(process.env.LANDING_BUILD_LANGUAGE);
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={initialLanguage} dir={initialLanguage === "fa" ? "rtl" : "ltr"} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: antiFoucScript }} />
       </head>
@@ -28,7 +30,7 @@ export default function RootLayout({
         <noscript>
           <style>{".enhancement-control { display: none !important; }"}</style>
         </noscript>
-        <PreferencesProvider>
+        <PreferencesProvider initialLanguage={initialLanguage}>
           <a className="skip-link" href="#main">
             Skip to content
           </a>

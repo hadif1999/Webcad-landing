@@ -51,8 +51,6 @@ const subscribeLanguage = (callback: () => void) => {
 };
 
 const getLanguageSnapshot = () => storedLanguage();
-const getServerLanguageSnapshot = () => DEFAULT_LANGUAGE;
-
 const subscribeTheme = (callback: () => void) => {
   if (typeof window === "undefined") return () => {};
   window.addEventListener("themechange", callback);
@@ -64,7 +62,13 @@ const subscribeTheme = (callback: () => void) => {
 const getThemeSnapshot = () => storedTheme();
 const getServerThemeSnapshot = () => DEFAULT_THEME;
 
-export function PreferencesProvider({ children }: { children: ReactNode }) {
+export function PreferencesProvider({
+  children,
+  initialLanguage = DEFAULT_LANGUAGE,
+}: {
+  children: ReactNode;
+  initialLanguage?: SupportedLanguage;
+}) {
   React.useEffect(() => {
     const unwatchTheme = watchThemeCookie();
     const unwatchLang = watchLanguageCookie();
@@ -73,6 +77,8 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
       unwatchLang();
     };
   }, []);
+
+  const getServerLanguageSnapshot = useCallback(() => initialLanguage, [initialLanguage]);
 
   const language = useSyncExternalStore(
     subscribeLanguage,

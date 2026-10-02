@@ -8,7 +8,7 @@ ARG LANDING_SITE_URL
 ARG LANDING_DASHBOARD_BASE_URL
 ARG LANDING_API_BASE_URL
 ENV LANDING_SITE_URL=$LANDING_SITE_URL LANDING_DASHBOARD_BASE_URL=$LANDING_DASHBOARD_BASE_URL LANDING_API_BASE_URL=$LANDING_API_BASE_URL NEXT_TELEMETRY_DISABLED=1
-RUN pnpm build && pnpm check:export
+RUN pnpm build:locales && pnpm check:export && pnpm check:locales-export
 
 FROM nginxinc/nginx-unprivileged:1.30.4-alpine
 COPY --from=builder /app/out /usr/share/nginx/html
