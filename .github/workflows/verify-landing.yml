@@ -49,5 +49,6 @@ jobs:
         run: timeout 400 pnpm typecheck
       - name: Export and verify static pages
         run: |
-          timeout 400 pnpm build
+          timeout 400 pnpm build:locales
           timeout 400 pnpm check:export
+          timeout 400 pnpm check:locales-export

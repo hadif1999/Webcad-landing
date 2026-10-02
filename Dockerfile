@@ -11,6 +11,8 @@ ENV LANDING_SITE_URL=$LANDING_SITE_URL LANDING_DASHBOARD_BASE_URL=$LANDING_DASHB
 RUN pnpm build:locales && pnpm check:export && pnpm check:locales-export
 
 FROM nginxinc/nginx-unprivileged:1.30.4-alpine
+ARG SOURCE_REVISION
+LABEL org.opencontainers.image.revision=$SOURCE_REVISION
 COPY --from=builder /app/out /usr/share/nginx/html
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 USER 101:101
