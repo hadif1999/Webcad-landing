@@ -114,3 +114,19 @@ origins. The browser tool had no available browser, so live language/theme
 switching and responsive visual inspection remain unverified. No browser suite
 or new testing infrastructure was introduced. Historical stage measurements in
 [STAGE_5_8.md](docs/STAGE_5_8.md) predate this refresh.
+
+## Production releases
+
+The homepage and pricing page load active plans from the public backend catalogue
+(`LANDING_API_BASE_URL/v1/plans`); Dashboard owns selection and checkout. Do not
+replace that catalogue with static plan-category cards.
+
+Verify Landing builds English, Persian and Russian together with
+`pnpm build:locales`, then checks the complete export. Production images record
+`org.opencontainers.image.revision` from `SOURCE_REVISION`. Deploy the exact
+verified revision; the deploy workflow checks that label, refreshes gateway DNS,
+and probes canonical locale pages, live-plan loading UI and JavaScript assets.
+For a manual build, export the intended Git commit to a clean directory and pass
+`--build-arg SOURCE_REVISION=<full commit SHA>`. The server source folder is not
+authoritative for image builds. Keep `/opt/webcad/.env` pinned to the deployed
+immutable image tag.
