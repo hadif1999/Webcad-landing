@@ -966,22 +966,6 @@
   .footer p {
     @apply text-muted mt-3;
   }
-  .enamad-seal {
-    display: inline-flex;
-    margin-top: 1rem;
-    border-radius: 0.75rem;
-    transition: transform var(--duration-fast) var(--ease-standard),
-                opacity var(--duration-fast) var(--ease-standard);
-  }
-  .enamad-seal:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
-  }
-  .enamad-seal img {
-    display: block;
-    width: 11rem;
-    height: auto;
-  }
   .footer nav {
     @apply flex flex-wrap gap-5 items-center;
   }
