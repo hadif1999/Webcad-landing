@@ -19,6 +19,11 @@ for (const [route, texts] of [
   ["login/", ["Welcome back", "Continue to Dashboard"]],
 ]) {
   const html = readFileSync(`out/${route}index.html`, "utf8");
+  assert.equal(
+    (html.match(/trustseal\.enamad\.ir/g) ?? []).length,
+    0,
+    `Enamad seal must be Persian-only: ${route}`
+  );
   for (const text of texts) {
     assert.ok(html.includes(text), `missing useful HTML: ${route} / ${text}`);
   }
@@ -118,6 +123,11 @@ for (const language of ["fa", "ru"]) {
   for (const route of publicRoutes) {
     const file = `out/${language}${route}index.html`;
     const html = readFileSync(file, "utf8");
+    assert.equal(
+      (html.match(/enamad-seal/g) ?? []).length,
+      language === "fa" ? 1 : 0,
+      `Enamad seal language scope: ${file}`
+    );
     const publicPath = `/${language}${route}`;
     assert.ok(html.includes(`<html lang="${language}"`), `locale html language: ${file}`);
     if (route === "/" || route === "/pricing/") {
