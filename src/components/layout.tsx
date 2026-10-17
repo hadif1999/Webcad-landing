@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { currentLocalizedPath, site } from "@/lib/site";
 import { usePreferences } from "@/lib/preferences-context";
+import type { ImgHTMLAttributes } from "react";
 import { PreferenceControls } from "./PreferenceControls";
 import type { TranslationKey } from "@/lib/translations";
 
@@ -123,6 +124,22 @@ export function Footer() {
         <p>
           {t("footer.desc")}
         </p>
+        <a
+          className="enamad-seal"
+          referrerPolicy="origin"
+          target="_blank"
+          href="https://trustseal.enamad.ir/?id=7985561&Code=06hOK0f6PpldvASNiXqwktYONT146aR9"
+        >
+          <img
+            {...({
+              referrerPolicy: "origin",
+              src: "https://trustseal.enamad.ir/logo.aspx?id=7985561&Code=06hOK0f6PpldvASNiXqwktYONT146aR9",
+              alt: "",
+              style: { cursor: "pointer" },
+              code: "06hOK0f6PpldvASNiXqwktYONT146aR9",
+            } as ImgHTMLAttributes<HTMLImageElement> & { code: string })}
+          />
+        </a>
       </div>
       <nav aria-label={t("a11y.footer")}>
         <a href={currentLocalizedPath("/features/")}>{t("nav.features")}</a>
