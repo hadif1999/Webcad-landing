@@ -124,10 +124,16 @@ for (const language of ["fa", "ru"]) {
     const file = `out/${language}${route}index.html`;
     const html = readFileSync(file, "utf8");
     assert.equal(
-      (html.match(/enamad-seal/g) ?? []).length,
+      (html.match(/class="enamad-seal"/g) ?? []).length,
       language === "fa" ? 1 : 0,
       `Enamad seal language scope: ${file}`
     );
+    assert.equal(
+      (html.match(/src="\/assets\/enamad-seal\.svg"/g) ?? []).length,
+      language === "fa" ? 1 : 0,
+      `static Enamad image language scope: ${file}`
+    );
+    assert.ok(!html.includes("trustseal.enamad.ir/logo.aspx"), `blocked remote Enamad image: ${file}`);
     const publicPath = `/${language}${route}`;
     assert.ok(html.includes(`<html lang="${language}"`), `locale html language: ${file}`);
     if (route === "/" || route === "/pricing/") {

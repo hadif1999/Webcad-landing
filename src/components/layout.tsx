@@ -134,7 +134,7 @@ export function Footer() {
             <img
               {...({
                 referrerPolicy: "origin",
-                src: "https://trustseal.enamad.ir/logo.aspx?id=7985561&Code=06hOK0f6PpldvASNiXqwktYONT146aR9",
+                src: "/assets/enamad-seal.svg",
                 alt: "",
                 style: { cursor: "pointer" },
                 code: "06hOK0f6PpldvASNiXqwktYONT146aR9",
