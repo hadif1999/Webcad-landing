@@ -124,7 +124,6 @@ jobs:
             printf '%s' "$page" | grep -Fq "Isometric mechanical bracket"
             for prefix in '' /fa /ru; do
               page=$(curl --max-time 20 -fsS "https://$base_domain$prefix/")
-              printf '%s' "$page" | grep -Fq '<meta name="enamad" content="68196663"'
               printf '%s' "$page" | grep -Fq "rel=\"canonical\" href=\"https://$base_domain$prefix/\""
               printf '%s' "$page" | grep -Fq 'class="panel live-plan-skeleton"'
               if printf '%s' "$page" | grep -Fq 'class="panel tier-card'; then exit 1; fi

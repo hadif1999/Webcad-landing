@@ -25,7 +25,6 @@ export default function RootLayout({
   return (
     <html lang={initialLanguage} dir={initialLanguage === "fa" ? "rtl" : "ltr"} suppressHydrationWarning>
       <head>
-        <meta name="enamad" content="68196663" />
         <script dangerouslySetInnerHTML={{ __html: antiFoucScript }} />
       </head>
       <body suppressHydrationWarning>

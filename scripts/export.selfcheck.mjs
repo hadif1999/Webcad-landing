@@ -120,7 +120,6 @@ for (const language of ["fa", "ru"]) {
     const html = readFileSync(file, "utf8");
     const publicPath = `/${language}${route}`;
     assert.ok(html.includes(`<html lang="${language}"`), `locale html language: ${file}`);
-    assert.ok(html.includes('<meta name="enamad" content="68196663"'), `Enamad ownership: ${file}`);
     if (route === "/" || route === "/pricing/") {
       assert.ok(html.includes('class="panel live-plan-skeleton"'), `missing localized backend-plan loading UI: ${file}`);
       assert.ok(!html.includes('class="panel tier-card'), `obsolete static plan cards: ${file}`);
