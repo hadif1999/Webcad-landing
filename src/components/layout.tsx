@@ -116,7 +116,7 @@ export function Navigation() {
 }
 
 export function Footer() {
-  const { t } = usePreferences();
+  const { language, t } = usePreferences();
   return (
     <footer className="container footer" id="contact">
       <div>
@@ -124,22 +124,24 @@ export function Footer() {
         <p>
           {t("footer.desc")}
         </p>
-        <a
-          className="enamad-seal"
-          referrerPolicy="origin"
-          target="_blank"
-          href="https://trustseal.enamad.ir/?id=7985561&Code=06hOK0f6PpldvASNiXqwktYONT146aR9"
-        >
-          <img
-            {...({
-              referrerPolicy: "origin",
-              src: "https://trustseal.enamad.ir/logo.aspx?id=7985561&Code=06hOK0f6PpldvASNiXqwktYONT146aR9",
-              alt: "",
-              style: { cursor: "pointer" },
-              code: "06hOK0f6PpldvASNiXqwktYONT146aR9",
-            } as ImgHTMLAttributes<HTMLImageElement> & { code: string })}
-          />
-        </a>
+        {language === "fa" ? (
+          <a
+            className="enamad-seal"
+            referrerPolicy="origin"
+            target="_blank"
+            href="https://trustseal.enamad.ir/?id=7985561&Code=06hOK0f6PpldvASNiXqwktYONT146aR9"
+          >
+            <img
+              {...({
+                referrerPolicy: "origin",
+                src: "https://trustseal.enamad.ir/logo.aspx?id=7985561&Code=06hOK0f6PpldvASNiXqwktYONT146aR9",
+                alt: "",
+                style: { cursor: "pointer" },
+                code: "06hOK0f6PpldvASNiXqwktYONT146aR9",
+              } as ImgHTMLAttributes<HTMLImageElement> & { code: string })}
+            />
+          </a>
+        ) : null}
       </div>
       <nav aria-label={t("a11y.footer")}>
         <a href={currentLocalizedPath("/features/")}>{t("nav.features")}</a>
