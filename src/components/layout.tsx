@@ -119,11 +119,23 @@ export function Footer() {
   const { language, t } = usePreferences();
   return (
     <footer className="container footer" id="contact">
-      <div>
+      <div className="footer-brand">
         <Brand />
         <p>
           {t("footer.desc")}
         </p>
+      </div>
+      <nav aria-label={t("a11y.footer")}>
+        <a href={currentLocalizedPath("/features/")}>{t("nav.features")}</a>
+        <a href={currentLocalizedPath("/pricing/")}>{t("nav.pricing")}</a>
+        <a href={site.signIn}>{t("nav.signIn")}</a>
+        <a href={site.projects}>{t("nav.openProjects")}</a>
+      </nav>
+      <div className="footer-meta">
+        <div className="footer-contact">
+          <p className="technical">{t("nav.contact")}</p>
+          <a href="mailto:contact@webcad.space">contact@webcad.space</a>
+        </div>
         {language === "fa" ? (
           <a
             className="enamad-seal"
@@ -142,16 +154,6 @@ export function Footer() {
             />
           </a>
         ) : null}
-      </div>
-      <nav aria-label={t("a11y.footer")}>
-        <a href={currentLocalizedPath("/features/")}>{t("nav.features")}</a>
-        <a href={currentLocalizedPath("/pricing/")}>{t("nav.pricing")}</a>
-        <a href={site.signIn}>{t("nav.signIn")}</a>
-        <a href={site.projects}>{t("nav.openProjects")}</a>
-      </nav>
-      <div className="footer-contact">
-        <p className="technical">{t("nav.contact")}</p>
-        <a href="mailto:contact@webcad.space">contact@webcad.space</a>
       </div>
     </footer>
   );

@@ -958,10 +958,31 @@
 
   /* ── Footer ────────────────────────────────────────────────────────────── */
   .footer {
-    @apply flex flex-wrap justify-between gap-8 border-t border-line;
+    @apply flex flex-wrap items-center justify-between gap-8 border-t border-line;
     padding-block: clamp(2.5rem, 5vw, 3.5rem);
     font-size: var(--text-small);
     scroll-margin-top: 5rem;
+  }
+  .footer-brand {
+    flex: 1 1 22rem;
+    max-width: 38rem;
+  }
+  .footer-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+    margin-inline-start: auto;
+  }
+  .footer-meta .enamad-seal {
+    display: inline-flex;
+    flex-shrink: 0;
+    margin-inline-start: auto;
+  }
+  .footer-meta .enamad-seal img {
+    display: block;
+    width: 6rem;
+    height: auto;
   }
   .footer p {
     @apply text-muted mt-3;
@@ -1144,7 +1165,17 @@
   }
   .footer {
     flex-direction: column;
+    align-items: stretch;
     gap: 2rem;
+  }
+  .footer-brand {
+    flex: none;
+    max-width: none;
+  }
+  .footer-meta {
+    justify-content: space-between;
+    margin-inline-start: 0;
+    gap: 1rem;
   }
   .footer nav {
     flex-direction: column;
